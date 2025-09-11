@@ -109,6 +109,54 @@ const galleryImages = [
     src: "/lovable-uploads/49f1f45a-4fc2-4fde-abb4-1c1641d2db10.png",
     alt: "Exterior walkway with beautiful landscaping and stepping stones",
     category: "amenities"
+  },
+  {
+    id: 18,
+    src: "/lovable-uploads/a5cb339c-6b01-4ba5-ba12-e65ce3156c74.png",
+    alt: "Beautiful landscape view with autumn foliage and mountain backdrop",
+    category: "exterior"
+  },
+  {
+    id: 19,
+    src: "/lovable-uploads/6f325914-e2d3-4242-983e-657a4855c302.png",
+    alt: "Aerial view of The Haven showing tennis court and lake views",
+    category: "exterior"
+  },
+  {
+    id: 20,
+    src: "/lovable-uploads/bfd9760f-bfcd-4a4c-8d62-f4368ea2d969.png",
+    alt: "Stunning aerial perspective with Okanagan Lake and mountain views",
+    category: "exterior"
+  },
+  {
+    id: 21,
+    src: "/lovable-uploads/8b8aa90b-3ad6-4fbf-be04-5a7725dbb0e4.png",
+    alt: "Ground level view of The Haven building with outdoor amenities",
+    category: "exterior"
+  },
+  {
+    id: 22,
+    src: "/lovable-uploads/d5b1a221-67a8-4030-8ca9-8c7281d77054.png",
+    alt: "Property exterior showcasing beautiful landscaping and grounds",
+    category: "exterior"
+  },
+  {
+    id: 23,
+    src: "/lovable-uploads/22d282d7-7533-46be-8972-01c716d28526.png",
+    alt: "The Haven building with landscaped outdoor areas and walkways",
+    category: "exterior"
+  },
+  {
+    id: 24,
+    src: "/lovable-uploads/ba87a842-d428-45c0-87b7-484d1d6a6adc.png",
+    alt: "Front view of building with covered patio and outdoor dining areas",
+    category: "exterior"
+  },
+  {
+    id: 25,
+    src: "/lovable-uploads/607521dc-f92d-49cf-b143-c4a4e23cc197.png",
+    alt: "Building exterior with green lawns and natural landscaping",
+    category: "exterior"
   }
 ];
 
