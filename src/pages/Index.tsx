@@ -19,7 +19,7 @@ const featuredApartments: ApartmentProps[] = [
     price: 280,
     capacity: 6,
     size: 85,
-    image: "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=800&h=600&fit=crop",
+    image: "/lovable-uploads/cfd6c8d1-455f-48c9-a81c-fbda23cea81b.png",
     location: "Lake View",
     features: ["Wi-Fi", "Full Kitchen", "2 Bathrooms", "Air Conditioning", "Smart TV", "Private Entrance"]
   },
@@ -30,7 +30,7 @@ const featuredApartments: ApartmentProps[] = [
     price: 450,
     capacity: 10,
     size: 120,
-    image: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=800&h=600&fit=crop",
+    image: "/lovable-uploads/4b50a354-ba3c-4146-8c99-3baacfad2615.png",
     location: "Mountain View",
     features: ["Wi-Fi", "Full Kitchen", "5 Bathrooms", "Air Conditioning", "Smart TV", "Laundry Facilities"]
   },
@@ -41,7 +41,7 @@ const featuredApartments: ApartmentProps[] = [
     price: 650,
     capacity: 16,
     size: 200,
-    image: "https://images.unsplash.com/photo-1598928506311-c55ded91a20c?w=800&h=600&fit=crop",
+    image: "/lovable-uploads/daacf7e5-23e1-4af1-b0ad-d9f0f2f8fd0d.png",
     location: "Full Property",
     features: ["Wi-Fi", "Full Kitchens", "8 Bathrooms", "Hot Tub", "Games Room", "Entertainment Center"]
   }
