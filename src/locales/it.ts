@@ -8,15 +8,15 @@ export const it = {
     bookNow: "Prenota Ora"
   },
   hero: {
-    subtitle: "ALLOGGI DI LUSSO SUL MARE",
-    title: "Vivi la Tranquillità del Mare",
-    description: "Scopri la nostra esclusiva collezione di appartamenti di lusso e camere d'albergo sul mare, che offrono comfort impareggiabile e viste mozzafiato sul mare.",
+    subtitle: "RIFUGIO DI LUSSO NELLA NATURA",
+    title: "The Haven at Deer Park",
+    description: "Vivi una fuga tranquilla nella serena bellezza naturale della Valle di Okanagan di Vernon. Un perfetto equilibrio tra comfort di lusso e natura incontaminata.",
     bookStay: "Prenota il tuo Soggiorno",
-    exploreApartments: "Esplora gli Appartamenti",
+    exploreApartments: "Esplora le Suite",
     scrollDown: "Scorri Giù"
   },
   footer: {
-    description: "Appartamenti di lusso sul mare e camere d'albergo con splendide viste sul mare, che offrono il perfetto connubio di comfort ed eleganza per la tua vacanza da sogno.",
+    description: "The Haven at Deer Park - un rifugio tranquillo situato nella Valle di Okanagan di Vernon, che offre alloggi di lusso con vista sul lago e sulle montagne per fughe indimenticabili.",
     quickLinks: "Link Rapidi",
     contact: "Contatti",
     newsletter: "Newsletter",

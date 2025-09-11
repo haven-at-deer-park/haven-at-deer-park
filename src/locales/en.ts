@@ -8,15 +8,15 @@ export const en = {
     bookNow: "Book Now"
   },
   hero: {
-    subtitle: "BEACHFRONT LUXURY ACCOMMODATION",
-    title: "Experience Seaside Tranquility",
-    description: "Discover our exclusive collection of luxury beachfront apartments and hotel rooms, offering unparalleled comfort and breathtaking sea views.",
+    subtitle: "LUXURY RETREAT IN NATURE",
+    title: "The Haven at Deer Park",
+    description: "Experience tranquil escape amidst the serene natural beauty of Vernon's Okanagan Valley. A perfect blend of luxury amenities and pristine wilderness.",
     bookStay: "Book Your Stay",
-    exploreApartments: "Explore Apartments",
+    exploreApartments: "Explore Suites",
     scrollDown: "Scroll Down"
   },
   footer: {
-    description: "Luxurious beachfront apartments and hotel rooms with stunning sea views, offering the perfect blend of comfort and elegance for your dream vacation.",
+    description: "The Haven at Deer Park - a tranquil retreat nestled in Vernon's Okanagan Valley, offering luxury accommodations with lake and mountain views for unforgettable getaways.",
     quickLinks: "Quick Links",
     contact: "Contact",
     newsletter: "Newsletter",
@@ -39,7 +39,7 @@ export const en = {
   },
   testimonials: {
     title: "What Our Guests Say",
-    description: "Discover why our guests keep coming back to MareSereno for their seaside getaways."
+    description: "Discover why our guests keep coming back to The Haven at Deer Park for their mountain lake retreats."
   },
   notFound: {
     title: "Page Not Found",
@@ -48,58 +48,58 @@ export const en = {
   },
   home: {
     welcome: {
-      subtitle: "Welcome to MareSereno",
-      title: "Luxury Seaside Accommodations",
-      description1: "Nestled on the pristine Mediterranean coastline, MareSereno offers an exquisite collection of luxury apartments and hotel rooms. Our beachfront accommodations combine elegant design with modern comfort, creating the perfect setting for an unforgettable seaside getaway.",
-      description2: "Whether you're seeking a romantic escape, a family vacation, or a peaceful retreat, our diverse range of accommodations caters to every preference and need. Each space is thoughtfully designed to provide panoramic sea views and direct beach access.",
+      subtitle: "Welcome to The Haven at Deer Park",
+      title: "Luxury Mountain Lake Retreat",
+      description1: "Located amidst the serene natural beauty of Vernon in British Columbia's Okanagan Valley, The Haven at Deer Park offers a tranquil escape from everyday life. Nestled near the western shores of Okanagan Lake, this retreat-style property provides a peaceful sanctuary surrounded by forests with picturesque lake and mountain views.",
+      description2: "Whether you're seeking wellness retreats, family reunions, outdoor adventures, or peaceful relaxation, our spacious accommodations and unique amenities cater to every need. Each suite is thoughtfully designed to provide modern comfort while immersed in nature's tranquility.",
       learnMore: "Learn More"
     },
     booking: {
       subtitle: "Book Your Stay",
-      title: "Reserve Your Perfect Getaway",
-      description: "Take the first step towards your dream vacation by checking availability and securing your preferred dates. Our simple booking process ensures a seamless experience from reservation to arrival.",
-      benefits: ["Instant confirmation", "Best rate guarantee", "Flexible cancellation options", "Secure payment"]
+      title: "Reserve Your Mountain Retreat",
+      description: "Take the first step towards your perfect getaway by checking availability for your ideal dates. Experience the unique blend of luxury amenities and nature's tranquility that makes The Haven at Deer Park special.",
+      benefits: ["Instant confirmation", "Family-run hospitality", "Flexible group arrangements", "Modern amenities in nature"]
     },
     featuredApartments: {
-      subtitle: "Our Accommodations",
-      title: "Featured Apartments",
-      description: "Discover our most popular accommodation options, each offering a perfect blend of comfort, style, and breathtaking sea views.",
-      viewAll: "View All Apartments"
+      subtitle: "Our Suites",
+      title: "Premium Accommodations",
+      description: "Discover our newly renovated suites, each offering modern comfort and luxury amenities with stunning lake and mountain views in a peaceful forest setting.",
+      viewAll: "View All Suites"
     },
     amenities: {
-      subtitle: "Hotel Amenities",
-      title: "Experience The Best",
-      description: "Enjoy our premium facilities and services designed to make your stay exceptional.",
+      subtitle: "Resort Amenities",
+      title: "Luxury in Nature",
+      description: "Enjoy our exceptional facilities and unique entertainment options designed to create unforgettable memories.",
       features: {
         beachfront: {
-          title: "Beachfront Location",
-          description: "Direct access to pristine beaches with crystal clear waters."
+          title: "Lake & Mountain Views",
+          description: "Stunning vistas of Okanagan Lake and surrounding mountains."
         },
         pools: {
-          title: "Swimming Pools",
-          description: "Relax by our infinity pools with stunning sea views."
+          title: "Outdoor Hot Tub",
+          description: "Premium hot tub under cedar pergola with LED mood lighting."
         },
         restaurant: {
-          title: "Gourmet Restaurant",
-          description: "Enjoy exquisite local and international cuisine."
+          title: "Full Kitchen & BBQ",
+          description: "Fully equipped kitchens and outdoor barbecue facilities."
         },
         wifi: {
           title: "High-Speed Wi-Fi",
           description: "Stay connected with complimentary high-speed internet."
         },
         bar: {
-          title: "Beach Bar & Café",
-          description: "Refreshing drinks and snacks served right on the beach."
+          title: "Entertainment Room",
+          description: "3D LED infinity walkway, karaoke, and arcade games."
         },
         location: {
-          title: "Prime Location",
-          description: "Close to local attractions, shops, and restaurants."
+          title: "Nature Location",
+          description: "Private forest setting with wildlife viewing opportunities."
         }
       }
     },
     cta: {
-      title: "Ready for Your Dream Vacation?",
-      description: "Book your stay today and experience the perfect blend of luxury, comfort, and stunning sea views.",
+      title: "Ready for Your Mountain Retreat?",
+      description: "Book your stay today and experience luxury amenities surrounded by the tranquil beauty of the Okanagan Valley.",
       bookNow: "Book Now"
     }
   },
@@ -275,120 +275,108 @@ export const en = {
   },
   apartmentDescriptions: {
     "1": {
-      name: "Deluxe Sea View Suite",
-      description: "Luxurious suite with panoramic sea views, modern amenities, and a private balcony."
+      name: "Main Suite (3BR/2BA)",
+      description: "Spacious 3-bedroom, 2-bathroom suite accommodating up to 6 guests with modern amenities and lake views."
     },
     "2": {
-      name: "Premium Family Apartment",
-      description: "Spacious apartment ideal for families, with full kitchen and stunning coastal views."
+      name: "Guest Suite (5BR/5BA)",
+      description: "Large 5-bedroom, 5-bathroom suite accommodating up to 10 guests, perfect for family reunions."
     },
     "3": {
-      name: "Executive Beach Studio",
-      description: "Elegant studio with direct beach access, modern design, and premium finishes."
-    },
-    "4": {
-      name: "Luxury Penthouse Suite",
-      description: "Exclusive top-floor suite with expansive terrace and panoramic sea views."
-    },
-    "5": {
-      name: "Classic Double Room",
-      description: "Comfortable hotel room with modern amenities and partial sea views."
-    },
-    "6": {
-      name: "Garden View Apartment",
-      description: "Peaceful apartment surrounded by lush gardens, just a short walk from the beach."
+      name: "Entire Property (8BR/8BA)",
+      description: "Complete retreat accommodating up to 16-20 guests with all amenities and entertainment facilities."
     }
   },
   amenitiesPage: {
     title: "Our Amenities",
-    subtitle: "Discover the luxury amenities and services that make your stay unforgettable.",
-    description: "At MareSereno, we are dedicated to providing a comprehensive and luxurious stay experience. From our beachfront services to wellness facilities, every detail has been curated to ensure maximum comfort and pleasure.",
+    subtitle: "Discover the luxury amenities and unique entertainment options that make your stay unforgettable.",
+    description: "At The Haven at Deer Park, we provide exceptional facilities combining luxury comfort with nature's tranquility. From our hot tub under the stars to our immersive entertainment room, every detail creates memorable experiences.",
     categories: {
       wellness: {
         title: "Wellness & Relaxation",
-        description: "Treat yourself with our range of wellness services designed to rejuvenate body and mind.",
+        description: "Rejuvenate your body and mind in our peaceful natural setting with premium amenities.",
         items: [
           {
-            title: "Luxury Spa",
-            description: "Our spa offers a full range of treatments, from traditional therapies to the most modern beauty treatments."
+            title: "Outdoor Hot Tub",
+            description: "Premium hot tub under covered cedar pergola with LED mood lighting for evening soaks."
           },
           {
-            title: "Fitness Center",
-            description: "Maintain your fitness routine with our state-of-the-art gym featuring panoramic sea views."
+            title: "Nature Walks",
+            description: "Explore scenic forest trails and enjoy wildlife viewing right from your doorstep."
           },
           {
-            title: "Infinity Pool",
-            description: "Immerse yourself in our infinity pool while admiring the endless horizon of the sea."
+            title: "Mountain Air",
+            description: "Breathe in the fresh, clean mountain air surrounded by towering pines and aspens."
           },
           {
-            title: "Beach Yoga",
-            description: "Join our morning yoga sessions on the beach for a revitalizing awakening."
+            title: "Peaceful Setting",
+            description: "Find tranquility in our secluded location away from the hustle and bustle."
           }
         ]
       },
       dining: {
-        title: "Dining",
-        description: "Discover the best of local and international cuisine at our restaurants and bars.",
+        title: "Dining & Kitchen",
+        description: "Enjoy fully equipped kitchens and outdoor dining with stunning lake and mountain views.",
         items: [
           {
-            title: "Gourmet Restaurant",
-            description: "Savor fine dishes prepared by our chefs with fresh local ingredients."
+            title: "Full Kitchen",
+            description: "Each suite features a fully stocked kitchen with all appliances and cookware needed."
           },
           {
-            title: "Beach Bar",
-            description: "Enjoy refreshing cocktails and light snacks with your feet in the sand."
+            title: "BBQ Facilities",
+            description: "Outdoor barbecue grill perfect for family cookouts with scenic mountain views."
           },
           {
-            title: "Lounge Bar",
-            description: "Relax with a selection of fine wines and spirits in an elegant atmosphere."
+            title: "Dining Areas",
+            description: "Large indoor dining tables and outdoor spaces for memorable group meals."
           },
           {
-            title: "Room Service",
-            description: "Enjoy gourmet meals in the privacy of your apartment, available 24 hours a day."
+            title: "Local Provisions",
+            description: "Fresh basic provisions provided, plus easy access to local farms and markets."
           }
         ]
       },
       services: {
-        title: "Extra Services",
-        description: "Take advantage of our additional services for a hassle-free stay.",
+        title: "Modern Comforts",
+        description: "Enjoy all modern conveniences while immersed in nature's beauty.",
         items: [
           {
-            title: "24/7 Concierge",
-            description: "Our concierge team is available at any time to assist you with any request."
+            title: "High-Speed Wi-Fi",
+            description: "Stay connected with reliable high-speed internet throughout the property."
           },
           {
-            title: "Airport Transfers",
-            description: "Travel comfortably to and from the airport with our private transfer service."
+            title: "Climate Control",
+            description: "Central air conditioning and heating to keep you comfortable year-round."
           },
           {
-            title: "Car Rental",
-            description: "Explore the area with our fleet of premium vehicles available for rent."
+            title: "Laundry Facilities",
+            description: "On-site washer and dryer available for extended stays and group visits."
           },
           {
-            title: "Guided Excursions",
-            description: "Discover local attractions with our personalized expert-guided tours."
+            title: "Private Parking",
+            description: "Ample on-site parking for all guests' vehicles, perfect for group arrivals."
           }
         ]
       },
       entertainment: {
-        title: "Entertainment",
-        description: "Enjoy a variety of recreational activities designed for all tastes.",
+        title: "Entertainment & Fun",
+        description: "Unique entertainment facilities that set us apart from other retreats.",
         items: [
           {
-            title: "Water Sports",
-            description: "Try a wide range of water sports, from paddleboarding to jet skiing."
+            title: "3D LED Infinity Floor",
+            description: "Experience our amazing 3D LED walkway that creates an optical illusion of endless depth."
           },
           {
-            title: "Kids Play Area",
-            description: "Little ones can have fun in our safe and supervised play area."
+            title: "Karaoke System",
+            description: "4-microphone karaoke setup for hours of musical entertainment with family and friends."
           },
           {
-            title: "Themed Evenings",
-            description: "Join our weekly themed evenings with live music and entertainment."
+            title: "Arcade Games",
+            description: "Classic arcade game machines and video game consoles for guests of all ages."
           },
           {
-            title: "Library & Game Room",
-            description: "Relax with a good book or enjoy board games in our common room."
+            title: "Smart TVs & Media",
+            description: "Large Smart TVs with streaming services, perfect for movie nights and relaxation."
           }
         ]
       }

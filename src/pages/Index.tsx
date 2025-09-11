@@ -14,36 +14,36 @@ import { useLanguage } from "@/contexts/LanguageContext";
 const featuredApartments: ApartmentProps[] = [
   {
     id: "1",
-    name: "Deluxe Sea View Suite",
-    description: "Luxurious suite with panoramic sea views, modern amenities, and a private balcony.",
-    price: 180,
-    capacity: 2,
-    size: 45,
+    name: "Main Suite (3BR/2BA)",
+    description: "Spacious 3-bedroom, 2-bathroom suite accommodating up to 6 guests with modern amenities and lake views.",
+    price: 280,
+    capacity: 6,
+    size: 85,
     image: "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=800&h=600&fit=crop",
-    location: "Beachfront",
-    features: ["Wi-Fi", "Kitchen", "Bathroom", "Air Conditioning", "TV", "Balcony"]
+    location: "Lake View",
+    features: ["Wi-Fi", "Full Kitchen", "2 Bathrooms", "Air Conditioning", "Smart TV", "Private Entrance"]
   },
   {
     id: "2",
-    name: "Premium Family Apartment",
-    description: "Spacious apartment ideal for families, with full kitchen and stunning coastal views.",
-    price: 250,
-    capacity: 4,
-    size: 75,
+    name: "Guest Suite (5BR/5BA)",
+    description: "Large 5-bedroom, 5-bathroom suite accommodating up to 10 guests, perfect for family reunions.",
+    price: 450,
+    capacity: 10,
+    size: 120,
     image: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=800&h=600&fit=crop",
-    location: "Second row",
-    features: ["Wi-Fi", "Kitchen", "Bathroom", "Air Conditioning", "TV", "Washing Machine"]
+    location: "Mountain View",
+    features: ["Wi-Fi", "Full Kitchen", "5 Bathrooms", "Air Conditioning", "Smart TV", "Laundry Facilities"]
   },
   {
     id: "3",
-    name: "Executive Beach Studio",
-    description: "Elegant studio with direct beach access, modern design, and premium finishes.",
-    price: 150,
-    capacity: 2,
-    size: 35,
+    name: "Entire Property (8BR/8BA)",
+    description: "Complete retreat accommodating up to 16-20 guests with all amenities and entertainment facilities.",
+    price: 650,
+    capacity: 16,
+    size: 200,
     image: "https://images.unsplash.com/photo-1598928506311-c55ded91a20c?w=800&h=600&fit=crop",
-    location: "Beachfront",
-    features: ["Wi-Fi", "Kitchenette", "Bathroom", "Air Conditioning", "TV"]
+    location: "Full Property",
+    features: ["Wi-Fi", "Full Kitchens", "8 Bathrooms", "Hot Tub", "Games Room", "Entertainment Center"]
   }
 ];
 
