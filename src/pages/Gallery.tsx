@@ -61,6 +61,54 @@ const galleryImages = [
     src: "/lovable-uploads/0d19ea29-cfae-4399-83de-a8c740508f32.png",
     alt: "Tennis/sports court surrounded by autumn foliage",
     category: "amenities"
+  },
+  {
+    id: 10,
+    src: "/lovable-uploads/bdcf3b99-9cd8-49d9-bb40-df50904a4ccf.png",
+    alt: "Outdoor hot tub area with covered patio and landscaping",
+    category: "amenities"
+  },
+  {
+    id: 11,
+    src: "/lovable-uploads/c99a0066-546d-4352-b871-79926026ba23.png",
+    alt: "Covered dining area with wooden picnic tables",
+    category: "amenities"
+  },
+  {
+    id: 12,
+    src: "/lovable-uploads/c62efe57-aee7-48c8-9ca8-89968abeef98.png",
+    alt: "Hot tub under covered structure with mountain views",
+    category: "amenities"
+  },
+  {
+    id: 13,
+    src: "/lovable-uploads/6568aeef-f611-4f72-a3ed-eeccd879ae42.png",
+    alt: "Luxury hot tub with outdoor dining and relaxation area",
+    category: "amenities"
+  },
+  {
+    id: 14,
+    src: "/lovable-uploads/50808d91-634b-4be9-9f9f-23bd106c20d6.png",
+    alt: "Close-up view of hot tub with beautiful natural surroundings",
+    category: "amenities"
+  },
+  {
+    id: 15,
+    src: "/lovable-uploads/423d3fce-9f6f-4b3b-b63a-1c10f6e26806.png",
+    alt: "Hot tub relaxation area with scenic mountain backdrop",
+    category: "amenities"
+  },
+  {
+    id: 16,
+    src: "/lovable-uploads/72c4929c-81a4-407e-a606-706d82117129.png",
+    alt: "Colorful outdoor dining area with vibrant picnic tables",
+    category: "amenities"
+  },
+  {
+    id: 17,
+    src: "/lovable-uploads/49f1f45a-4fc2-4fde-abb4-1c1641d2db10.png",
+    alt: "Exterior walkway with beautiful landscaping and stepping stones",
+    category: "amenities"
   }
 ];
 
