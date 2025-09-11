@@ -10,76 +10,58 @@ import { useLanguage } from "@/contexts/LanguageContext";
 const galleryImages = [
   {
     id: 1,
-    src: "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800&h=600&fit=crop",
-    alt: "Beachfront view",
+    src: "/lovable-uploads/ad5dc1b4-1fd6-4709-b15d-9f38ecec3849.png",
+    alt: "The Haven at Deer Park exterior view with expansive grounds",
     category: "exterior"
   },
   {
     id: 2,
-    src: "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=800&h=600&fit=crop",
-    alt: "Luxury suite interior",
-    category: "rooms"
+    src: "/lovable-uploads/5faf3e19-02d0-4534-9cd8-1349e3022106.png",
+    alt: "Aerial view of The Haven with Okanagan Lake and mountains",
+    category: "exterior"
   },
   {
     id: 3,
-    src: "https://images.unsplash.com/photo-1584132905271-512c958d674a?w=800&h=600&fit=crop",
-    alt: "Swimming pool",
-    category: "amenities"
+    src: "/lovable-uploads/a4c98456-f192-49de-b118-44ecb7d59797.png",
+    alt: "Stunning aerial perspective of lakefront property",
+    category: "exterior"
   },
   {
     id: 4,
-    src: "https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?w=800&h=600&fit=crop",
-    alt: "Premium apartment",
-    category: "rooms"
+    src: "/lovable-uploads/9de6292a-face-42e4-89d6-e0b33c7bb57a.png",
+    alt: "Panoramic aerial view of The Haven at Deer Park",
+    category: "exterior"
   },
   {
     id: 5,
-    src: "https://images.unsplash.com/photo-1445019980597-93fa8acb246c?w=800&h=600&fit=crop",
-    alt: "Beach sunset",
+    src: "/lovable-uploads/07b8e9d9-02ae-4b74-b563-703629a5958d.png",
+    alt: "The Haven nestled in the mountain landscape",
     category: "exterior"
   },
   {
     id: 6,
-    src: "https://images.unsplash.com/photo-1578683010236-d716f9a3f461?w=800&h=600&fit=crop",
-    alt: "Dining area",
-    category: "amenities"
+    src: "/lovable-uploads/3ef6bf00-1035-499d-ba5a-42ec81f3289f.png",
+    alt: "Property exterior with outdoor patio and landscaping",
+    category: "exterior"
   },
   {
     id: 7,
-    src: "https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=800&h=600&fit=crop",
-    alt: "Bathroom",
-    category: "rooms"
+    src: "/lovable-uploads/8a973e44-6d59-4ead-bb67-58d95af90b4b.png",
+    alt: "Full facade view of The Haven building with hot tub area",
+    category: "exterior"
   },
   {
     id: 8,
-    src: "https://images.unsplash.com/photo-1540518614846-7eded433c457?w=800&h=600&fit=crop",
-    alt: "Beach pathway",
+    src: "/lovable-uploads/94de21ce-0019-4c33-91c1-9c98b019426e.png",
+    alt: "The Haven exterior showing covered patio and outdoor amenities",
     category: "exterior"
   },
   {
     id: 9,
-    src: "https://images.unsplash.com/photo-1564501049412-61c2a3083791?w=800&h=600&fit=crop",
-    alt: "Restaurant",
+    src: "/lovable-uploads/0d19ea29-cfae-4399-83de-a8c740508f32.png",
+    alt: "Tennis/sports court surrounded by autumn foliage",
     category: "amenities"
-  },
-  {
-    id: 10,
-    src: "https://images.unsplash.com/photo-1560185007-c5ca9d2c014d?w=800&h=600&fit=crop",
-    alt: "Bedroom",
-    category: "rooms"
-  },
-  {
-    id: 11,
-    src: "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=800&h=600&fit=crop",
-    alt: "Beach umbrellas",
-    category: "exterior"
-  },
-  {
-    id: 12,
-    src: "https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=800&h=600&fit=crop",
-    alt: "Spa",
-    category: "amenities"
-  },
+  }
 ];
 
 export default function Gallery() {
