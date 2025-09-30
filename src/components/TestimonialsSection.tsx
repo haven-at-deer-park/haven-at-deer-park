@@ -15,27 +15,35 @@ interface Testimonial {
 const testimonials: Testimonial[] = [
   {
     id: 1,
-    name: "Sophia Martinez",
-    location: "New York, USA",
-    avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&h=150&fit=crop&crop=faces",
-    content: "My family and I had the most wonderful stay at MareSereno. The apartment was immaculate, with breathtaking sea views. The staff went above and beyond to make our vacation special.",
+    name: "Jennifer",
+    location: "Calgary, Canada",
+    avatar: "/lovable-uploads/jennifer-review.png",
+    content: "Lance's place was the perfect spot to host our families while attending a nearby family reunion. It had the right amount of space where we all had our own place to relax, but so many options/activities to keep our kids busy and entertained. They went above and beyond to make every room welcoming. We all had a wonderful time and would definitely stay again!",
     rating: 5
   },
   {
     id: 2,
-    name: "Marco Rossi",
-    location: "Rome, Italy",
-    avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&fit=crop&crop=faces",
-    content: "Absolutely perfect location, steps away from the beach. The apartment had everything we needed and more. The modern amenities combined with the traditional coastal charm created a truly magical experience.",
+    name: "Katherine",
+    location: "Ottawa, Canada",
+    avatar: "/lovable-uploads/katherine-review.png",
+    content: "We had a great stay. The place was as pictured, with enough room for our big group, especially thanks to additional, comfortable cots. It was also clean and quiet, both in terms of the serene setting and sound proofing within the house. The beds were very comfortable and there were tons of quality towels. The kitchen was well equipped and it was great to be able to do karaoke and arcade games as well as play pickle ball or corn hole or chill in the hot tub. The host was also very responsive. All around, just fantastic. We would recommend it for large groups.",
     rating: 5
   },
   {
     id: 3,
-    name: "Emma Johnson",
-    location: "London, UK",
-    avatar: "https://images.unsplash.com/photo-1569913486515-b74bf7751574?w=150&h=150&fit=crop&crop=faces",
-    content: "We spent a wonderful week at this beachfront paradise. The sunrise views from our terrace were worth the trip alone. Exceptionally clean and beautifully designed spaces.",
-    rating: 4
+    name: "Ruby",
+    location: "Renton, Washington",
+    avatar: "/lovable-uploads/ruby-review.png",
+    content: "Lance was a very kind and responsive host. We were a group of four families from age 4 to age 76, and this place offered lots of flexibility for making everyone comfortable. Lots to do in the area: beach water slides, ranch, farm/petting zoo, beach, playgrounds, pickleball/tennis. On site BBQ and picnic area was great. Very dog friendly. AC in the rooms was nice.",
+    rating: 5
+  },
+  {
+    id: 4,
+    name: "Ashwinder",
+    location: "North Vancouver, Canada",
+    avatar: "/lovable-uploads/ashwinder-review.png",
+    content: "The hosts were responsive and area around the Airbnb is beautiful. A rare listing on Airbnb that can comfortably accommodate large groups planning to visit Vernon and the surrounding areas.",
+    rating: 5
   },
 ];
 
@@ -84,7 +92,7 @@ export default function TestimonialsSection() {
         </div>
         
         <div className="relative max-w-4xl mx-auto">
-          <div className="relative h-[400px] md:h-[300px]">
+          <div className="relative min-h-[450px] md:min-h-[350px]">
             {testimonials.map((testimonial, index) => (
               <div
                 key={testimonial.id}
