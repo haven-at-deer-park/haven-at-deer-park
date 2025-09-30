@@ -268,7 +268,7 @@ export default function Index() {
                 {t.home.cta.description}
               </p>
               <Button asChild size="lg" className="btn-primary">
-                <Link to="/booking">{t.home.cta.bookNow}</Link>
+                <a href="https://www.airbnb.com/l/ZiLcS9MN" target="_blank" rel="noopener noreferrer">{t.home.cta.bookNow}</a>
               </Button>
             </div>
           </div>

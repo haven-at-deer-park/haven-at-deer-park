@@ -1,7 +1,7 @@
 export const it = {
   nav: {
     home: "Home",
-    apartments: "Appartamenti",
+    apartments: "Suite",
     amenities: "Servizi",
     gallery: "Galleria",
     contact: "Contatti",
@@ -47,7 +47,7 @@ export const it = {
     returnHome: "Torna alla Home"
   },
   apartments: {
-    title: "I Nostri Appartamenti e Camere",
+    title: "Le Nostre Suite e Camere",
     subtitle: "Scopri la nostra selezione di alloggi premium, dalle accoglienti mansarde ai lussuosi attici.",
     filters: {
       guests: "Ospiti",

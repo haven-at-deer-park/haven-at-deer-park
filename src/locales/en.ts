@@ -1,7 +1,7 @@
 export const en = {
   nav: {
     home: "Home",
-    apartments: "Apartments",
+    apartments: "Suites",
     amenities: "Amenities",
     gallery: "Gallery",
     contact: "Contact",
@@ -104,7 +104,7 @@ export const en = {
     }
   },
   apartments: {
-    title: "Our Apartments & Rooms",
+    title: "Our Suites & Rooms",
     subtitle: "Discover our selection of premium accommodations, ranging from cozy studios to luxurious penthouses.",
     filters: {
       guests: "Guests",
@@ -120,7 +120,7 @@ export const en = {
       of: "of",
       accommodations: "accommodations",
       resetFilters: "Reset Filters",
-      noMatch: "No apartments match your filters",
+      noMatch: "No suites match your filters",
       adjustFilters: "Try adjusting your filter criteria to see more options.",
       viewDetails: "View Details",
       features: "features",
@@ -256,8 +256,8 @@ export const en = {
         answer: "Yes, we offer complimentary parking for all guests. Valet parking service is also available for an additional fee."
       },
       pets: {
-        question: "Are pets allowed in the apartments?",
-        answer: "We welcome pets in designated pet-friendly apartments. Please inform us in advance if you plan to bring a pet, as additional charges may apply."
+        question: "Are pets allowed in the suites?",
+        answer: "We welcome pets in designated pet-friendly suites. Please inform us in advance if you plan to bring a pet, as additional charges may apply."
       },
       breakfast: {
         question: "Is breakfast included in the room rate?",
@@ -269,7 +269,7 @@ export const en = {
       },
       amenities: {
         question: "What amenities are available at the property?",
-        answer: "Our property features swimming pools, a spa, restaurants, a beach bar, fitness center, and direct beach access. All apartments include Wi-Fi, air conditioning, and modern appliances."
+        answer: "Our property features an outdoor hot tub, entertainment room with 3D LED walkway, karaoke and arcade games, full kitchens, BBQ facilities, high-speed Wi-Fi, climate control, laundry facilities, and private parking. Visit our Amenities page for complete details."
       }
     }
   },

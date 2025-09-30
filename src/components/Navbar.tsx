@@ -50,7 +50,7 @@ export default function Navbar() {
         <div className="hidden md:flex items-center space-x-2">
           <ThemeToggle />
           <Button asChild className="btn-primary">
-            <Link to="/booking">{t.nav.bookNow}</Link>
+            <a href="https://www.airbnb.com/l/ZiLcS9MN" target="_blank" rel="noopener noreferrer">{t.nav.bookNow}</a>
           </Button>
         </div>
 
@@ -84,9 +84,9 @@ export default function Navbar() {
             </div>
             
             <Button asChild className="w-full btn-primary mt-6">
-              <Link to="/booking" onClick={() => setMobileMenuOpen(false)}>
+              <a href="https://www.airbnb.com/l/ZiLcS9MN" target="_blank" rel="noopener noreferrer" onClick={() => setMobileMenuOpen(false)}>
                 {t.nav.bookNow}
-              </Link>
+              </a>
             </Button>
           </div>
         </div>
