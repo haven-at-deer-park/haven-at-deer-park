@@ -228,12 +228,12 @@ export const it = {
       subtitle: "Prenota il tuo Soggiorno",
       title: "Prenota la tua Vacanza Perfetta",
       description: "Fai il primo passo verso la tua vacanza da sogno verificando la disponibilità e assicurandoti le date preferite. Il nostro semplice processo di prenotazione garantisce un'esperienza senza interruzioni dalla prenotazione all'arrivo.",
-      benefits: ["Conferma istantanea", "Miglior tariffa garantita", "Opzioni di cancellazione flessibili", "Pagamento sicuro"]
+      benefits: ["Conferma istantanea", "Ospitalità a conduzione familiare", "Organizzazioni flessibili per gruppi", "Comfort moderni nella natura", "Completamente autorizzato e assicurato", "Status Superhost con esperienza nell'ospitalità", "Servizi di trasporto disponibili per un massimo di 20 persone"]
     },
     featuredApartments: {
       subtitle: "I Nostri Alloggi",
       title: "Appartamenti in Evidenza",
-      description: "Scopri le nostre opzioni di alloggio più popolari, ognuna che offre un perfetto equilibrio di comfort, stile e viste mozzafiato sul mare.",
+      description: "Scopri le nostre suite recentemente rinnovate, ognuna che offre comfort moderno e servizi di lusso con splendide viste sulle montagne in un ambiente forestale tranquillo.",
       viewAll: "Visualizza Tutti gli Appartamenti"
     },
     amenities: {
@@ -370,12 +370,12 @@ export const it = {
   },
   apartmentDescriptions: {
     "1": {
-      name: "Suite Vista Mare Deluxe",
-      description: "Suite lussuosa con vista panoramica sul mare, comfort moderni e balcone privato."
+      name: "Alloggio per 7 persone",
+      description: "2 camere da letto + 2 bagni + suite con cucina con comfort moderni e viste sulle montagne."
     },
     "2": {
-      name: "Appartamento Premium per Famiglie",
-      description: "Appartamento spazioso ideale per famiglie, con cucina completa e splendide viste costiere."
+      name: "Alloggio per 12 persone",
+      description: "2 camere da letto + 3 bagni + cucina + sala multimediale/suite per ospiti + patio con uscita, perfetto per gruppi più grandi."
     },
     "3": {
       name: "Studio Esecutivo sulla Spiaggia",

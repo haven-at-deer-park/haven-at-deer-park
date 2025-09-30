@@ -16,6 +16,7 @@ export interface ApartmentProps {
   image: string;
   location: string;
   features: string[];
+  externalLink?: string;
 }
 
 export default function ApartmentCard({ apartment }: { apartment: ApartmentProps }) {
@@ -61,7 +62,7 @@ export default function ApartmentCard({ apartment }: { apartment: ApartmentProps
               </div>
               <div className="flex items-center">
                 <Maximize className="h-4 w-4 mr-1" />
-                <span>{apartment.size} m²</span>
+                <span>{apartment.size} sqft</span>
               </div>
             </div>
           </div>
@@ -95,9 +96,17 @@ export default function ApartmentCard({ apartment }: { apartment: ApartmentProps
             <span className="text-xl font-bold">${apartment.price}</span>
             <span className="text-muted-foreground text-sm"> / {t.booking.summary.night}</span>
           </div>
-          <Button asChild className="btn-primary">
-            <Link to={`/apartments/${apartment.id}`}>{t.apartments.filters.viewDetails}</Link>
-          </Button>
+          {apartment.externalLink ? (
+            <Button asChild className="btn-primary">
+              <a href={apartment.externalLink} target="_blank" rel="noopener noreferrer">
+                {t.apartments.filters.viewDetails}
+              </a>
+            </Button>
+          ) : (
+            <Button asChild className="btn-primary">
+              <Link to={`/apartments/${apartment.id}`}>{t.apartments.filters.viewDetails}</Link>
+            </Button>
+          )}
         </div>
       </div>
     </div>

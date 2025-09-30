@@ -14,25 +14,26 @@ import { useLanguage } from "@/contexts/LanguageContext";
 const featuredApartments: ApartmentProps[] = [
   {
     id: "1",
-    name: "Main Suite (3BR/2BA)",
-    description: "Spacious 3-bedroom, 2-bathroom suite accommodating up to 6 guests with modern amenities and lake views.",
-    price: 280,
-    capacity: 6,
-    size: 85,
-    image: "/lovable-uploads/cfd6c8d1-455f-48c9-a81c-fbda23cea81b.png",
-    location: "Lake View",
-    features: ["Wi-Fi", "Full Kitchen", "2 Bathrooms", "Air Conditioning", "Smart TV", "Private Entrance"]
+    name: "7 person accommodations",
+    description: "2 bedroom + 2 bathroom + kitchen suite with modern amenities and mountain views.",
+    price: 275,
+    capacity: 7,
+    size: 950,
+    image: "/lovable-uploads/main-suite-7person.png",
+    location: "Mountain View",
+    features: ["Wi-Fi", "Full Kitchen", "2 Bathrooms", "Air Conditioning", "Smart TV", "Private Entrance"],
+    externalLink: "https://www.airbnb.com/l/aM4JIC4O"
   },
   {
     id: "2",
-    name: "Guest Suite (5BR/5BA)",
-    description: "Large 5-bedroom, 5-bathroom suite accommodating up to 10 guests, perfect for family reunions.",
-    price: 450,
-    capacity: 10,
-    size: 120,
+    name: "12 person accommodations",
+    description: "2 bedroom + 3 bathroom + kitchen + media room/guest suite + walkout patio.",
+    price: 550,
+    capacity: 12,
+    size: 1600,
     image: "/lovable-uploads/4b50a354-ba3c-4146-8c99-3baacfad2615.png",
     location: "Mountain View",
-    features: ["Wi-Fi", "Full Kitchen", "5 Bathrooms", "Air Conditioning", "Smart TV", "Laundry Facilities"]
+    features: ["Wi-Fi", "Full Kitchen", "3 Bathrooms", "Media Room", "Walkout Patio", "Laundry Facilities"]
   },
   {
     id: "3",

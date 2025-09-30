@@ -58,12 +58,12 @@ export const en = {
       subtitle: "Book Your Stay",
       title: "Reserve Your Mountain Retreat",
       description: "Take the first step towards your perfect getaway by checking availability for your ideal dates. Experience the unique blend of luxury amenities and nature's tranquility that makes The Haven at Deer Park special.",
-      benefits: ["Instant confirmation", "Family-run hospitality", "Flexible group arrangements", "Modern amenities in nature"]
+      benefits: ["Instant confirmation", "Family-run hospitality", "Flexible group arrangements", "Modern amenities in nature", "Fully permitted and insured", "Superhost Status with a history in hospitality", "Transportation Services for up to 20 people available"]
     },
     featuredApartments: {
       subtitle: "Our Suites",
       title: "Premium Accommodations",
-      description: "Discover our newly renovated suites, each offering modern comfort and luxury amenities with stunning lake and mountain views in a peaceful forest setting.",
+      description: "Discover our newly renovated suites, each offering modern comfort and luxury amenities with stunning mountain views in a peaceful forest setting.",
       viewAll: "View All Suites"
     },
     amenities: {
@@ -275,12 +275,12 @@ export const en = {
   },
   apartmentDescriptions: {
     "1": {
-      name: "Main Suite (3BR/2BA)",
-      description: "Spacious 3-bedroom, 2-bathroom suite accommodating up to 6 guests with modern amenities and lake views."
+      name: "7 person accommodations",
+      description: "2 bedroom + 2 bathroom + kitchen suite with modern amenities and mountain views."
     },
     "2": {
-      name: "Guest Suite (5BR/5BA)",
-      description: "Large 5-bedroom, 5-bathroom suite accommodating up to 10 guests, perfect for family reunions."
+      name: "12 person accommodations",
+      description: "2 bedroom + 3 bathroom + kitchen + media room/guest suite + walkout patio, perfect for larger groups."
     },
     "3": {
       name: "Entire Property (8BR/8BA)",
