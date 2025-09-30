@@ -378,8 +378,8 @@ export const it = {
       description: "2 camere da letto + 3 bagni + cucina + sala multimediale/suite per ospiti + patio con uscita, perfetto per gruppi più grandi."
     },
     "3": {
-      name: "Studio Esecutivo sulla Spiaggia",
-      description: "Elegante studio con accesso diretto alla spiaggia, design moderno e finiture di pregio."
+      name: "Intero Luogo",
+      description: "4 camere da letto + 5 bagni + 2 cucine + sala multimediale/suite per ospiti + patio con uscita, accogliendo più di 20 ospiti."
     },
     "4": {
       name: "Suite Attico di Lusso",

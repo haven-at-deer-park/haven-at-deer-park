@@ -38,14 +38,14 @@ const featuredApartments: ApartmentProps[] = [
   },
   {
     id: "3",
-    name: "Entire Property (8BR/8BA)",
-    description: "Complete retreat accommodating up to 16-20 guests with all amenities and entertainment facilities.",
-    price: 650,
-    capacity: 16,
-    size: 200,
-    image: "/lovable-uploads/daacf7e5-23e1-4af1-b0ad-d9f0f2f8fd0d.png",
+    name: "Entire Place",
+    description: "4 bedrooms + 5 bathrooms + 2 kitchens + media room/guest suite + walkout patio.",
+    price: 995,
+    capacity: 20,
+    size: 4000,
+    image: "/lovable-uploads/entire-place-exterior.jpg",
     location: "Full Property",
-    features: ["Wi-Fi", "Full Kitchens", "8 Bathrooms", "Hot Tub", "Games Room", "Entertainment Center"]
+    features: ["Wi-Fi", "2 Full Kitchens", "5 Bathrooms", "Hot Tub", "Media Room", "Entertainment Center"]
   }
 ];
 

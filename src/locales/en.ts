@@ -283,8 +283,8 @@ export const en = {
       description: "2 bedroom + 3 bathroom + kitchen + media room/guest suite + walkout patio, perfect for larger groups."
     },
     "3": {
-      name: "Entire Property (8BR/8BA)",
-      description: "Complete retreat accommodating up to 16-20 guests with all amenities and entertainment facilities."
+      name: "Entire Place",
+      description: "4 bedrooms + 5 bathrooms + 2 kitchens + media room/guest suite + walkout patio, accommodating 20+ guests."
     }
   },
   amenitiesPage: {
