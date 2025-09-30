@@ -19,7 +19,7 @@ const featuredApartments: ApartmentProps[] = [
     price: 275,
     capacity: 7,
     size: 950,
-    image: "/lovable-uploads/main-suite-7person.png",
+    image: "/lovable-uploads/7-person-kitchen.jpg",
     location: "Mountain View",
     features: ["Wi-Fi", "Full Kitchen", "2 Bathrooms", "Air Conditioning", "Smart TV", "Private Entrance"],
     externalLink: "https://www.airbnb.com/l/aM4JIC4O"
