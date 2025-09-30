@@ -45,7 +45,8 @@ const featuredApartments: ApartmentProps[] = [
     size: 4000,
     image: "/lovable-uploads/entire-place-exterior.jpg",
     location: "Full Property",
-    features: ["Wi-Fi", "2 Full Kitchens", "5 Bathrooms", "Hot Tub", "Media Room", "Entertainment Center"]
+    features: ["Wi-Fi", "2 Full Kitchens", "5 Bathrooms", "Hot Tub", "Media Room", "Entertainment Center"],
+    externalLink: "https://www.airbnb.com/l/ZiLcS9MN"
   }
 ];
 
