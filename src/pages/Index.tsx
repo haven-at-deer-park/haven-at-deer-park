@@ -33,7 +33,8 @@ const featuredApartments: ApartmentProps[] = [
     size: 1600,
     image: "/lovable-uploads/12-person-balcony.jpg",
     location: "Mountain View",
-    features: ["Wi-Fi", "Full Kitchen", "3 Bathrooms", "Media Room", "Walkout Patio", "Laundry Facilities"]
+    features: ["Wi-Fi", "Full Kitchen", "3 Bathrooms", "Media Room", "Walkout Patio", "Laundry Facilities"],
+    externalLink: "https://www.airbnb.com/l/17ciaUP9"
   },
   {
     id: "3",
