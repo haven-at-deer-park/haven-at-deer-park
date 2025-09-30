@@ -127,22 +127,22 @@ export default function Index() {
               <div className="relative animate-fade-in [animation-delay:300ms]">
                 <div className="aspect-[4/3] rounded-2xl overflow-hidden">
                   <img 
-                    src="/lovable-uploads/d10535db-fa8a-4867-89eb-b54d8600354b.png"
-                    alt="Aerial view of The Haven at Deer Park with lake and mountains" 
+                    src="/lovable-uploads/DJI_0206hdr.JPG"
+                    alt="The Haven at Deer Park exterior view with covered patio" 
                     className="w-full h-full object-cover"
                   />
                 </div>
                 <div className="absolute -bottom-6 -left-6 w-2/3 rounded-2xl overflow-hidden shadow-xl">
                   <img 
-                    src="/lovable-uploads/899a0e80-1292-4f6b-a68b-6d9f270d1630.png"
-                    alt="The Haven at Deer Park exterior and grounds" 
+                    src="/lovable-uploads/DSC00046hdr.JPG"
+                    alt="Hot tub with covered pergola and mountain views" 
                     className="w-full h-full object-cover"
                   />
                 </div>
                 <div className="absolute -top-6 -right-6 w-1/2 rounded-2xl overflow-hidden shadow-xl">
                   <img 
-                    src="/lovable-uploads/c415a7c8-4b90-4c05-b2b1-9cc07382088e.png"
-                    alt="Hot tub with covered pergola and scenic views" 
+                    src="/lovable-uploads/DSC00121hdr-2.JPG"
+                    alt="Entertainment room with vintage records and LED floor" 
                     className="w-full h-full object-cover"
                   />
                 </div>
