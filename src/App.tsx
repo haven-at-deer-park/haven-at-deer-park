@@ -11,7 +11,7 @@ import Gallery from "./pages/Gallery";
 import Contact from "./pages/Contact";
 import Amenities from "./pages/Amenities";
 import NotFound from "./pages/NotFound";
-import { LanguageProvider } from "./contexts/LanguageContext";
+import { LanguageProvider } from "@/contexts/LanguageContext";
 
 // Create a react-query client
 const queryClient = new QueryClient();
