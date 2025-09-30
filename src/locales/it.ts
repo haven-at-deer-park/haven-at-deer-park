@@ -39,7 +39,7 @@ export const it = {
   },
   testimonials: {
     title: "Cosa Dicono i Nostri Ospiti",
-    description: "Scopri perché i nostri ospiti continuano a tornare a MareSereno per le loro fughe al mare."
+    description: "Scopri perché i nostri ospiti continuano a tornare a The Haven at Deer Park per le loro fughe in montagna."
   },
   notFound: {
     title: "Pagina Non Trovata",
@@ -218,10 +218,10 @@ export const it = {
   },
   home: {
     welcome: {
-      subtitle: "Benvenuti a MareSereno",
-      title: "Alloggi di Lusso sul Mare",
-      description1: "Situato sulla incontaminata costa mediterranea, MareSereno offre una squisita collezione di appartamenti di lusso e camere d'albergo. I nostri alloggi fronte mare combinano un design elegante con comfort moderni, creando l'ambientazione perfetta per una indimenticabile fuga al mare.",
-      description2: "Che tu stia cercando una fuga romantica, una vacanza in famiglia o un ritiro tranquillo, la nostra vasta gamma di alloggi si adatta a ogni preferenza ed esigenza. Ogni spazio è progettato con cura per fornire viste panoramiche sul mare e accesso diretto alla spiaggia.",
+      subtitle: "Benvenuti a The Haven at Deer Park",
+      title: "Rifugio di Lusso in Montagna",
+      description1: "Situato nella serena bellezza naturale di Vernon nella Valle di Okanagan della Columbia Britannica, The Haven at Deer Park offre una fuga tranquilla dalla vita quotidiana. Immerso vicino alle coste occidentali del Lago Okanagan, questa proprietà in stile rifugio offre un santuario pacifico circondato da foreste con viste pittoresche sul lago e sulle montagne.",
+      description2: "Che tu stia cercando ritiri benessere, riunioni familiari, avventure all'aperto o relax pacifico, i nostri alloggi spaziosi e servizi unici soddisfano ogni esigenza. Ogni suite è progettata con cura per fornire comfort moderno immerso nella tranquillità della natura.",
       learnMore: "Scopri di Più"
     },
     booking: {
@@ -276,7 +276,7 @@ export const it = {
   amenitiesPage: {
     title: "I Nostri Servizi",
     subtitle: "Scopri i servizi e le comodità di lusso che rendono il tuo soggiorno indimenticabile.",
-    description: "A MareSereno, ci dedichiamo a fornire un'esperienza di soggiorno completa e lussuosa. Dai nostri servizi sulla spiaggia alle strutture di benessere, ogni dettaglio è stato curato per garantire il massimo comfort e piacere.",
+    description: "A The Haven at Deer Park, ci dedichiamo a fornire un'esperienza di soggiorno completa e lussuosa. Dai nostri servizi nella natura alle strutture di benessere, ogni dettaglio è stato curato per garantire il massimo comfort e piacere.",
     categories: {
       wellness: {
         title: "Benessere e Relax",
