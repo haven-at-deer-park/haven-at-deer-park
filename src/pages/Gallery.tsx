@@ -265,6 +265,18 @@ const galleryImages = [
     src: "/lovable-uploads/DSC00164hdr.JPG",
     alt: "Balcony view overlooking property grounds",
     category: "rooms"
+  },
+  {
+    id: 44,
+    src: "/lovable-uploads/DSC00169hdr.JPG",
+    alt: "Suite balcony with panoramic mountain and property views",
+    category: "rooms"
+  },
+  {
+    id: 45,
+    src: "/lovable-uploads/DSC00174hdr.JPG",
+    alt: "Outdoor balcony seating area with scenic views",
+    category: "rooms"
   }
 ];
 
