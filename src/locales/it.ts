@@ -76,7 +76,7 @@ export const it = {
     filters: {
       all: "Tutti",
       exterior: "Esterno",
-      rooms: "Camere",
+      rooms: "Suite",
       amenities: "Servizi"
     }
   },

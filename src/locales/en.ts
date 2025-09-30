@@ -133,7 +133,7 @@ export const en = {
     filters: {
       all: "All",
       exterior: "Exterior",
-      rooms: "Rooms",
+      rooms: "Suites",
       amenities: "Amenities"
     }
   },

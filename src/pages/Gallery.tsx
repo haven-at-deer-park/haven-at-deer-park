@@ -157,6 +157,60 @@ const galleryImages = [
     src: "/lovable-uploads/607521dc-f92d-49cf-b143-c4a4e23cc197.png",
     alt: "Building exterior with green lawns and natural landscaping",
     category: "exterior"
+  },
+  {
+    id: 26,
+    src: "/lovable-uploads/DSC00076hdr.JPG",
+    alt: "Suite interior view",
+    category: "rooms"
+  },
+  {
+    id: 27,
+    src: "/lovable-uploads/DSC00081hdr.JPG",
+    alt: "Suite interior view",
+    category: "rooms"
+  },
+  {
+    id: 28,
+    src: "/lovable-uploads/DSC00086hdr.JPG",
+    alt: "Suite interior view",
+    category: "rooms"
+  },
+  {
+    id: 29,
+    src: "/lovable-uploads/DSC00096hdr.JPG",
+    alt: "Suite interior view",
+    category: "rooms"
+  },
+  {
+    id: 30,
+    src: "/lovable-uploads/DSC00101hdr.JPG",
+    alt: "Suite interior view",
+    category: "rooms"
+  },
+  {
+    id: 31,
+    src: "/lovable-uploads/DSC00106hdr.JPG",
+    alt: "Suite interior view",
+    category: "rooms"
+  },
+  {
+    id: 32,
+    src: "/lovable-uploads/DSC00111hdr.JPG",
+    alt: "Suite interior view",
+    category: "rooms"
+  },
+  {
+    id: 33,
+    src: "/lovable-uploads/DSC00116hdr.JPG",
+    alt: "Suite interior view",
+    category: "rooms"
+  },
+  {
+    id: 34,
+    src: "/lovable-uploads/DSC00121hdr.JPG",
+    alt: "Suite interior view",
+    category: "rooms"
   }
 ];
 
