@@ -211,6 +211,60 @@ const galleryImages = [
     src: "/lovable-uploads/DSC00121hdr.JPG",
     alt: "Suite interior view",
     category: "rooms"
+  },
+  {
+    id: 35,
+    src: "/lovable-uploads/DSC00126hdr.JPG",
+    alt: "Game room with arcade machines",
+    category: "rooms"
+  },
+  {
+    id: 36,
+    src: "/lovable-uploads/DSC00132.JPG",
+    alt: "Entertainment room with LED floor lighting",
+    category: "rooms"
+  },
+  {
+    id: 37,
+    src: "/lovable-uploads/DSC00134hdr.JPG",
+    alt: "Suite bedroom with bunk beds",
+    category: "rooms"
+  },
+  {
+    id: 38,
+    src: "/lovable-uploads/DSC00139hdr.JPG",
+    alt: "Suite bedroom with multiple beds",
+    category: "rooms"
+  },
+  {
+    id: 39,
+    src: "/lovable-uploads/DSC00144hdr.JPG",
+    alt: "Suite bedroom interior",
+    category: "rooms"
+  },
+  {
+    id: 40,
+    src: "/lovable-uploads/DSC00149hdr.JPG",
+    alt: "Suite bedroom with mountain views",
+    category: "rooms"
+  },
+  {
+    id: 41,
+    src: "/lovable-uploads/DSC00154hdr.JPG",
+    alt: "Suite balcony with mountain views",
+    category: "rooms"
+  },
+  {
+    id: 42,
+    src: "/lovable-uploads/DSC00159hdr.JPG",
+    alt: "Private balcony with outdoor seating",
+    category: "rooms"
+  },
+  {
+    id: 43,
+    src: "/lovable-uploads/DSC00164hdr.JPG",
+    alt: "Balcony view overlooking property grounds",
+    category: "rooms"
   }
 ];
 
