@@ -31,7 +31,7 @@ const featuredApartments: ApartmentProps[] = [
     price: 550,
     capacity: 12,
     size: 1600,
-    image: "/lovable-uploads/4b50a354-ba3c-4146-8c99-3baacfad2615.png",
+    image: "/lovable-uploads/12-person-balcony.jpg",
     location: "Mountain View",
     features: ["Wi-Fi", "Full Kitchen", "3 Bathrooms", "Media Room", "Walkout Patio", "Laundry Facilities"]
   },
