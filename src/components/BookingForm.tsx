@@ -154,18 +154,11 @@ export default function BookingForm() {
         </div>
       </div>
       
-      <Button type="submit" className="w-full btn-primary relative">
-        {submitted ? (
-          <>
-            <Check className="mr-2 h-4 w-4" />
-            {t.bookingForm.bookingConfirmed}
-          </>
-        ) : (
-          <>
-            <Users className="mr-2 h-4 w-4" />
-            {t.bookingForm.checkAvailability}
-          </>
-        )}
+      <Button asChild className="w-full btn-primary relative">
+        <a href="https://www.airbnb.com/l/ZiLcS9MN" target="_blank" rel="noopener noreferrer">
+          <Users className="mr-2 h-4 w-4" />
+          {t.bookingForm.checkAvailability}
+        </a>
       </Button>
     </form>
   );
