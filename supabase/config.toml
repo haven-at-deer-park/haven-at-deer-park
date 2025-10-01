@@ -1,1 +1,4 @@
 project_id = "avkykdsuuvbxbkbdkudu"
+
+[functions.haven-concierge]
+verify_jwt = false

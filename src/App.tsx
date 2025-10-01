@@ -11,6 +11,7 @@ import Contact from "./pages/Contact";
 import Amenities from "./pages/Amenities";
 import NotFound from "./pages/NotFound";
 import { LanguageProvider } from "@/contexts/LanguageContext";
+import { HavenConcierge } from "@/components/HavenConcierge";
 
 // Create a react-query client
 const queryClient = new QueryClient();
@@ -22,6 +23,7 @@ const App = () => (
         <LanguageProvider>
           <Toaster />
           <Sonner />
+          <HavenConcierge />
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/booking" element={<BookingPage />} />
