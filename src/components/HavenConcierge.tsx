@@ -131,18 +131,23 @@ export const HavenConcierge = () => {
     <>
       {/* Floating Chat Button */}
       {!isOpen && (
-        <Button
-          onClick={() => setIsOpen(true)}
-          className="fixed bottom-6 right-6 h-14 w-14 rounded-full shadow-lg z-50 bg-primary hover:bg-primary/90"
-          size="icon"
-        >
-          <MessageCircle className="h-6 w-6" />
-        </Button>
+        <div className="fixed top-6 left-6 z-50 flex items-center gap-2">
+          <Button
+            onClick={() => setIsOpen(true)}
+            className="h-14 w-14 rounded-full shadow-lg bg-primary hover:bg-primary/90"
+            size="icon"
+          >
+            <MessageCircle className="h-6 w-6" />
+          </Button>
+          <span className="text-sm font-medium bg-background/95 backdrop-blur-sm px-3 py-2 rounded-lg shadow-md border">
+            Chat with Haven Concierge
+          </span>
+        </div>
       )}
 
       {/* Chat Window */}
       {isOpen && (
-        <Card className="fixed bottom-6 right-6 w-96 h-[600px] shadow-2xl z-50 flex flex-col">
+        <Card className="fixed top-6 left-6 w-96 h-[600px] shadow-2xl z-50 flex flex-col">
           {/* Header */}
           <div className="flex items-center justify-between p-4 border-b bg-primary text-primary-foreground rounded-t-lg">
             <div className="flex items-center gap-2">
