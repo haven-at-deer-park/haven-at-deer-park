@@ -14,7 +14,106 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      chat_conversations: {
+        Row: {
+          created_at: string | null
+          id: string
+          session_id: string
+          updated_at: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          session_id: string
+          updated_at?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          session_id?: string
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
+      chat_messages: {
+        Row: {
+          content: string
+          conversation_id: string
+          created_at: string | null
+          id: string
+          role: string
+        }
+        Insert: {
+          content: string
+          conversation_id: string
+          created_at?: string | null
+          id?: string
+          role: string
+        }
+        Update: {
+          content?: string
+          conversation_id?: string
+          created_at?: string | null
+          id?: string
+          role?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "chat_messages_conversation_id_fkey"
+            columns: ["conversation_id"]
+            isOneToOne: false
+            referencedRelation: "chat_conversations"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      leads: {
+        Row: {
+          chat_transcript: string | null
+          conversation_id: string | null
+          created_at: string | null
+          dates: string | null
+          email: string
+          id: string
+          name: string
+          notes: string | null
+          party_size: number | null
+          phone: string | null
+        }
+        Insert: {
+          chat_transcript?: string | null
+          conversation_id?: string | null
+          created_at?: string | null
+          dates?: string | null
+          email: string
+          id?: string
+          name: string
+          notes?: string | null
+          party_size?: number | null
+          phone?: string | null
+        }
+        Update: {
+          chat_transcript?: string | null
+          conversation_id?: string | null
+          created_at?: string | null
+          dates?: string | null
+          email?: string
+          id?: string
+          name?: string
+          notes?: string | null
+          party_size?: number | null
+          phone?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "leads_conversation_id_fkey"
+            columns: ["conversation_id"]
+            isOneToOne: false
+            referencedRelation: "chat_conversations"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
