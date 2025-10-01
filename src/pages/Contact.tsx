@@ -92,7 +92,7 @@ export default function Contact() {
                     <div>
                       <h3 className="font-semibold mb-1">{t.contact.address}</h3>
                       <p className="text-muted-foreground">
-                        Tronson Road<br />
+                        9194 Tronson Road<br />
                         Vernon, BC, V1H1E2<br />
                         Canada
                       </p>
@@ -136,13 +136,13 @@ export default function Contact() {
                 
                 <div className="aspect-video rounded-xl overflow-hidden">
                   <iframe 
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2594.4786788!2d-119.2847!3d50.2608!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x537dd6e8c3d1c1a1%3A0x1c8c8c8c8c8c8c8c!2sVernon%2C%20BC!5e0!3m2!1sen!2sca!4v1628613152777!5m2!1sen!2sca" 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2593.9876543!2d-119.3847!3d50.2608!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x537dd6e8c3d1c1a1%3A0x1c8c8c8c8c8c8c8c!2s9194%20Tronson%20Rd%2C%20Vernon%2C%20BC%20V1H%201E2%2C%20Canada!5e0!3m2!1sen!2sca!4v1628613152777!5m2!1sen!2sca" 
                     width="100%" 
                     height="100%" 
                     style={{ border: 0 }} 
                     allowFullScreen 
                     loading="lazy"
-                    title="Vernon BC Location Map"
+                    title="9194 Tronson Road, Vernon BC Location Map"
                   />
                 </div>
               </div>
