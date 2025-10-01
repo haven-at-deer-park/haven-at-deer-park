@@ -136,13 +136,13 @@ export default function Contact() {
                 
                 <div className="aspect-video rounded-xl overflow-hidden">
                   <iframe 
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d387191.03606358136!2d14.165818971864153!3d40.85529294646443!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x133b0a3c328d896b%3A0x309e11f99628150!2sGulf%20of%20Naples!5e0!3m2!1sen!2sus!4v1628613152777!5m2!1sen!2sus" 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2594.4786788!2d-119.2847!3d50.2608!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x537dd6e8c3d1c1a1%3A0x1c8c8c8c8c8c8c8c!2sVernon%2C%20BC!5e0!3m2!1sen!2sca!4v1628613152777!5m2!1sen!2sca" 
                     width="100%" 
                     height="100%" 
                     style={{ border: 0 }} 
                     allowFullScreen 
                     loading="lazy"
-                    title="Location Map"
+                    title="Vernon BC Location Map"
                   />
                 </div>
               </div>

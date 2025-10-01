@@ -15,7 +15,6 @@ export default function Navbar() {
   
   const navLinks = [
     { name: t.nav.home, path: "/" },
-    { name: t.nav.apartments, path: "/apartments" },
     { name: t.nav.amenities, path: "/amenities" },
     { name: t.nav.gallery, path: "/gallery" },
     { name: t.nav.contact, path: "/contact" }
@@ -32,7 +31,7 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [scrolled]);
   
-  return <header className={cn("fixed top-0 left-0 right-0 z-50 transition-all duration-300", scrolled ? "bg-white/80 dark:bg-card/80 backdrop-blur-lg py-3 shadow-md" : "bg-transparent py-5")}>
+  return <header className="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-white/80 dark:bg-card/80 backdrop-blur-lg py-3 shadow-md">
       <nav className="container flex justify-between items-center">
         <div className="flex items-center space-x-2">
           <LanguageSelector />

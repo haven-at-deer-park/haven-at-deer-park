@@ -283,39 +283,26 @@ const galleryImages = [
 export default function Gallery() {
   const { t } = useLanguage();
   const [selectedImage, setSelectedImage] = useState<number | null>(null);
-  const [filteredImages, setFilteredImages] = useState(galleryImages);
-  const [activeFilter, setActiveFilter] = useState("all");
   
   useEffect(() => {
     // Scroll to top when component mounts
     window.scrollTo(0, 0);
   }, []);
   
-  // Filter gallery images by category
-  const filterGallery = (category: string) => {
-    setActiveFilter(category);
-    
-    if (category === "all") {
-      setFilteredImages(galleryImages);
-    } else {
-      setFilteredImages(galleryImages.filter(img => img.category === category));
-    }
-  };
-  
   // Handle lightbox navigation
   const navigateGallery = (direction: "prev" | "next") => {
     if (selectedImage === null) return;
     
-    const currentIndex = filteredImages.findIndex(img => img.id === selectedImage);
+    const currentIndex = galleryImages.findIndex(img => img.id === selectedImage);
     let newIndex;
     
     if (direction === "prev") {
-      newIndex = currentIndex > 0 ? currentIndex - 1 : filteredImages.length - 1;
+      newIndex = currentIndex > 0 ? currentIndex - 1 : galleryImages.length - 1;
     } else {
-      newIndex = currentIndex < filteredImages.length - 1 ? currentIndex + 1 : 0;
+      newIndex = currentIndex < galleryImages.length - 1 ? currentIndex + 1 : 0;
     }
     
-    setSelectedImage(filteredImages[newIndex].id);
+    setSelectedImage(galleryImages[newIndex].id);
   };
   
   // Handle keyboard navigation for lightbox
@@ -334,7 +321,7 @@ export default function Gallery() {
     
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [selectedImage, filteredImages]);
+  }, [selectedImage]);
   
   return (
     <div className="min-h-screen flex flex-col">
@@ -361,35 +348,11 @@ export default function Gallery() {
           </div>
         </section>
         
-        {/* Gallery Filters */}
+        {/* Gallery Grid */}
         <section className="py-8">
           <div className="container">
-            <div className="flex flex-wrap justify-center gap-2 mb-8 animate-fade-in">
-              {["all", "exterior", "rooms", "amenities"].map((category) => (
-                <button
-                  key={category}
-                  onClick={() => filterGallery(category)}
-                  className={cn(
-                    "px-6 py-2 rounded-full transition-all",
-                    activeFilter === category
-                      ? "bg-primary text-white shadow-lg"
-                      : "bg-card hover:bg-muted"
-                  )}
-                >
-                  {category === "all" 
-                    ? t.gallery.filters.all 
-                    : category === "exterior" 
-                      ? t.gallery.filters.exterior 
-                      : category === "rooms" 
-                        ? t.gallery.filters.rooms 
-                        : t.gallery.filters.amenities}
-                </button>
-              ))}
-            </div>
-            
-            {/* Gallery Grid */}
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-              {filteredImages.map((image, index) => (
+              {galleryImages.map((image, index) => (
                 <div 
                   key={image.id} 
                   className="relative overflow-hidden rounded-xl aspect-[4/3] cursor-pointer group animate-fade-in"
@@ -432,10 +395,10 @@ export default function Gallery() {
             </button>
             
             <div className="max-w-5xl max-h-[80vh] overflow-hidden">
-              {filteredImages.find(img => img.id === selectedImage) && (
+              {galleryImages.find(img => img.id === selectedImage) && (
                 <img 
-                  src={filteredImages.find(img => img.id === selectedImage)?.src} 
-                  alt={filteredImages.find(img => img.id === selectedImage)?.alt}
+                  src={galleryImages.find(img => img.id === selectedImage)?.src} 
+                  alt={galleryImages.find(img => img.id === selectedImage)?.alt}
                   className="max-w-full max-h-[80vh] object-contain"
                 />
               )}
