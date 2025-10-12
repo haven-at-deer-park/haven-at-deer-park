@@ -8,7 +8,7 @@ export const en = {
     bookNow: "Book Now"
   },
   hero: {
-    subtitle: "LUXURY RETREAT IN NATURE",
+    subtitle: "WELCOME TO YOUR NEXT VACATION",
     title: "The Haven at Deer Park",
     description: "Experience tranquil escape amidst the serene natural beauty of Vernon's Okanagan Valley. A perfect blend of luxury amenities and pristine wilderness.",
     bookStay: "Book Your Stay",

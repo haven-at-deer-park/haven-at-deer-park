@@ -8,7 +8,7 @@ export const it = {
     bookNow: "Prenota Ora"
   },
   hero: {
-    subtitle: "RIFUGIO DI LUSSO NELLA NATURA",
+    subtitle: "BENVENUTI ALLA VOSTRA PROSSIMA VACANZA",
     title: "The Haven at Deer Park",
     description: "Vivi una fuga tranquilla nella serena bellezza naturale della Valle di Okanagan di Vernon. Un perfetto equilibrio tra comfort di lusso e natura incontaminata.",
     bookStay: "Prenota il tuo Soggiorno",
