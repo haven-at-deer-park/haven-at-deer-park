@@ -111,14 +111,6 @@ export default function BookingPage() {
   const handleSubmitBooking = (e: React.FormEvent) => {
     e.preventDefault();
     
-    // In a real app, this would send the booking data to a server
-    console.log("Booking submitted:", {
-      apartment: selectedApartment,
-      dates: { startDate, endDate },
-      guests: { adults, children },
-      customerInfo: formData
-    });
-    
     // Show confirmation
     setIsBookingConfirmed(true);
     

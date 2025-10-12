@@ -41,15 +41,23 @@ export const HavenConcierge = () => {
 
   const sendToWhatsApp = async () => {
     try {
+      // Validate and limit transcript length to prevent URL injection
+      const MAX_TRANSCRIPT_LENGTH = 2000;
+      
       const chatTranscript = messages
         .filter(m => m.role !== 'system')
-        .map(m => `${m.role === 'user' ? 'Guest' : 'Haven Concierge'}: ${m.content}`)
-        .join('\n\n');
+        .map(m => {
+          const role = m.role === 'user' ? 'Guest' : 'Haven Concierge';
+          // Sanitize content by limiting length per message
+          const content = m.content.substring(0, 500);
+          return `${role}: ${content}`;
+        })
+        .join('\n\n')
+        .substring(0, MAX_TRANSCRIPT_LENGTH);
 
-      const encodedMessage = encodeURIComponent(
-        `📱 New Haven Concierge Chat\n\n${chatTranscript}\n\n---\nSession ID: ${sessionId}`
-      );
-
+      const message = `📱 New Haven Concierge Chat\n\n${chatTranscript}\n\n---\nSession ID: ${sessionId}`;
+      const encodedMessage = encodeURIComponent(message);
+      
       window.open(`https://wa.me/17787739915?text=${encodedMessage}`, '_blank');
 
       toast({
