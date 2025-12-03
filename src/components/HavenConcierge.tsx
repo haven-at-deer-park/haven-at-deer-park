@@ -19,8 +19,26 @@ export const HavenConcierge = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [sessionId] = useState(() => crypto.randomUUID());
   const [hasShownWhatsAppPrompt, setHasShownWhatsAppPrompt] = useState(false);
+  const [showBadge, setShowBadge] = useState(false);
   const scrollAreaRef = useRef<HTMLDivElement>(null);
   const { toast } = useToast();
+
+  // Show notification badge after 5 seconds
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (!isOpen) {
+        setShowBadge(true);
+      }
+    }, 5000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  // Hide badge when chat opens
+  useEffect(() => {
+    if (isOpen) {
+      setShowBadge(false);
+    }
+  }, [isOpen]);
 
   useEffect(() => {
     if (isOpen && !hasShownWhatsAppPrompt) {
@@ -140,13 +158,21 @@ export const HavenConcierge = () => {
           <span className="text-sm font-medium bg-background/95 backdrop-blur-sm px-3 py-2 rounded-lg shadow-md border animate-fade-in">
             Chat with Haven Concierge
           </span>
-          <Button
-            onClick={() => setIsOpen(true)}
-            className="h-14 w-14 rounded-full shadow-lg bg-primary hover:bg-primary/90 animate-bounce-gentle hover:animate-none"
-            size="icon"
-          >
-            <MessageCircle className="h-6 w-6" />
-          </Button>
+          <div className="relative">
+            <Button
+              onClick={() => setIsOpen(true)}
+              className="h-14 w-14 rounded-full shadow-lg bg-primary hover:bg-primary/90 animate-bounce-gentle hover:animate-none"
+              size="icon"
+            >
+              <MessageCircle className="h-6 w-6" />
+            </Button>
+            {showBadge && (
+              <span className="absolute -top-1 -right-1 flex h-5 w-5">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-destructive opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-5 w-5 bg-destructive text-destructive-foreground text-xs items-center justify-center font-bold">1</span>
+              </span>
+            )}
+          </div>
         </div>
       )}
 
