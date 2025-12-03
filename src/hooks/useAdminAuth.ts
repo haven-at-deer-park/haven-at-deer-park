@@ -46,11 +46,19 @@ export function useAdminAuth() {
 
   const login = useCallback(async (email: string, password: string): Promise<{ success: boolean; error?: string }> => {
     try {
+      console.log('Attempting login for:', email);
       const { data, error } = await supabase.functions.invoke('admin-auth', {
         body: { action: 'login', email, password }
       });
 
-      if (error || !data?.success) {
+      console.log('Login response:', { data, error });
+
+      if (error) {
+        console.error('Supabase function error:', error);
+        return { success: false, error: error.message || 'Login failed' };
+      }
+
+      if (!data?.success) {
         return { success: false, error: data?.error || 'Login failed' };
       }
 
