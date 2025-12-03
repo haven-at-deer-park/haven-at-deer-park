@@ -2,11 +2,9 @@
 import { Link } from "react-router-dom";
 import { Facebook, Instagram, Mail, Phone, MapPin } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { useAdminAuth } from "@/hooks/useAdminAuth";
 
 export default function Footer() {
   const { t } = useLanguage();
-  const { isAuthenticated } = useAdminAuth();
   const currentYear = new Date().getFullYear();
   
   return (
@@ -103,14 +101,12 @@ export default function Footer() {
         <div className="border-t border-border pt-8 mt-8 flex flex-col md:flex-row items-center justify-between text-muted-foreground">
           <div className="flex items-center gap-4">
             <p>&copy; {currentYear} The Haven at Deer Park. {t.footer.allRights}</p>
-            {isAuthenticated && (
-              <Link 
-                to="/admin" 
-                className="text-xs hover:text-primary transition-colors"
-              >
-                Admin Dashboard
-              </Link>
-            )}
+            <Link 
+              to="/admin" 
+              className="text-xs hover:text-primary transition-colors"
+            >
+              Admin
+            </Link>
           </div>
         </div>
       </div>
