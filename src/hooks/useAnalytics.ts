@@ -1,4 +1,4 @@
-import { useEffect, useRef, useCallback } from 'react';
+import { useEffect, useRef, useCallback, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 
@@ -80,6 +80,7 @@ export function useAnalytics() {
   const pageStartRef = useRef<number>(Date.now());
   const maxScrollRef = useRef<number>(0);
   const pageviewCountRef = useRef<number>(0);
+  const [sessionReady, setSessionReady] = useState(false);
 
   // Send analytics event
   const sendAnalytics = useCallback(async (action: string, data: any) => {
@@ -108,26 +109,39 @@ export function useAnalytics() {
 
   // Start session on mount
   useEffect(() => {
-    const sessionId = generateId();
-    sessionIdRef.current = sessionId;
-    sessionStartRef.current = Date.now();
+    const startSession = async () => {
+      const sessionId = generateId();
+      sessionIdRef.current = sessionId;
+      sessionStartRef.current = Date.now();
 
-    const utmParams = getUtmParams();
-    const referrerSource = utmParams.utmSource || getReferrerSource(document.referrer);
+      const utmParams = getUtmParams();
+      const referrerSource = utmParams.utmSource || getReferrerSource(document.referrer);
 
-    sendAnalytics('session-start', {
-      sessionId,
-      entryPage: window.location.pathname,
-      deviceType: getDeviceType(),
-      browser: getBrowser(),
-      screenWidth: window.screen.width,
-      screenHeight: window.screen.height,
-      referrer: document.referrer || null,
-      ...utmParams,
-      utmSource: referrerSource,
-      isRepeatVisitor: isRepeatVisitor(),
-      visitorId: visitorIdRef.current
-    });
+      try {
+        await sendAnalytics('session-start', {
+          sessionId,
+          entryPage: window.location.pathname,
+          deviceType: getDeviceType(),
+          browser: getBrowser(),
+          screenWidth: window.screen.width,
+          screenHeight: window.screen.height,
+          referrer: document.referrer || null,
+          ...utmParams,
+          utmSource: referrerSource,
+          isRepeatVisitor: isRepeatVisitor(),
+          visitorId: visitorIdRef.current
+        });
+        
+        // Mark session as ready after successful creation
+        setSessionReady(true);
+      } catch (error) {
+        console.error('Failed to start session:', error);
+        // Still mark as ready to allow pageviews even if session fails
+        setSessionReady(true);
+      }
+    };
+
+    startSession();
 
     // End session on page unload
     const handleUnload = () => {
@@ -151,9 +165,9 @@ export function useAnalytics() {
     return () => window.removeEventListener('beforeunload', handleUnload);
   }, [sendAnalytics]);
 
-  // Track pageviews on route change
+  // Track pageviews on route change - only after session is ready
   useEffect(() => {
-    if (!sessionIdRef.current) return;
+    if (!sessionIdRef.current || !sessionReady) return;
 
     // Update previous page metrics before tracking new page
     if (pageviewCountRef.current > 0) {
@@ -178,7 +192,7 @@ export function useAnalytics() {
       pageTitle: document.title,
       visitorId: visitorIdRef.current
     });
-  }, [location.pathname, sendAnalytics]);
+  }, [location.pathname, sendAnalytics, sessionReady]);
 
   // Track outbound clicks (especially Airbnb)
   const trackOutboundClick = useCallback((url: string, linkText?: string, buttonId?: string, buttonClass?: string) => {
