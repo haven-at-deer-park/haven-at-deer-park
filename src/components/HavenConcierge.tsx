@@ -1,20 +1,15 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card } from '@/components/ui/card';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { MessageCircle, X, Send, User, Bot, GripVertical } from 'lucide-react';
+import { MessageCircle, X, Send, User, Bot } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 
 interface Message {
   role: 'user' | 'assistant' | 'system';
   content: string;
-}
-
-interface Position {
-  x: number;
-  y: number;
 }
 
 export const HavenConcierge = () => {
@@ -26,104 +21,6 @@ export const HavenConcierge = () => {
   const [hasShownWhatsAppPrompt, setHasShownWhatsAppPrompt] = useState(false);
   const scrollAreaRef = useRef<HTMLDivElement>(null);
   const { toast } = useToast();
-
-  // Dragging state - default to bottom right
-  const [position, setPosition] = useState<Position>(() => {
-    // Clear old position to use new default (remove this after first load)
-    const forceReset = localStorage.getItem('haven_concierge_version') !== 'v2';
-    if (forceReset) {
-      localStorage.removeItem('haven_concierge_position');
-      localStorage.setItem('haven_concierge_version', 'v2');
-    }
-    
-    const saved = localStorage.getItem('haven_concierge_position');
-    if (saved) {
-      try {
-        return JSON.parse(saved);
-      } catch {
-        return { x: window.innerWidth - 280, y: window.innerHeight - 100 };
-      }
-    }
-    return { x: window.innerWidth - 280, y: window.innerHeight - 100 };
-  });
-  const [isDragging, setIsDragging] = useState(false);
-  const [dragOffset, setDragOffset] = useState<Position>({ x: 0, y: 0 });
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  // Save position to localStorage
-  useEffect(() => {
-    localStorage.setItem('haven_concierge_position', JSON.stringify(position));
-  }, [position]);
-
-  // Handle mouse/touch move for dragging
-  const handleDragMove = useCallback((clientX: number, clientY: number) => {
-    if (!isDragging) return;
-    
-    const newX = Math.max(0, Math.min(window.innerWidth - 100, clientX - dragOffset.x));
-    const newY = Math.max(0, Math.min(window.innerHeight - 100, clientY - dragOffset.y));
-    
-    setPosition({ x: newX, y: newY });
-  }, [isDragging, dragOffset]);
-
-  // Mouse events
-  const handleMouseMove = useCallback((e: MouseEvent) => {
-    handleDragMove(e.clientX, e.clientY);
-  }, [handleDragMove]);
-
-  const handleMouseUp = useCallback(() => {
-    setIsDragging(false);
-  }, []);
-
-  // Touch events
-  const handleTouchMove = useCallback((e: TouchEvent) => {
-    if (e.touches.length === 1) {
-      handleDragMove(e.touches[0].clientX, e.touches[0].clientY);
-    }
-  }, [handleDragMove]);
-
-  const handleTouchEnd = useCallback(() => {
-    setIsDragging(false);
-  }, []);
-
-  // Add/remove event listeners
-  useEffect(() => {
-    if (isDragging) {
-      window.addEventListener('mousemove', handleMouseMove);
-      window.addEventListener('mouseup', handleMouseUp);
-      window.addEventListener('touchmove', handleTouchMove);
-      window.addEventListener('touchend', handleTouchEnd);
-    }
-
-    return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
-      window.removeEventListener('mouseup', handleMouseUp);
-      window.removeEventListener('touchmove', handleTouchMove);
-      window.removeEventListener('touchend', handleTouchEnd);
-    };
-  }, [isDragging, handleMouseMove, handleMouseUp, handleTouchMove, handleTouchEnd]);
-
-  // Start dragging
-  const startDrag = (clientX: number, clientY: number) => {
-    if (containerRef.current) {
-      const rect = containerRef.current.getBoundingClientRect();
-      setDragOffset({
-        x: clientX - rect.left,
-        y: clientY - rect.top
-      });
-    }
-    setIsDragging(true);
-  };
-
-  const handleMouseDown = (e: React.MouseEvent) => {
-    e.preventDefault();
-    startDrag(e.clientX, e.clientY);
-  };
-
-  const handleTouchStart = (e: React.TouchEvent) => {
-    if (e.touches.length === 1) {
-      startDrag(e.touches[0].clientX, e.touches[0].clientY);
-    }
-  };
 
   useEffect(() => {
     if (isOpen && !hasShownWhatsAppPrompt) {
@@ -237,63 +134,32 @@ export const HavenConcierge = () => {
 
   return (
     <>
-      {/* Floating Chat Button */}
+      {/* Floating Chat Button - Fixed bottom right with attention animation */}
       {!isOpen && (
-        <div 
-          ref={containerRef}
-          className="fixed z-50 flex items-center gap-2"
-          style={{ 
-            left: `${position.x}px`, 
-            top: `${position.y}px`,
-            cursor: isDragging ? 'grabbing' : 'grab'
-          }}
-        >
-          <div
-            className="flex items-center gap-2"
-            onMouseDown={handleMouseDown}
-            onTouchStart={handleTouchStart}
+        <div className="fixed bottom-6 right-6 z-50 flex items-center gap-2">
+          <span className="text-sm font-medium bg-background/95 backdrop-blur-sm px-3 py-2 rounded-lg shadow-md border animate-fade-in">
+            Chat with Haven Concierge
+          </span>
+          <Button
+            onClick={() => setIsOpen(true)}
+            className="h-14 w-14 rounded-full shadow-lg bg-primary hover:bg-primary/90 animate-bounce-gentle hover:animate-none"
+            size="icon"
           >
-            <Button
-              onClick={(e) => {
-                if (!isDragging) {
-                  setIsOpen(true);
-                }
-              }}
-              className="h-14 w-14 rounded-full shadow-lg bg-primary hover:bg-primary/90"
-              size="icon"
-            >
-              <MessageCircle className="h-6 w-6" />
-            </Button>
-            <span className="text-sm font-medium bg-background/95 backdrop-blur-sm px-3 py-2 rounded-lg shadow-md border select-none">
-              Chat with Haven Concierge
-            </span>
-          </div>
+            <MessageCircle className="h-6 w-6" />
+          </Button>
         </div>
       )}
 
-      {/* Chat Window */}
+      {/* Chat Window - Fixed bottom right */}
       {isOpen && (
-        <Card 
-          ref={containerRef}
-          className="fixed w-96 h-[600px] shadow-2xl z-50 flex flex-col"
-          style={{ 
-            left: `${position.x}px`, 
-            top: `${position.y}px`
-          }}
-        >
-          {/* Header with drag handle */}
-          <div 
-            className="flex items-center justify-between p-4 border-b bg-primary text-primary-foreground rounded-t-lg"
-            style={{ cursor: isDragging ? 'grabbing' : 'grab' }}
-            onMouseDown={handleMouseDown}
-            onTouchStart={handleTouchStart}
-          >
+        <Card className="fixed bottom-6 right-6 w-96 h-[600px] shadow-2xl z-50 flex flex-col animate-scale-in">
+          {/* Header */}
+          <div className="flex items-center justify-between p-4 border-b bg-primary text-primary-foreground rounded-t-lg">
             <div className="flex items-center gap-2">
-              <GripVertical className="h-4 w-4 opacity-60" />
               <Bot className="h-5 w-5" />
               <div>
                 <h3 className="font-semibold">Haven Concierge</h3>
-                <p className="text-xs opacity-90">Drag header to move</p>
+                <p className="text-xs opacity-90">Here to help you</p>
               </div>
             </div>
             <Button
