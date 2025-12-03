@@ -2,3 +2,15 @@ project_id = "avkykdsuuvbxbkbdkudu"
 
 [functions.haven-concierge]
 verify_jwt = false
+
+[functions.admin-auth]
+verify_jwt = false
+
+[functions.analytics]
+verify_jwt = false
+
+[functions.analytics-dashboard]
+verify_jwt = false
+
+[functions.contact-form]
+verify_jwt = false
