@@ -99,13 +99,15 @@ export default function Footer() {
         </div>
         
         <div className="border-t border-border pt-8 mt-8 flex flex-col md:flex-row items-center justify-between text-muted-foreground">
-          <p>&copy; {currentYear} The Haven at Deer Park. {t.footer.allRights}</p>
-          <Link 
-            to="/admin" 
-            className="mt-4 md:mt-0 text-xs hover:text-primary transition-colors"
-          >
-            Admin Dashboard
-          </Link>
+          <div className="flex items-center gap-4">
+            <p>&copy; {currentYear} The Haven at Deer Park. {t.footer.allRights}</p>
+            <Link 
+              to="/admin" 
+              className="text-xs hover:text-primary transition-colors"
+            >
+              Admin Dashboard
+            </Link>
+          </div>
         </div>
       </div>
     </footer>
