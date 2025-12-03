@@ -14,6 +14,284 @@ export type Database = {
   }
   public: {
     Tables: {
+      admin_users: {
+        Row: {
+          created_at: string | null
+          email: string
+          id: string
+          last_login: string | null
+          password_hash: string
+        }
+        Insert: {
+          created_at?: string | null
+          email: string
+          id?: string
+          last_login?: string | null
+          password_hash: string
+        }
+        Update: {
+          created_at?: string | null
+          email?: string
+          id?: string
+          last_login?: string | null
+          password_hash?: string
+        }
+        Relationships: []
+      }
+      analytics_events: {
+        Row: {
+          event_action: string | null
+          event_category: string | null
+          event_label: string | null
+          event_type: string
+          event_value: string | null
+          id: string
+          metadata: Json | null
+          page_path: string | null
+          session_id: string | null
+          timestamp: string | null
+          visitor_id: string | null
+        }
+        Insert: {
+          event_action?: string | null
+          event_category?: string | null
+          event_label?: string | null
+          event_type: string
+          event_value?: string | null
+          id?: string
+          metadata?: Json | null
+          page_path?: string | null
+          session_id?: string | null
+          timestamp?: string | null
+          visitor_id?: string | null
+        }
+        Update: {
+          event_action?: string | null
+          event_category?: string | null
+          event_label?: string | null
+          event_type?: string
+          event_value?: string | null
+          id?: string
+          metadata?: Json | null
+          page_path?: string | null
+          session_id?: string | null
+          timestamp?: string | null
+          visitor_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "analytics_events_session_id_fkey"
+            columns: ["session_id"]
+            isOneToOne: false
+            referencedRelation: "analytics_sessions"
+            referencedColumns: ["session_id"]
+          },
+        ]
+      }
+      analytics_outbound_clicks: {
+        Row: {
+          button_class: string | null
+          button_id: string | null
+          destination_url: string
+          device_type: string | null
+          id: string
+          link_text: string | null
+          page_path: string | null
+          session_id: string | null
+          timestamp: string | null
+          utm_campaign: string | null
+          utm_source: string | null
+          visitor_id: string | null
+        }
+        Insert: {
+          button_class?: string | null
+          button_id?: string | null
+          destination_url: string
+          device_type?: string | null
+          id?: string
+          link_text?: string | null
+          page_path?: string | null
+          session_id?: string | null
+          timestamp?: string | null
+          utm_campaign?: string | null
+          utm_source?: string | null
+          visitor_id?: string | null
+        }
+        Update: {
+          button_class?: string | null
+          button_id?: string | null
+          destination_url?: string
+          device_type?: string | null
+          id?: string
+          link_text?: string | null
+          page_path?: string | null
+          session_id?: string | null
+          timestamp?: string | null
+          utm_campaign?: string | null
+          utm_source?: string | null
+          visitor_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "analytics_outbound_clicks_session_id_fkey"
+            columns: ["session_id"]
+            isOneToOne: false
+            referencedRelation: "analytics_sessions"
+            referencedColumns: ["session_id"]
+          },
+        ]
+      }
+      analytics_pageviews: {
+        Row: {
+          id: string
+          page_path: string
+          page_title: string | null
+          scroll_depth_percent: number | null
+          session_id: string | null
+          time_on_page_seconds: number | null
+          timestamp: string | null
+          visitor_id: string | null
+        }
+        Insert: {
+          id?: string
+          page_path: string
+          page_title?: string | null
+          scroll_depth_percent?: number | null
+          session_id?: string | null
+          time_on_page_seconds?: number | null
+          timestamp?: string | null
+          visitor_id?: string | null
+        }
+        Update: {
+          id?: string
+          page_path?: string
+          page_title?: string | null
+          scroll_depth_percent?: number | null
+          session_id?: string | null
+          time_on_page_seconds?: number | null
+          timestamp?: string | null
+          visitor_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "analytics_pageviews_session_id_fkey"
+            columns: ["session_id"]
+            isOneToOne: false
+            referencedRelation: "analytics_sessions"
+            referencedColumns: ["session_id"]
+          },
+        ]
+      }
+      analytics_sessions: {
+        Row: {
+          browser: string | null
+          device_type: string | null
+          duration_seconds: number | null
+          ended_at: string | null
+          entry_page: string | null
+          exit_page: string | null
+          id: string
+          is_bounce: boolean | null
+          is_repeat_visitor: boolean | null
+          referrer: string | null
+          screen_height: number | null
+          screen_width: number | null
+          session_id: string
+          started_at: string | null
+          utm_campaign: string | null
+          utm_content: string | null
+          utm_medium: string | null
+          utm_source: string | null
+          utm_term: string | null
+          visitor_id: string | null
+        }
+        Insert: {
+          browser?: string | null
+          device_type?: string | null
+          duration_seconds?: number | null
+          ended_at?: string | null
+          entry_page?: string | null
+          exit_page?: string | null
+          id?: string
+          is_bounce?: boolean | null
+          is_repeat_visitor?: boolean | null
+          referrer?: string | null
+          screen_height?: number | null
+          screen_width?: number | null
+          session_id: string
+          started_at?: string | null
+          utm_campaign?: string | null
+          utm_content?: string | null
+          utm_medium?: string | null
+          utm_source?: string | null
+          utm_term?: string | null
+          visitor_id?: string | null
+        }
+        Update: {
+          browser?: string | null
+          device_type?: string | null
+          duration_seconds?: number | null
+          ended_at?: string | null
+          entry_page?: string | null
+          exit_page?: string | null
+          id?: string
+          is_bounce?: boolean | null
+          is_repeat_visitor?: boolean | null
+          referrer?: string | null
+          screen_height?: number | null
+          screen_width?: number | null
+          session_id?: string
+          started_at?: string | null
+          utm_campaign?: string | null
+          utm_content?: string | null
+          utm_medium?: string | null
+          utm_source?: string | null
+          utm_term?: string | null
+          visitor_id?: string | null
+        }
+        Relationships: []
+      }
+      analytics_traffic_sources: {
+        Row: {
+          campaign: string | null
+          id: string
+          medium: string | null
+          referrer_domain: string | null
+          referrer_url: string | null
+          session_id: string | null
+          source: string
+          timestamp: string | null
+        }
+        Insert: {
+          campaign?: string | null
+          id?: string
+          medium?: string | null
+          referrer_domain?: string | null
+          referrer_url?: string | null
+          session_id?: string | null
+          source: string
+          timestamp?: string | null
+        }
+        Update: {
+          campaign?: string | null
+          id?: string
+          medium?: string | null
+          referrer_domain?: string | null
+          referrer_url?: string | null
+          session_id?: string | null
+          source?: string
+          timestamp?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "analytics_traffic_sources_session_id_fkey"
+            columns: ["session_id"]
+            isOneToOne: false
+            referencedRelation: "analytics_sessions"
+            referencedColumns: ["session_id"]
+          },
+        ]
+      }
       chat_conversations: {
         Row: {
           created_at: string | null
@@ -144,15 +422,50 @@ export type Database = {
           },
         ]
       }
+      user_roles: {
+        Row: {
+          created_at: string | null
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_roles_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "admin_users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "admin" | "moderator" | "user"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -279,6 +592,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["admin", "moderator", "user"],
+    },
   },
 } as const
