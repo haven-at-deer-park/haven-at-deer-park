@@ -27,17 +27,24 @@ export const HavenConcierge = () => {
   const scrollAreaRef = useRef<HTMLDivElement>(null);
   const { toast } = useToast();
 
-  // Dragging state
+  // Dragging state - default to bottom right
   const [position, setPosition] = useState<Position>(() => {
+    // Clear old position to use new default (remove this after first load)
+    const forceReset = localStorage.getItem('haven_concierge_version') !== 'v2';
+    if (forceReset) {
+      localStorage.removeItem('haven_concierge_position');
+      localStorage.setItem('haven_concierge_version', 'v2');
+    }
+    
     const saved = localStorage.getItem('haven_concierge_position');
     if (saved) {
       try {
         return JSON.parse(saved);
       } catch {
-        return { x: 24, y: 128 };
+        return { x: window.innerWidth - 280, y: window.innerHeight - 100 };
       }
     }
-    return { x: 24, y: 128 };
+    return { x: window.innerWidth - 280, y: window.innerHeight - 100 };
   });
   const [isDragging, setIsDragging] = useState(false);
   const [dragOffset, setDragOffset] = useState<Position>({ x: 0, y: 0 });
