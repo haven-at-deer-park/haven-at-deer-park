@@ -48,7 +48,9 @@ export type Database = {
           id: string
           metadata: Json | null
           page_path: string | null
+          page_title: string | null
           session_id: string | null
+          session_id_uuid: string | null
           timestamp: string | null
           visitor_id: string | null
         }
@@ -61,7 +63,9 @@ export type Database = {
           id?: string
           metadata?: Json | null
           page_path?: string | null
+          page_title?: string | null
           session_id?: string | null
+          session_id_uuid?: string | null
           timestamp?: string | null
           visitor_id?: string | null
         }
@@ -74,19 +78,13 @@ export type Database = {
           id?: string
           metadata?: Json | null
           page_path?: string | null
+          page_title?: string | null
           session_id?: string | null
+          session_id_uuid?: string | null
           timestamp?: string | null
           visitor_id?: string | null
         }
-        Relationships: [
-          {
-            foreignKeyName: "analytics_events_session_id_fkey"
-            columns: ["session_id"]
-            isOneToOne: false
-            referencedRelation: "analytics_sessions"
-            referencedColumns: ["session_id"]
-          },
-        ]
+        Relationships: []
       }
       analytics_outbound_clicks: {
         Row: {
@@ -188,6 +186,8 @@ export type Database = {
       analytics_sessions: {
         Row: {
           browser: string | null
+          created_at: string | null
+          device: string | null
           device_type: string | null
           duration_seconds: number | null
           ended_at: string | null
@@ -211,6 +211,8 @@ export type Database = {
         }
         Insert: {
           browser?: string | null
+          created_at?: string | null
+          device?: string | null
           device_type?: string | null
           duration_seconds?: number | null
           ended_at?: string | null
@@ -234,6 +236,8 @@ export type Database = {
         }
         Update: {
           browser?: string | null
+          created_at?: string | null
+          device?: string | null
           device_type?: string | null
           duration_seconds?: number | null
           ended_at?: string | null
