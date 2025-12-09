@@ -63,8 +63,8 @@ serve(async (req) => {
       const { count: pageviewCount } = await supabase
         .from('analytics_pageviews')
         .select('*', { count: 'exact', head: true })
-        .gte('timestamp', startDate)
-        .lte('timestamp', endDate);
+        .gte('viewed_at', startDate)
+        .lte('viewed_at', endDate);
 
       // Get total Airbnb clicks
       const { count: airbnbClicks } = await supabase
@@ -146,14 +146,14 @@ serve(async (req) => {
     if (action === 'top-pages') {
       const { data, error } = await supabase
         .from('analytics_pageviews')
-        .select('page_path')
-        .gte('timestamp', startDate)
-        .lte('timestamp', endDate);
+        .select('path')
+        .gte('viewed_at', startDate)
+        .lte('viewed_at', endDate);
 
       if (error) throw error;
 
       const grouped = (data || []).reduce((acc: Record<string, number>, item) => {
-        acc[item.page_path] = (acc[item.page_path] || 0) + 1;
+        acc[item.path] = (acc[item.path] || 0) + 1;
         return acc;
       }, {});
 
@@ -311,9 +311,9 @@ serve(async (req) => {
       // Get engaged visitors (more than 1 pageview or scroll > 50%)
       const { data: pageviews } = await supabase
         .from('analytics_pageviews')
-        .select('session_id, scroll_depth_percent')
-        .gte('timestamp', startDate)
-        .lte('timestamp', endDate);
+        .select('session_id, scroll_depth')
+        .gte('viewed_at', startDate)
+        .lte('viewed_at', endDate);
 
       const sessionPageviews = (pageviews || []).reduce((acc: Record<string, number>, pv) => {
         acc[pv.session_id] = (acc[pv.session_id] || 0) + 1;
