@@ -144,32 +144,35 @@ export type Database = {
       analytics_pageviews: {
         Row: {
           id: string
-          page_path: string
-          page_title: string | null
-          scroll_depth_percent: number | null
+          load_time_ms: number | null
+          path: string
+          scroll_depth: number | null
           session_id: string | null
-          time_on_page_seconds: number | null
-          timestamp: string | null
+          time_on_page_ms: number | null
+          title: string | null
+          viewed_at: string | null
           visitor_id: string | null
         }
         Insert: {
           id?: string
-          page_path: string
-          page_title?: string | null
-          scroll_depth_percent?: number | null
+          load_time_ms?: number | null
+          path: string
+          scroll_depth?: number | null
           session_id?: string | null
-          time_on_page_seconds?: number | null
-          timestamp?: string | null
+          time_on_page_ms?: number | null
+          title?: string | null
+          viewed_at?: string | null
           visitor_id?: string | null
         }
         Update: {
           id?: string
-          page_path?: string
-          page_title?: string | null
-          scroll_depth_percent?: number | null
+          load_time_ms?: number | null
+          path?: string
+          scroll_depth?: number | null
           session_id?: string | null
-          time_on_page_seconds?: number | null
-          timestamp?: string | null
+          time_on_page_ms?: number | null
+          title?: string | null
+          viewed_at?: string | null
           visitor_id?: string | null
         }
         Relationships: [
@@ -193,6 +196,7 @@ export type Database = {
           id: string
           is_bounce: boolean | null
           is_repeat_visitor: boolean | null
+          os: string | null
           referrer: string | null
           screen_height: number | null
           screen_width: number | null
@@ -215,6 +219,7 @@ export type Database = {
           id?: string
           is_bounce?: boolean | null
           is_repeat_visitor?: boolean | null
+          os?: string | null
           referrer?: string | null
           screen_height?: number | null
           screen_width?: number | null
@@ -237,6 +242,7 @@ export type Database = {
           id?: string
           is_bounce?: boolean | null
           is_repeat_visitor?: boolean | null
+          os?: string | null
           referrer?: string | null
           screen_height?: number | null
           screen_width?: number | null
