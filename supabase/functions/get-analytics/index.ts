@@ -65,11 +65,18 @@ serve(async (req) => {
     const uniqueVisitors = uniqueVisitorIds.size;
     const totalPageViews = allPageViews.length;
 
-    // Group by visitor for bounce rate calculation
+    // Group by visitor OR session_id (fallback) for bounce rate calculation
     const visitorPageCounts: Record<string, number> = {};
+    const visitorEvents: Record<string, any[]> = {};
+    
     for (const pv of allPageViews) {
-      if (pv.visitor_id) {
-        visitorPageCounts[pv.visitor_id] = (visitorPageCounts[pv.visitor_id] || 0) + 1;
+      const visitorId = pv.visitor_id || pv.session_id;
+      if (visitorId) {
+        visitorPageCounts[visitorId] = (visitorPageCounts[visitorId] || 0) + 1;
+        if (!visitorEvents[visitorId]) {
+          visitorEvents[visitorId] = [];
+        }
+        visitorEvents[visitorId].push(pv);
       }
     }
 
@@ -77,21 +84,58 @@ serve(async (req) => {
     const bounces = Object.values(visitorPageCounts).filter(count => count === 1).length;
     const bounceRate = uniqueVisitors > 0 ? (bounces / uniqueVisitors) * 100 : 0;
 
-    // Average duration from sessions or time_on_page
-    let avgDuration = 0;
-    const sessionsWithDuration = (sessions || []).filter(s => s.started_at && s.ended_at);
+    // Calculate duration from event timestamps per visitor/session
+    let totalDuration = 0;
+    let sessionsWithDuration = 0;
+    const visitorIds = Object.keys(visitorEvents);
     
-    if (sessionsWithDuration.length > 0) {
-      const totalDuration = sessionsWithDuration.reduce((sum, s) => {
-        const duration = (new Date(s.ended_at).getTime() - new Date(s.started_at).getTime()) / 1000;
-        return sum + (duration > 0 && duration < 7200 ? duration : 0);
-      }, 0);
-      avgDuration = totalDuration / sessionsWithDuration.length;
+    console.log(`Processing ${visitorIds.length} unique visitors/sessions`);
+
+    for (const visitorId of visitorIds) {
+      const events = visitorEvents[visitorId];
+      
+      // Get timestamps from multiple possible field names
+      const timestamps = events
+        .map((e: any) => {
+          const ts = e.created_at || e.viewed_at || e.timestamp;
+          if (!ts) return null;
+          const time = new Date(ts).getTime();
+          return isNaN(time) ? null : time;
+        })
+        .filter((t): t is number => t !== null)
+        .sort((a, b) => a - b);
+
+      // Only calculate duration when there are at least 2 valid timestamps
+      if (timestamps.length >= 2) {
+        const duration = (timestamps[timestamps.length - 1] - timestamps[0]) / 1000;
+        if (duration > 0 && duration < 7200) {
+          totalDuration += duration;
+          sessionsWithDuration++;
+        }
+      }
+    }
+
+    console.log(`Duration calculation: ${sessionsWithDuration} sessions with duration, total: ${totalDuration}s`);
+
+    // Average duration: prefer calculated from events, fallback to sessions table
+    let avgDuration = 0;
+    if (sessionsWithDuration > 0) {
+      avgDuration = totalDuration / sessionsWithDuration;
     } else {
-      // Fallback: use time_on_page_ms from pageviews
-      const timeOnPages = allPageViews.filter(p => p.time_on_page && p.time_on_page > 0);
-      if (timeOnPages.length > 0) {
-        avgDuration = timeOnPages.reduce((sum, p) => sum + (p.time_on_page / 1000), 0) / timeOnPages.length;
+      // Fallback: try sessions table with started_at/ended_at
+      const sessionsWithTimes = (sessions || []).filter(s => s.started_at && s.ended_at);
+      if (sessionsWithTimes.length > 0) {
+        const sessionTotal = sessionsWithTimes.reduce((sum, s) => {
+          const duration = (new Date(s.ended_at).getTime() - new Date(s.started_at).getTime()) / 1000;
+          return sum + (duration > 0 && duration < 7200 ? duration : 0);
+        }, 0);
+        avgDuration = sessionTotal / sessionsWithTimes.length;
+      } else {
+        // Final fallback: use time_on_page_ms from pageviews
+        const timeOnPages = allPageViews.filter(p => p.time_on_page && p.time_on_page > 0);
+        if (timeOnPages.length > 0) {
+          avgDuration = timeOnPages.reduce((sum, p) => sum + (p.time_on_page / 1000), 0) / timeOnPages.length;
+        }
       }
     }
 
