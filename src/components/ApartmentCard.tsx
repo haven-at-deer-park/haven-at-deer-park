@@ -5,6 +5,7 @@ import { Users, Maximize, MapPin, Bath, Coffee, Wifi } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { trackAirbnbClick, getSuiteFromUrl, type AirbnbSuite } from "@/hooks/useAnalytics";
 
 export interface ApartmentProps {
   id: string;
@@ -31,6 +32,18 @@ export default function ApartmentCard({ apartment }: { apartment: ApartmentProps
   const translatedDescription = language !== 'en' && t.apartmentDescriptions[apartment.id]?.description 
     ? t.apartmentDescriptions[apartment.id].description 
     : apartment.description;
+
+  const handleCardClick = () => {
+    if (apartment.externalLink) {
+      const suite = getSuiteFromUrl(apartment.externalLink);
+      trackAirbnbClick({
+        linkUrl: apartment.externalLink,
+        linkLocation: 'apartment_card',
+        suite,
+        linkLabel: `${translatedName} - ${t.apartments.filters.viewDetails}`,
+      });
+    }
+  };
   
   return (
     <div 
@@ -98,7 +111,14 @@ export default function ApartmentCard({ apartment }: { apartment: ApartmentProps
           </div>
           {apartment.externalLink ? (
             <Button asChild className="btn-primary">
-              <a href={apartment.externalLink} target="_blank" rel="noopener noreferrer">
+              <a 
+                href={apartment.externalLink} 
+                target="_blank" 
+                rel="noopener noreferrer"
+                onClick={handleCardClick}
+                data-analytics-location="apartment_card"
+                data-suite={getSuiteFromUrl(apartment.externalLink)}
+              >
                 {t.apartments.filters.viewDetails}
               </a>
             </Button>

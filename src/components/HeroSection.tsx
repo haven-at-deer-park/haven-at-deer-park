@@ -5,6 +5,7 @@ import { ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { trackAirbnbClick } from "@/hooks/useAnalytics";
 
 export default function HeroSection() {
   const { t } = useLanguage();
@@ -22,6 +23,15 @@ export default function HeroSection() {
   // Calculate parallax effect
   const backgroundY = scrollY * 0.5;
   const contentY = scrollY * 0.2;
+
+  const handleHeroClick = () => {
+    trackAirbnbClick({
+      linkUrl: 'https://www.airbnb.com/l/ZiLcS9MN',
+      linkLocation: 'hero_cta',
+      suite: 'entire_place',
+      linkLabel: t.hero.bookStay,
+    });
+  };
   
   return (
     <section className="relative h-screen overflow-hidden">
@@ -55,7 +65,16 @@ export default function HeroSection() {
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Button asChild size="lg" variant="heroSolid" className="min-w-[200px] rounded-full transform transition-all duration-300 hover:translate-y-[-2px]">
-              <a href="https://www.airbnb.com/l/ZiLcS9MN" target="_blank" rel="noopener noreferrer">{t.hero.bookStay}</a>
+              <a 
+                href="https://www.airbnb.com/l/ZiLcS9MN" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                onClick={handleHeroClick}
+                data-analytics-location="hero_cta"
+                data-suite="entire_place"
+              >
+                {t.hero.bookStay}
+              </a>
             </Button>
           </div>
         </div>

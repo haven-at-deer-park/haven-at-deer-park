@@ -18,6 +18,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { trackAirbnbClick } from "@/hooks/useAnalytics";
 
 export default function BookingForm() {
   const { t } = useLanguage();
@@ -35,6 +36,15 @@ export default function BookingForm() {
     setTimeout(() => {
       setSubmitted(false);
     }, 3000);
+  };
+
+  const handleBookingClick = () => {
+    trackAirbnbClick({
+      linkUrl: 'https://www.airbnb.com/l/ZiLcS9MN',
+      linkLocation: 'booking_form',
+      suite: 'entire_place',
+      linkLabel: t.bookingForm.checkAvailability,
+    });
   };
 
   return (
@@ -153,7 +163,14 @@ export default function BookingForm() {
       </div>
       
       <Button asChild className="w-full btn-primary relative">
-        <a href="https://www.airbnb.com/l/ZiLcS9MN" target="_blank" rel="noopener noreferrer">
+        <a 
+          href="https://www.airbnb.com/l/ZiLcS9MN" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          onClick={handleBookingClick}
+          data-analytics-location="booking_form"
+          data-suite="entire_place"
+        >
           <Users className="mr-2 h-4 w-4" />
           {t.bookingForm.checkAvailability}
         </a>

@@ -7,6 +7,7 @@ import ThemeToggle from "./ThemeToggle";
 import LanguageSelector from "./LanguageSelector";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { trackAirbnbClick } from "@/hooks/useAnalytics";
 
 export default function Navbar() {
   const { t } = useLanguage();
@@ -30,6 +31,15 @@ export default function Navbar() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, [scrolled]);
+
+  const handleBookNowClick = (location: 'header_book_now' | 'mobile_menu') => {
+    trackAirbnbClick({
+      linkUrl: 'https://www.airbnb.com/l/ZiLcS9MN',
+      linkLocation: location,
+      suite: 'entire_place',
+      linkLabel: t.nav.bookNow,
+    });
+  };
   
   return <header className="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-white/80 dark:bg-card/80 backdrop-blur-lg py-3 shadow-md">
       <nav className="container flex justify-between items-center">
@@ -49,7 +59,16 @@ export default function Navbar() {
         <div className="hidden md:flex items-center space-x-2">
           <ThemeToggle />
           <Button asChild className="btn-primary">
-            <a href="https://www.airbnb.com/l/ZiLcS9MN" target="_blank" rel="noopener noreferrer">{t.nav.bookNow}</a>
+            <a 
+              href="https://www.airbnb.com/l/ZiLcS9MN" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              onClick={() => handleBookNowClick('header_book_now')}
+              data-analytics-location="header_book_now"
+              data-suite="entire_place"
+            >
+              {t.nav.bookNow}
+            </a>
           </Button>
         </div>
 
@@ -83,7 +102,17 @@ export default function Navbar() {
             </div>
             
             <Button asChild className="w-full btn-primary mt-6">
-              <a href="https://www.airbnb.com/l/ZiLcS9MN" target="_blank" rel="noopener noreferrer" onClick={() => setMobileMenuOpen(false)}>
+              <a 
+                href="https://www.airbnb.com/l/ZiLcS9MN" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                onClick={() => {
+                  handleBookNowClick('mobile_menu');
+                  setMobileMenuOpen(false);
+                }}
+                data-analytics-location="mobile_menu"
+                data-suite="entire_place"
+              >
                 {t.nav.bookNow}
               </a>
             </Button>
