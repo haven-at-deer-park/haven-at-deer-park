@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { ArrowRight, Wifi, Utensils, Waves, LifeBuoy, MapPin, Coffee } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { trackAirbnbClick } from "@/hooks/useAnalytics";
 
 // Sample apartments data
 const featuredApartments: ApartmentProps[] = [
@@ -57,6 +58,24 @@ export default function Index() {
     // Scroll to top when component mounts
     window.scrollTo(0, 0);
   }, []);
+
+  const handleWelcomeClick = () => {
+    trackAirbnbClick({
+      linkUrl: 'https://www.airbnb.com/l/ZiLcS9MN',
+      linkLocation: 'welcome_learn_more',
+      suite: 'entire_place',
+      linkLabel: t.home.welcome.learnMore,
+    });
+  };
+
+  const handleBottomCtaClick = () => {
+    trackAirbnbClick({
+      linkUrl: 'https://www.airbnb.com/l/ZiLcS9MN',
+      linkLocation: 'bottom_cta',
+      suite: 'entire_place',
+      linkLabel: t.home.cta.bookNow,
+    });
+  };
   
   // Feature items
   const features = [
@@ -118,7 +137,14 @@ export default function Index() {
                   {t.home.welcome.description2}
                 </p>
                 <Button asChild className="btn-primary">
-                  <a href="https://www.airbnb.com/l/ZiLcS9MN" target="_blank" rel="noopener noreferrer">
+                  <a 
+                    href="https://www.airbnb.com/l/ZiLcS9MN" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    onClick={handleWelcomeClick}
+                    data-analytics-location="welcome_learn_more"
+                    data-suite="entire_place"
+                  >
                     {t.home.welcome.learnMore} <ArrowRight className="ml-2 h-4 w-4" />
                   </a>
                 </Button>
@@ -260,7 +286,16 @@ export default function Index() {
                 {t.home.cta.description}
               </p>
               <Button asChild size="lg" className="btn-primary">
-                <a href="https://www.airbnb.com/l/ZiLcS9MN" target="_blank" rel="noopener noreferrer">{t.home.cta.bookNow}</a>
+                <a 
+                  href="https://www.airbnb.com/l/ZiLcS9MN" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  onClick={handleBottomCtaClick}
+                  data-analytics-location="bottom_cta"
+                  data-suite="entire_place"
+                >
+                  {t.home.cta.bookNow}
+                </a>
               </Button>
             </div>
           </div>
