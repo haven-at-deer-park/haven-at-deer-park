@@ -14,7 +14,6 @@ import AdminDashboard from "./pages/AdminDashboard";
 import { LanguageProvider } from "@/contexts/LanguageContext";
 import { HavenConcierge } from "@/components/HavenConcierge";
 import { AnalyticsProvider } from "@/components/AnalyticsProvider";
-import { AnalyticsTracker } from "@/components/AnalyticsTracker";
 
 // Create a react-query client
 const queryClient = new QueryClient();
@@ -25,7 +24,6 @@ const App = () => (
       <BrowserRouter>
         <LanguageProvider>
           <AnalyticsProvider>
-            <AnalyticsTracker />
             <Toaster />
             <Sonner />
             <HavenConcierge />
