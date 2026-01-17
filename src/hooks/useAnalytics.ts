@@ -11,8 +11,9 @@ const ATTRIBUTION_KEY = 'haven_session_attribution';
 const INTERNAL_FLAG_KEY = 'haven_internal_flag';
 const SESSION_TIMEOUT_MS = 30 * 60 * 1000; // 30 minutes
 
-// Get or create stable visitor ID (persisted in localStorage)
-const getVisitorId = (): string => {
+// Initialize visitor ID immediately on module load
+const initVisitorId = (): string => {
+  if (typeof window === 'undefined') return '';
   let visitorId = localStorage.getItem(VISITOR_ID_KEY);
   if (!visitorId) {
     visitorId = crypto.randomUUID();
@@ -21,8 +22,9 @@ const getVisitorId = (): string => {
   return visitorId;
 };
 
-// Get or create session ID (persisted in sessionStorage with timeout check)
-const getSessionId = (): string => {
+// Initialize session ID immediately on module load
+const initSessionId = (): string => {
+  if (typeof window === 'undefined') return '';
   const storedSessionId = sessionStorage.getItem(SESSION_ID_KEY);
   const sessionStart = sessionStorage.getItem(SESSION_START_KEY);
   const now = Date.now();
@@ -44,6 +46,20 @@ const getSessionId = (): string => {
   return newSessionId;
 };
 
+// Initialize immediately so click tracking works
+const CURRENT_VISITOR_ID = initVisitorId();
+const CURRENT_SESSION_ID = initSessionId();
+
+// Get current session ID (for external use)
+export const getSessionId = (): string => {
+  return sessionStorage.getItem(SESSION_ID_KEY) || CURRENT_SESSION_ID;
+};
+
+// Get current visitor ID (for external use)
+export const getVisitorId = (): string => {
+  return localStorage.getItem(VISITOR_ID_KEY) || CURRENT_VISITOR_ID;
+};
+
 // Refresh session timestamp on activity
 const refreshSessionActivity = () => {
   sessionStorage.setItem(SESSION_START_KEY, Date.now().toString());
@@ -51,7 +67,8 @@ const refreshSessionActivity = () => {
 
 // ============== DEVICE & BROWSER DETECTION ==============
 
-const getDeviceType = (): string => {
+export const getDeviceType = (): string => {
+  if (typeof window === 'undefined') return 'desktop';
   const ua = navigator.userAgent.toLowerCase();
   if (/tablet|ipad|playbook|silk/i.test(ua) || 
       (window.innerWidth >= 768 && window.innerWidth < 1024 && 'ontouchstart' in window)) {
@@ -250,11 +267,14 @@ export function useAnalytics() {
 
   // Track page view with deduplication
   const trackPageView = useCallback(async () => {
-    if (isBotVisitor) return;
+    if (isBotVisitor) {
+      console.log('[Analytics] Bot detected, skipping pageview');
+      return;
+    }
     
     const path = location.pathname;
     
-    // Prevent duplicate pageview for same path
+    // Prevent duplicate pageview for same path on same render
     if (lastTrackedPath.current === path) {
       console.log('[Analytics] Same path, skipping:', path);
       return;
@@ -272,18 +292,27 @@ export function useAnalytics() {
 
     // Mark as not bounce after first page
     if (pageCount.current > 1) {
-      await supabase
+      supabase
         .from('analytics_sessions')
         .update({ is_bounce: false })
-        .eq('session_id', sessionId);
+        .eq('session_id', sessionId)
+        .then(({ error }) => {
+          if (error) console.error('[Analytics] Failed to update bounce status:', error);
+        });
     }
 
     try {
-      const loadTime = performance.timing 
-        ? performance.timing.domContentLoadedEventEnd - performance.timing.navigationStart 
-        : 0;
+      // Use PerformanceNavigationTiming API (modern) with fallback
+      let loadTime = 0;
+      const navEntries = performance.getEntriesByType('navigation');
+      if (navEntries.length > 0) {
+        const navTiming = navEntries[0] as PerformanceNavigationTiming;
+        loadTime = Math.round(navTiming.domContentLoadedEventEnd - navTiming.startTime);
+      }
 
-      const { data } = await supabase
+      console.log('[Analytics] Tracking pageview:', { path, sessionId, visitorId });
+
+      const { data, error } = await supabase
         .from('analytics_pageviews')
         .insert({
           session_id: sessionId,
@@ -295,9 +324,11 @@ export function useAnalytics() {
         .select('id')
         .single();
 
-      if (data) {
+      if (error) {
+        console.error('[Analytics] Pageview insert error:', error);
+      } else if (data) {
         pageViewId.current = data.id;
-        console.log('[Analytics] Pageview tracked:', path);
+        console.log('[Analytics] Pageview tracked:', path, data.id);
       }
     } catch (error) {
       console.error('[Analytics] Failed to track pageview:', error);
@@ -311,13 +342,17 @@ export function useAnalytics() {
     const timeOnPage = Date.now() - pageLoadTime.current;
 
     try {
-      await supabase
+      const { error } = await supabase
         .from('analytics_pageviews')
         .update({
           time_on_page_ms: timeOnPage,
           scroll_depth: maxScrollDepth.current,
         })
         .eq('id', pageViewId.current);
+      
+      if (error) {
+        console.error('[Analytics] Failed to update pageview:', error);
+      }
     } catch (error) {
       console.error('[Analytics] Failed to update pageview:', error);
     }
@@ -437,10 +472,14 @@ export const trackAirbnbClick = async ({
   suite,
   linkLabel,
 }: TrackAirbnbClickParams) => {
-  const sessionId = sessionStorage.getItem(SESSION_ID_KEY);
-  const visitorId = localStorage.getItem(VISITOR_ID_KEY);
+  // Use exported getters to ensure we get initialized values
+  const sessionId = getSessionId();
+  const visitorId = getVisitorId();
   
-  if (!sessionId) return;
+  if (!sessionId) {
+    console.warn('[Analytics] No session ID available for click tracking');
+    return;
+  }
 
   // Dedupe check
   const dedupeKey = `${sessionId}-${linkLocation}-${linkUrl}`;
@@ -457,7 +496,7 @@ export const trackAirbnbClick = async ({
   const attribution = getAttribution();
 
   try {
-    await supabase.from('analytics_outbound_clicks').insert({
+    const insertData = {
       session_id: sessionId,
       visitor_id: visitorId,
       destination_url: linkUrl,
@@ -466,11 +505,19 @@ export const trackAirbnbClick = async ({
       button_id: linkLocation,
       button_class: suite,
       device_type: getDeviceType(),
-      utm_source: attribution?.utm_source,
-      utm_campaign: attribution?.utm_campaign,
-    });
+      utm_source: attribution?.utm_source || null,
+      utm_campaign: attribution?.utm_campaign || null,
+    };
     
-    console.log('[Analytics] Airbnb click tracked:', { linkLocation, suite, linkUrl });
+    console.log('[Analytics] Inserting Airbnb click:', insertData);
+    
+    const { error } = await supabase.from('analytics_outbound_clicks').insert(insertData);
+    
+    if (error) {
+      console.error('[Analytics] Supabase insert error:', error);
+    } else {
+      console.log('[Analytics] Airbnb click tracked successfully:', { linkLocation, suite, linkUrl });
+    }
   } catch (error) {
     console.error('[Analytics] Failed to track Airbnb click:', error);
   }
