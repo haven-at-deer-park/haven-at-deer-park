@@ -190,38 +190,43 @@ const shouldTrackPageview = (path: string): boolean => {
 export function useAnalytics() {
   const location = useLocation();
   const sessionInitialized = useRef(false);
+  const sessionReady = useRef(false);
   const pageViewId = useRef<string | null>(null);
   const pageLoadTime = useRef<number>(Date.now());
   const maxScrollDepth = useRef(0);
   const pageCount = useRef(0);
   const heartbeatInterval = useRef<NodeJS.Timeout | null>(null);
   const lastTrackedPath = useRef<string | null>(null);
+  const pendingPageViews = useRef<string[]>([]);
 
   const visitorId = getVisitorId();
   const sessionId = getSessionId();
   const isBotVisitor = isBot();
   const isInternalVisitor = checkInternalTraffic();
 
-  // Initialize session (once per session)
+  // Initialize session (once per session) - must complete before pageviews
   const initSession = useCallback(async () => {
-    if (sessionInitialized.current) return;
-    if (sessionCreated[sessionId]) return;
+    if (sessionInitialized.current) {
+      return sessionReady.current;
+    }
+    if (sessionCreated[sessionId]) {
+      sessionReady.current = true;
+      return true;
+    }
     if (isBotVisitor) {
       console.log('[Analytics] Bot detected, skipping session init');
-      return;
+      return false;
     }
     
     sessionInitialized.current = true;
-    sessionCreated[sessionId] = true;
 
     const attribution = captureAttribution();
     
-    // Check if visitor is repeat (has previous sessions)
-    const storedVisitorId = localStorage.getItem(VISITOR_ID_KEY);
-    const isRepeat = storedVisitorId && storedVisitorId === visitorId;
+    // Check if visitor is repeat
+    const isRepeat = localStorage.getItem(VISITOR_ID_KEY) === visitorId;
 
     try {
-      await supabase.from('analytics_sessions').insert({
+      const { error } = await supabase.from('analytics_sessions').insert({
         visitor_id: visitorId,
         session_id: sessionId,
         device_type: getDeviceType(),
@@ -230,7 +235,7 @@ export function useAnalytics() {
         screen_width: window.screen.width,
         screen_height: window.screen.height,
         referrer: attribution.initial_referrer,
-        entry_page: attribution.landing_page,
+        entry_page: attribution.landing_page || window.location.pathname,
         utm_source: attribution.utm_source,
         utm_medium: attribution.utm_medium,
         utm_campaign: attribution.utm_campaign,
@@ -240,9 +245,17 @@ export function useAnalytics() {
         is_repeat_visitor: isRepeat,
       });
 
+      if (error) {
+        console.error('[Analytics] Session insert error:', error);
+        return false;
+      }
+
+      sessionCreated[sessionId] = true;
+      sessionReady.current = true;
+
       // Track traffic source
       const source = attribution.utm_source || 
-        (attribution.initial_referrer ? new URL(attribution.initial_referrer).hostname : 'direct');
+        (attribution.initial_referrer ? (() => { try { return new URL(attribution.initial_referrer).hostname; } catch { return 'direct'; } })() : 'direct');
       
       await supabase.from('analytics_traffic_sources').insert({
         session_id: sessionId,
@@ -251,7 +264,7 @@ export function useAnalytics() {
         campaign: attribution.utm_campaign,
         referrer_url: attribution.initial_referrer,
         referrer_domain: attribution.initial_referrer 
-          ? new URL(attribution.initial_referrer).hostname 
+          ? (() => { try { return new URL(attribution.initial_referrer).hostname; } catch { return null; } })() 
           : null,
       });
 
@@ -260,12 +273,56 @@ export function useAnalytics() {
         isInternal: isInternalVisitor,
         source 
       });
+
+      // Process any pending pageviews
+      for (const pendingPath of pendingPageViews.current) {
+        await trackPageViewInternal(pendingPath);
+      }
+      pendingPageViews.current = [];
+
+      return true;
     } catch (error) {
       console.error('[Analytics] Failed to init session:', error);
+      return false;
     }
   }, [visitorId, sessionId, isBotVisitor, isInternalVisitor]);
 
-  // Track page view with deduplication
+  // Internal pageview tracking (assumes session is ready)
+  const trackPageViewInternal = async (path: string) => {
+    try {
+      let loadTime = 0;
+      const navEntries = performance.getEntriesByType('navigation');
+      if (navEntries.length > 0) {
+        const navTiming = navEntries[0] as PerformanceNavigationTiming;
+        loadTime = Math.round(navTiming.domContentLoadedEventEnd - navTiming.startTime);
+      }
+
+      console.log('[Analytics] Inserting pageview:', { path, sessionId, visitorId });
+
+      const { data, error } = await supabase
+        .from('analytics_pageviews')
+        .insert({
+          session_id: sessionId,
+          visitor_id: visitorId,
+          path,
+          title: document.title,
+          load_time_ms: loadTime > 0 ? loadTime : null,
+        })
+        .select('id')
+        .single();
+
+      if (error) {
+        console.error('[Analytics] Pageview insert error:', error);
+      } else if (data) {
+        pageViewId.current = data.id;
+        console.log('[Analytics] Pageview tracked:', path, data.id);
+      }
+    } catch (error) {
+      console.error('[Analytics] Failed to track pageview:', error);
+    }
+  };
+
+  // Track page view with deduplication - waits for session to be ready
   const trackPageView = useCallback(async () => {
     if (isBotVisitor) {
       console.log('[Analytics] Bot detected, skipping pageview');
@@ -290,6 +347,13 @@ export function useAnalytics() {
     // Refresh session activity
     refreshSessionActivity();
 
+    // If session isn't ready yet, queue the pageview and let initSession handle it
+    if (!sessionReady.current) {
+      console.log('[Analytics] Session not ready, queuing pageview:', path);
+      pendingPageViews.current.push(path);
+      return;
+    }
+
     // Mark as not bounce after first page
     if (pageCount.current > 1) {
       supabase
@@ -301,38 +365,7 @@ export function useAnalytics() {
         });
     }
 
-    try {
-      // Use PerformanceNavigationTiming API (modern) with fallback
-      let loadTime = 0;
-      const navEntries = performance.getEntriesByType('navigation');
-      if (navEntries.length > 0) {
-        const navTiming = navEntries[0] as PerformanceNavigationTiming;
-        loadTime = Math.round(navTiming.domContentLoadedEventEnd - navTiming.startTime);
-      }
-
-      console.log('[Analytics] Tracking pageview:', { path, sessionId, visitorId });
-
-      const { data, error } = await supabase
-        .from('analytics_pageviews')
-        .insert({
-          session_id: sessionId,
-          visitor_id: visitorId,
-          path,
-          title: document.title,
-          load_time_ms: loadTime > 0 ? loadTime : null,
-        })
-        .select('id')
-        .single();
-
-      if (error) {
-        console.error('[Analytics] Pageview insert error:', error);
-      } else if (data) {
-        pageViewId.current = data.id;
-        console.log('[Analytics] Pageview tracked:', path, data.id);
-      }
-    } catch (error) {
-      console.error('[Analytics] Failed to track pageview:', error);
-    }
+    await trackPageViewInternal(path);
   }, [location.pathname, sessionId, visitorId, isBotVisitor]);
 
   // Update page view on leave
@@ -391,9 +424,17 @@ export function useAnalytics() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Initialize session on mount
+  // Initialize session on mount and then track first pageview
   useEffect(() => {
-    initSession();
+    const init = async () => {
+      const sessionReady = await initSession();
+      if (sessionReady) {
+        // Track initial pageview after session is ready
+        trackPageView();
+      }
+    };
+    
+    init();
 
     // Start heartbeat every 30 seconds
     heartbeatInterval.current = setInterval(updateSessionHeartbeat, 30000);
@@ -405,10 +446,13 @@ export function useAnalytics() {
       updatePageView();
       updateSessionHeartbeat();
     };
-  }, [initSession, updateSessionHeartbeat, updatePageView]);
+  }, [initSession, updateSessionHeartbeat, updatePageView, trackPageView]);
 
-  // Track page views on route change
+  // Track page views on route change (after initial load)
   useEffect(() => {
+    // Skip initial mount - handled by initSession effect
+    if (!sessionReady.current) return;
+    
     // Update previous page view before tracking new one
     if (pageViewId.current) {
       updatePageView();
