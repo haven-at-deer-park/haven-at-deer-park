@@ -44,14 +44,22 @@ serve(async (req) => {
       // Get all sessions in date range
       const { data: sessions } = await supabase
         .from('analytics_sessions')
-        .select('visitor_id, session_id, is_bounce, duration_seconds, is_repeat_visitor, started_at, ended_at, device_type, browser')
+        .select('visitor_id, session_id, is_bounce, duration_seconds, is_repeat_visitor, started_at, ended_at, device_type, browser, referrer')
         .gte('started_at', startDate)
         .lte('started_at', endDate + 'T23:59:59.999Z');
 
-      // Filter out likely bots (sessions with no device_type or unknown browser patterns)
-      const validSessions = (sessions || []).filter(s => s.device_type && s.browser !== 'Unknown');
+      // Filter out likely bots and internal traffic
+      // Bots typically: no device_type, unknown browser, or come from lovableproject.com referrer during dev
+      const validSessions = (sessions || []).filter(s => {
+        if (!s.device_type) return false;
+        if (s.browser === 'Unknown') return false;
+        // Filter out preview/dev traffic
+        if (s.referrer?.includes('lovableproject.com')) return false;
+        if (s.referrer?.includes('lovable.dev')) return false;
+        return true;
+      });
       
-      // Calculate unique visitors (by visitor_id, not session count)
+      // Count unique visitors (by visitor_id) - this is the primary metric like Lovable
       const uniqueVisitors = new Set(validSessions.map(s => s.visitor_id).filter(Boolean)).size;
       const totalSessions = validSessions.length;
       const bounces = validSessions.filter(s => s.is_bounce).length;
@@ -63,24 +71,29 @@ serve(async (req) => {
       for (const s of validSessions) {
         if (s.started_at && s.ended_at) {
           const duration = (new Date(s.ended_at).getTime() - new Date(s.started_at).getTime()) / 1000;
-          // Exclude unrealistic durations (> 2 hours)
-          if (duration > 0 && duration < 7200) {
+          // Exclude unrealistic durations (< 5s or > 30 minutes)
+          if (duration >= 5 && duration < 1800) {
             totalDuration += duration;
             sessionsWithDuration++;
           }
         }
       }
       const avgDuration = sessionsWithDuration > 0 ? totalDuration / sessionsWithDuration : 0;
-      const repeatVisitors = validSessions.filter(s => s.is_repeat_visitor).length;
+      const repeatVisitors = new Set(
+        validSessions.filter(s => s.is_repeat_visitor).map(s => s.visitor_id)
+      ).size;
 
       // Get pageviews count
       const { data: pageviews } = await supabase
         .from('analytics_pageviews')
-        .select('id')
+        .select('id, session_id')
         .gte('viewed_at', startDate)
         .lte('viewed_at', endDate + 'T23:59:59.999Z');
       
       const pageviewCount = pageviews?.length || 0;
+      
+      // Calculate views per visit
+      const viewsPerVisit = uniqueVisitors > 0 ? pageviewCount / uniqueVisitors : 0;
 
       // Get Airbnb clicks and unique clickers
       const { data: clicks } = await supabase
@@ -91,22 +104,25 @@ serve(async (req) => {
         .lte('timestamp', endDate + 'T23:59:59.999Z');
 
       const airbnbClicks = clicks?.length || 0;
-      const uniqueClickers = new Set(clicks?.map(c => c.session_id).filter(Boolean) || []).size;
-      const ctr = totalSessions > 0 ? (uniqueClickers / totalSessions) * 100 : 0;
+      const uniqueClickers = new Set(clicks?.map(c => c.visitor_id).filter(Boolean) || []).size;
+      const ctr = uniqueVisitors > 0 ? (uniqueClickers / uniqueVisitors) * 100 : 0;
 
       console.log('Overview data:', { 
+        uniqueVisitors,
         totalSessions, 
-        uniqueVisitors, 
         pageviewCount, 
         airbnbClicks,
+        avgDuration,
         dateRange: { startDate, endDate }
       });
 
       return new Response(
         JSON.stringify({
-          totalVisitors: totalSessions,
-          uniqueVisitors,
+          // Primary metric: unique visitors (like Lovable)
+          totalVisitors: uniqueVisitors,
+          totalSessions,
           pageviews: pageviewCount,
+          viewsPerVisit: viewsPerVisit.toFixed(2),
           bounceRate: bounceRate.toFixed(1),
           avgSessionDuration: Math.round(avgDuration),
           repeatVisitors,
@@ -178,20 +194,33 @@ serve(async (req) => {
       const endDateFull = endDate + 'T23:59:59.999Z';
       const { data } = await supabase
         .from('analytics_sessions')
-        .select('started_at, device_type, browser')
+        .select('started_at, visitor_id, device_type, browser, referrer')
         .gte('started_at', startDate)
         .lte('started_at', endDateFull)
         .order('started_at');
       
-      // Filter valid sessions
-      const validSessions = (data || []).filter(s => s.device_type && s.browser !== 'Unknown');
+      // Filter valid sessions (exclude bots and dev traffic)
+      const validSessions = (data || []).filter(s => {
+        if (!s.device_type) return false;
+        if (s.browser === 'Unknown') return false;
+        if (s.referrer?.includes('lovableproject.com')) return false;
+        if (s.referrer?.includes('lovable.dev')) return false;
+        return true;
+      });
       
-      const grouped = validSessions.reduce((acc: Record<string, number>, session) => { 
-        const date = session.started_at.split('T')[0]; 
-        acc[date] = (acc[date] || 0) + 1; 
-        return acc; 
-      }, {});
-      return new Response(JSON.stringify(Object.entries(grouped).map(([date, count]) => ({ date, visitors: count }))), { headers: { ...corsHeaders, 'Content-Type': 'application/json' } });
+      // Group by date and count unique visitors per day
+      const dailyVisitors: Record<string, Set<string>> = {};
+      for (const session of validSessions) {
+        const date = session.started_at.split('T')[0];
+        if (!dailyVisitors[date]) dailyVisitors[date] = new Set();
+        if (session.visitor_id) dailyVisitors[date].add(session.visitor_id);
+      }
+      
+      const chartData = Object.entries(dailyVisitors)
+        .map(([date, visitors]) => ({ date, visitors: visitors.size }))
+        .sort((a, b) => a.date.localeCompare(b.date));
+      
+      return new Response(JSON.stringify(chartData), { headers: { ...corsHeaders, 'Content-Type': 'application/json' } });
     }
 
     if (action === 'traffic-sources') {
