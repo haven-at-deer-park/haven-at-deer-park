@@ -27,5 +27,76 @@
     <!-- IMPORTANT: DO NOT REMOVE THIS SCRIPT TAG OR THIS VERY COMMENT! -->
     <script src="https://cdn.gpteng.co/gptengineer.js" type="module"></script>
     <script type="module" src="/src/main.tsx"></script>
+    
+    <!-- Outbound Click Analytics -->
+    <script>
+    (function() {
+      const SUPABASE_URL = 'https://avkykdsuuvbxbkbdkudu.supabase.co';
+      const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImF2a3lrZHN1dXZieGJrYmRrdWR1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTkzMDU3MTgsImV4cCI6MjA3NDg4MTcxOH0.XRdaOZNU7z61my7eSna5ERyhHLzD1npKEin4IUC5j9g';
+      
+      function getVisitorId() {
+        let vid = localStorage.getItem('_vid');
+        if (!vid) {
+          vid = 'v_' + Math.random().toString(36).substr(2, 9) + Date.now().toString(36);
+          localStorage.setItem('_vid', vid);
+        }
+        return vid;
+      }
+      
+      function getSessionId() {
+        const now = Date.now();
+        let sid = sessionStorage.getItem('_sid');
+        let lastActive = parseInt(sessionStorage.getItem('_lastActive') || '0');
+        
+        if (!sid || (now - lastActive) > 30 * 60 * 1000) {
+          sid = 's_' + Math.random().toString(36).substr(2, 9) + now.toString(36);
+          sessionStorage.setItem('_sid', sid);
+        }
+        sessionStorage.setItem('_lastActive', now.toString());
+        return sid;
+      }
+      
+      const visitorId = getVisitorId();
+      const sessionId = getSessionId();
+      
+      document.addEventListener('click', function(e) {
+        const link = e.target.closest('a');
+        if (!link) return;
+        
+        const href = link.href;
+        if (!href) return;
+        
+        try {
+          const url = new URL(href);
+          if (url.hostname === window.location.hostname) return;
+          
+          const payload = {
+            visitor_id: visitorId,
+            session_id: sessionId,
+            destination_url: href,
+            link_text: (link.innerText || link.textContent || '').substring(0, 200),
+            page_path: window.location.pathname,
+            device_type: /mobile|android|iphone/i.test(navigator.userAgent) ? 'mobile' : 'desktop',
+            timestamp: new Date().toISOString()
+          };
+          
+          fetch(SUPABASE_URL + '/rest/v1/analytics_outbound_clicks', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'apikey': SUPABASE_ANON_KEY,
+              'Authorization': 'Bearer ' + SUPABASE_ANON_KEY,
+              'Prefer': 'return=minimal'
+            },
+            body: JSON.stringify(payload),
+            keepalive: true
+          }).catch(() => {});
+          
+        } catch (e) {}
+      }, true);
+      
+      console.log('[Analytics] Outbound click tracking initialized');
+    })();
+    </script>
   </body>
 </html>
