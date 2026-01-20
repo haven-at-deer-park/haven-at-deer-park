@@ -90,6 +90,7 @@ export type Database = {
         Row: {
           button_class: string | null
           button_id: string | null
+          clicked_at: string | null
           destination_url: string
           device_type: string | null
           id: string
@@ -104,6 +105,7 @@ export type Database = {
         Insert: {
           button_class?: string | null
           button_id?: string | null
+          clicked_at?: string | null
           destination_url: string
           device_type?: string | null
           id?: string
@@ -118,6 +120,7 @@ export type Database = {
         Update: {
           button_class?: string | null
           button_id?: string | null
+          clicked_at?: string | null
           destination_url?: string
           device_type?: string | null
           id?: string
