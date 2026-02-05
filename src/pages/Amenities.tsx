@@ -116,13 +116,11 @@ export default function Amenities() {
               {Array.from({ length: 8 }).map((_, index) => (
                 <div 
                   key={index} 
-                  className="aspect-square rounded-lg overflow-hidden shadow-md transition-transform hover:scale-105"
+                  className="aspect-square rounded-lg overflow-hidden shadow-md transition-transform hover:scale-105 bg-muted flex items-center justify-center"
                 >
-                  <img 
-                    src={`https://images.unsplash.com/photo-${1550000000000 + index * 100000}?w=400&h=400&fit=crop`}
-                    alt={`Amenity ${index + 1}`}
-                    className="w-full h-full object-cover"
-                  />
+                  <div className="text-muted-foreground text-sm">
+                    Photo {index + 1}
+                  </div>
                 </div>
               ))}
             </div>
