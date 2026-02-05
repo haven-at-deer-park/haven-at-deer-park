@@ -249,7 +249,7 @@ export const en = {
     questions: {
       checkInOut: {
         question: "What are your check-in and check-out times?",
-        answer: "Check-in is from 3:00 PM onwards, and check-out is until 11:00 AM. Early check-in or late check-out may be arranged based on availability."
+        answer: "Check-in is from 4:00 PM onwards, and check-out is until 10:00 AM. Early check-in or late check-out may be arranged based on availability."
       },
       parking: {
         question: "Is parking available at the property?",
@@ -259,9 +259,9 @@ export const en = {
         question: "Are pets allowed in the suites?",
         answer: "We welcome pets in designated pet-friendly suites. Please inform us in advance if you plan to bring a pet, as additional charges may apply."
       },
-      breakfast: {
-        question: "Is breakfast included in the room rate?",
-        answer: "Breakfast is included in select room packages. You can check the inclusion during the booking process or add it to your reservation at any time."
+      grocery: {
+        question: "Are groceries or provisions available?",
+        answer: "We provide basic provisions upon arrival. The property is also a short drive from local grocery stores and farmers' markets in Vernon."
       },
       transfers: {
         question: "Do you offer airport transfers?",
