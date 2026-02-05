@@ -113,14 +113,25 @@ export default function Amenities() {
             </div>
             
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-              {Array.from({ length: 8 }).map((_, index) => (
+              {[
+                "/lovable-uploads/DSC00046hdr.JPG",
+                "/lovable-uploads/DSC00076hdr.JPG",
+                "/lovable-uploads/DSC00086hdr.JPG",
+                "/lovable-uploads/DSC00096hdr.JPG",
+                "/lovable-uploads/DSC00106hdr.JPG",
+                "/lovable-uploads/DSC00116hdr.JPG",
+                "/lovable-uploads/DSC00121hdr.JPG",
+                "/lovable-uploads/DSC00139hdr.JPG",
+              ].map((src, index) => (
                 <div 
                   key={index} 
-                  className="aspect-square rounded-lg overflow-hidden shadow-md transition-transform hover:scale-105 bg-muted flex items-center justify-center"
+                  className="aspect-square rounded-lg overflow-hidden shadow-md transition-transform hover:scale-105"
                 >
-                  <div className="text-muted-foreground text-sm">
-                    Photo {index + 1}
-                  </div>
+                  <img 
+                    src={src}
+                    alt={`Property amenity ${index + 1}`}
+                    className="w-full h-full object-cover"
+                  />
                 </div>
               ))}
             </div>
