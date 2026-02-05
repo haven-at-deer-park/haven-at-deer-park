@@ -192,7 +192,7 @@ export const it = {
     questions: {
       checkInOut: {
         question: "Quali sono gli orari di check-in e check-out?",
-        answer: "Il check-in è dalle 15:00 in poi, e il check-out è fino alle 11:00. Il check-in anticipato o il check-out posticipato possono essere organizzati in base alla disponibilità."
+        answer: "Il check-in è dalle 16:00 in poi, e il check-out è fino alle 10:00. Il check-in anticipato o il check-out posticipato possono essere organizzati in base alla disponibilità."
       },
       parking: {
         question: "È disponibile il parcheggio presso la struttura?",
@@ -202,9 +202,9 @@ export const it = {
         question: "Gli animali domestici sono ammessi negli appartamenti?",
         answer: "Accogliamo gli animali domestici in appartamenti designati pet-friendly. Si prega di informarci in anticipo se si prevede di portare un animale domestico, poiché potrebbero essere applicati costi aggiuntivi."
       },
-      breakfast: {
-        question: "La colazione è inclusa nella tariffa della camera?",
-        answer: "La colazione è inclusa in pacchetti camera selezionati. Puoi verificare l'inclusione durante il processo di prenotazione o aggiungerla alla tua prenotazione in qualsiasi momento."
+      grocery: {
+        question: "Sono disponibili generi alimentari o provviste?",
+        answer: "Forniamo provviste di base all'arrivo. La proprietà è anche a breve distanza in auto dai negozi di alimentari locali e dai mercati contadini di Vernon."
       },
       transfers: {
         question: "Offrite trasferimenti aeroportuali?",
