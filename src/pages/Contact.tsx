@@ -302,37 +302,19 @@ export default function Contact() {
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 animate-fade-in [animation-delay:200ms]">
               {[
-                {
-                  questionKey: "checkInOut",
-                  icon: <Clock className="h-5 w-5 text-primary" />
-                },
-                {
-                  questionKey: "parking",
-                  icon: <MapPin className="h-5 w-5 text-primary" />
-                },
-                {
-                  questionKey: "pets",
-                  icon: <MapPin className="h-5 w-5 text-primary" />
-                },
-                {
-                  questionKey: "grocery",
-                  icon: <MapPin className="h-5 w-5 text-primary" />
-                },
-                {
-                  questionKey: "transfers",
-                  icon: <MapPin className="h-5 w-5 text-primary" />
-                },
-                {
-                  questionKey: "amenities",
-                  icon: <MapPin className="h-5 w-5 text-primary" />
-                },
-              ].map((faq, index) => (
+                "checkInOut",
+                "parking",
+                "pets",
+                "grocery",
+                "transfers",
+                "amenities",
+              ].map((questionKey, index) => (
                 <div key={index} className="glass-card p-6">
                   <h3 className="font-semibold text-lg mb-2">
-                    {t.contact.questions[faq.questionKey].question}
+                    {t.contact.questions[questionKey as keyof typeof t.contact.questions].question}
                   </h3>
                   <p className="text-muted-foreground">
-                    {t.contact.questions[faq.questionKey].answer}
+                    {t.contact.questions[questionKey as keyof typeof t.contact.questions].answer}
                   </p>
                 </div>
               ))}
