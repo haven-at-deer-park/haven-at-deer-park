@@ -50,6 +50,7 @@ export default function AdminDashboard() {
   const [airbnbClicksBySource, setAirbnbClicksBySource] = useState<any[]>([]);
   const [airbnbClicksByPage, setAirbnbClicksByPage] = useState<any[]>([]);
   const [airbnbClicksByDevice, setAirbnbClicksByDevice] = useState<any[]>([]);
+  const [airbnbClicksBySuite, setAirbnbClicksBySuite] = useState<any[]>([]);
   const [funnel, setFunnel] = useState<any>(null);
   
   // Settings state
@@ -80,6 +81,7 @@ export default function AdminDashboard() {
         'airbnb-clicks-by-source',
         'airbnb-clicks-by-page',
         'airbnb-clicks-by-device',
+        'airbnb-clicks-by-suite',
         'funnel'
       ];
 
@@ -100,7 +102,8 @@ export default function AdminDashboard() {
       setAirbnbClicksBySource(results[6].data || []);
       setAirbnbClicksByPage(results[7].data || []);
       setAirbnbClicksByDevice(results[8].data || []);
-      setFunnel(results[9].data);
+      setAirbnbClicksBySuite(results[9].data || []);
+      setFunnel(results[10].data);
     } catch (error) {
       console.error('Dashboard fetch error:', error);
       toast({
@@ -572,6 +575,51 @@ export default function AdminDashboard() {
                       <p className="text-muted-foreground text-center py-4">No data available</p>
                     )}
                   </div>
+                </CardContent>
+              </Card>
+            </div>
+
+            {/* Clicks by Suite & Location */}
+            <div className="grid gap-6 lg:grid-cols-2">
+              <Card>
+                <CardHeader>
+                  <CardTitle>Clicks by Suite</CardTitle>
+                  <CardDescription>Which listing visitors clicked most</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <ResponsiveContainer width="100%" height={250}>
+                    <BarChart data={airbnbClicksBySuite}>
+                      <CartesianGrid strokeDasharray="3 3" />
+                      <XAxis dataKey="suite" tickFormatter={(v: string) => ({ entire_place: 'Entire Place', '7_person': '7-Person', '12_person': '12-Person', other: 'Other' }[v] || v)} />
+                      <YAxis />
+                      <Tooltip
+                        formatter={(value: any) => [value, 'Clicks']}
+                        labelFormatter={(label: string) => ({ entire_place: 'Entire Place', '7_person': '7-Person Suite', '12_person': '12-Person Suite', other: 'Other' }[label] || label)}
+                      />
+                      <Bar dataKey="clicks" fill="hsl(210, 100%, 50%)" />
+                    </BarChart>
+                  </ResponsiveContainer>
+                  {airbnbClicksBySuite.length === 0 && (
+                    <p className="text-muted-foreground text-center py-4">No data available</p>
+                  )}
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader>
+                  <CardTitle>Clicks by Location</CardTitle>
+                  <CardDescription>Where on the page visitors clicked</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <ResponsiveContainer width="100%" height={250}>
+                    <BarChart data={airbnbClicksByPage} layout="vertical">
+                      <CartesianGrid strokeDasharray="3 3" />
+                      <XAxis type="number" />
+                      <YAxis dataKey="page" type="category" width={120} tick={{ fontSize: 11 }} />
+                      <Tooltip />
+                      <Bar dataKey="clicks" fill="hsl(210, 80%, 60%)" />
+                    </BarChart>
+                  </ResponsiveContainer>
                 </CardContent>
               </Card>
             </div>
