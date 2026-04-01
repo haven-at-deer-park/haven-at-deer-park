@@ -1,3 +1,4 @@
+'use client';
 import { useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -6,7 +7,7 @@ import BookingForm from "@/components/BookingForm";
 import TestimonialsSection from "@/components/TestimonialsSection";
 import ApartmentCard, { ApartmentProps } from "@/components/ApartmentCard";
 import { Button } from "@/components/ui/button";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import { ArrowRight, Wifi, Utensils, Waves, LifeBuoy, MapPin, Coffee } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { trackAirbnbClick } from "@/hooks/useAnalytics";
@@ -20,7 +21,7 @@ const featuredApartments: ApartmentProps[] = [
     price: 275,
     capacity: 7,
     size: 950,
-    image: "/lovable-uploads/7-person-kitchen.jpg",
+    image: "/images/7-person-kitchen.jpg",
     location: "Mountain View",
     features: ["Wi-Fi", "Full Kitchen", "2 Bathrooms", "Air Conditioning", "Smart TV", "Private Entrance"],
     externalLink: "https://www.airbnb.com/l/aM4JIC4O"
@@ -32,7 +33,7 @@ const featuredApartments: ApartmentProps[] = [
     price: 550,
     capacity: 12,
     size: 1600,
-    image: "/lovable-uploads/12-person-balcony.jpg",
+    image: "/images/12-person-balcony.jpg",
     location: "Mountain View",
     features: ["Wi-Fi", "Full Kitchen", "3 Bathrooms", "Media Room", "Walkout Patio", "Laundry Facilities"],
     externalLink: "https://www.airbnb.com/l/17ciaUP9"
@@ -44,7 +45,7 @@ const featuredApartments: ApartmentProps[] = [
     price: 995,
     capacity: 20,
     size: 4000,
-    image: "/lovable-uploads/entire-place-exterior.jpg",
+    image: "/images/entire-place-exterior.jpg",
     location: "Full Property",
     features: ["Wi-Fi", "2 Full Kitchens", "5 Bathrooms", "Hot Tub", "Media Room", "Entertainment Center"],
     externalLink: "https://www.airbnb.com/l/ZiLcS9MN"
@@ -153,21 +154,21 @@ export default function Index() {
               <div className="relative animate-fade-in [animation-delay:300ms]">
                 <div className="aspect-[4/3] rounded-2xl overflow-hidden">
                   <img 
-                    src="/lovable-uploads/DJI_0206hdr.JPG"
+                    src="/images/DJI_0206hdr.JPG"
                     alt="The Haven at Deer Park exterior view with covered patio" 
                     className="w-full h-full object-cover"
                   />
                 </div>
                 <div className="absolute -bottom-6 -left-6 w-2/3 rounded-2xl overflow-hidden shadow-xl">
                   <img 
-                    src="/lovable-uploads/DSC00046hdr.JPG"
+                    src="/images/DSC00046hdr.JPG"
                     alt="Hot tub with covered pergola and mountain views" 
                     className="w-full h-full object-cover"
                   />
                 </div>
                 <div className="absolute -top-6 -right-6 w-1/2 rounded-2xl overflow-hidden shadow-xl">
                   <img 
-                    src="/lovable-uploads/DSC00121hdr-2.JPG"
+                    src="/images/DSC00121hdr-2.JPG"
                     alt="Entertainment room with vintage records and LED floor" 
                     className="w-full h-full object-cover"
                   />

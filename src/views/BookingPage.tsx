@@ -1,7 +1,8 @@
+'use client';
 
 import { useEffect, useState } from "react";
 import { format, addDays, differenceInDays } from "date-fns";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { CalendarIcon, Users, CreditCard, Check, ChevronRight } from "lucide-react";
@@ -829,7 +830,7 @@ export default function BookingPage() {
                       Booking Reference: <span className="text-primary">MRS-{Math.floor(Math.random() * 10000).toString().padStart(4, '0')}</span>
                     </p>
                     <Button asChild className="btn-primary">
-                      <Link to="/">Return to Homepage</Link>
+                      <Link href="/">Return to Homepage</Link>
                     </Button>
                   </div>
                 )}

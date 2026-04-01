@@ -1,5 +1,6 @@
+'use client';
 
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import { Facebook, Instagram, Mail, Phone, MapPin } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 
@@ -44,7 +45,7 @@ export default function Footer() {
               ].map((link) => (
                 <li key={link.name}>
                   <Link 
-                    to={link.path} 
+                    href={link.path} 
                     className="text-muted-foreground hover:text-primary transition-colors"
                   >
                     {link.name}

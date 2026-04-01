@@ -1,20 +1,22 @@
+'use client';
 
 import { useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { Button } from "@/components/ui/button";
 import { Home } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 const NotFound = () => {
   const { t } = useLanguage();
-  const location = useLocation();
+  const pathname = usePathname();
 
   useEffect(() => {
     console.error(
       "404 Error: User attempted to access non-existent route:",
-      location.pathname
+      pathname
     );
-  }, [location.pathname]);
+  }, [pathname]);
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-background">
@@ -25,7 +27,7 @@ const NotFound = () => {
           {t.notFound.description}
         </p>
         <Button asChild className="btn-primary">
-          <Link to="/">
+          <Link href="/">
             <Home className="mr-2 h-5 w-5" />
             {t.notFound.returnHome}
           </Link>

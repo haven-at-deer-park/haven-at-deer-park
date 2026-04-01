@@ -1,5 +1,5 @@
 import { useEffect, useRef, useCallback } from 'react';
-import { useLocation } from 'react-router-dom';
+import { usePathname } from 'next/navigation';
 import { supabase } from '@/integrations/supabase/client';
 
 // ============== VISITOR & SESSION MANAGEMENT ==============
@@ -52,11 +52,13 @@ const CURRENT_SESSION_ID = initSessionId();
 
 // Get current session ID (for external use)
 export const getSessionId = (): string => {
+  if (typeof window === 'undefined') return CURRENT_SESSION_ID;
   return sessionStorage.getItem(SESSION_ID_KEY) || CURRENT_SESSION_ID;
 };
 
 // Get current visitor ID (for external use)
 export const getVisitorId = (): string => {
+  if (typeof window === 'undefined') return CURRENT_VISITOR_ID;
   return localStorage.getItem(VISITOR_ID_KEY) || CURRENT_VISITOR_ID;
 };
 
@@ -81,6 +83,7 @@ export const getDeviceType = (): string => {
 };
 
 const getBrowser = (): string => {
+  if (typeof window === 'undefined') return 'Unknown';
   const ua = navigator.userAgent;
   if (ua.includes('Firefox')) return 'Firefox';
   if (ua.includes('SamsungBrowser')) return 'Samsung Browser';
@@ -92,6 +95,7 @@ const getBrowser = (): string => {
 };
 
 const getOS = (): string => {
+  if (typeof window === 'undefined') return 'Unknown';
   const ua = navigator.userAgent;
   if (ua.includes('Win')) return 'Windows';
   if (ua.includes('Mac')) return 'macOS';
@@ -111,6 +115,7 @@ const BOT_PATTERNS = [
 ];
 
 const isBot = (): boolean => {
+  if (typeof window === 'undefined') return false;
   const ua = navigator.userAgent.toLowerCase();
   return BOT_PATTERNS.some(pattern => ua.includes(pattern));
 };
@@ -128,6 +133,7 @@ interface Attribution {
 }
 
 const getAttribution = (): Attribution | null => {
+  if (typeof window === 'undefined') return null;
   const stored = sessionStorage.getItem(ATTRIBUTION_KEY);
   if (stored) {
     return JSON.parse(stored);
@@ -158,6 +164,7 @@ const captureAttribution = (): Attribution => {
 // ============== INTERNAL TRAFFIC DETECTION ==============
 
 const checkInternalTraffic = (): boolean => {
+  if (typeof window === 'undefined') return false;
   const params = new URLSearchParams(window.location.search);
   if (params.get('internal') === '1') {
     localStorage.setItem(INTERNAL_FLAG_KEY, 'true');
@@ -188,7 +195,7 @@ const shouldTrackPageview = (path: string): boolean => {
 // ============== MAIN HOOK ==============
 
 export function useAnalytics() {
-  const location = useLocation();
+  const pathname = usePathname();
   const sessionInitialized = useRef(false);
   const sessionReady = useRef(false);
   const pageViewId = useRef<string | null>(null);
@@ -329,7 +336,7 @@ export function useAnalytics() {
       return;
     }
     
-    const path = location.pathname;
+    const path = pathname || '/';
     
     // Prevent duplicate pageview for same path on same render
     if (lastTrackedPath.current === path) {
@@ -366,7 +373,7 @@ export function useAnalytics() {
     }
 
     await trackPageViewInternal(path);
-  }, [location.pathname, sessionId, visitorId, isBotVisitor]);
+  }, [pathname, sessionId, visitorId, isBotVisitor]);
 
   // Update page view on leave
   const updatePageView = useCallback(async () => {
@@ -400,13 +407,13 @@ export function useAnalytics() {
         .from('analytics_sessions')
         .update({ 
           ended_at: new Date().toISOString(),
-          exit_page: location.pathname,
+          exit_page: pathname || '/',
         })
         .eq('session_id', sessionId);
     } catch (error) {
       console.error('[Analytics] Failed to update session heartbeat:', error);
     }
-  }, [sessionId, location.pathname, isBotVisitor]);
+  }, [sessionId, pathname, isBotVisitor]);
 
   // Scroll tracking
   useEffect(() => {
@@ -458,7 +465,7 @@ export function useAnalytics() {
       updatePageView();
     }
     trackPageView();
-  }, [location.pathname, trackPageView, updatePageView]);
+  }, [pathname, trackPageView, updatePageView]);
 
   // Handle page visibility change and beforeunload
   useEffect(() => {

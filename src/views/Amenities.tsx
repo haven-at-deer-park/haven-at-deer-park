@@ -1,3 +1,4 @@
+'use client';
 import { useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -114,14 +115,14 @@ export default function Amenities() {
             
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
               {[
-                "/lovable-uploads/DSC00046hdr.JPG",
-                "/lovable-uploads/DSC00076hdr.JPG",
-                "/lovable-uploads/DSC00086hdr.JPG",
-                "/lovable-uploads/DSC00096hdr.JPG",
-                "/lovable-uploads/DSC00106hdr.JPG",
-                "/lovable-uploads/DSC00116hdr.JPG",
-                "/lovable-uploads/DSC00121hdr.JPG",
-                "/lovable-uploads/DSC00139hdr.JPG",
+                "/images/DSC00046hdr.JPG",
+                "/images/DSC00076hdr.JPG",
+                "/images/DSC00086hdr.JPG",
+                "/images/DSC00096hdr.JPG",
+                "/images/DSC00106hdr.JPG",
+                "/images/DSC00116hdr.JPG",
+                "/images/DSC00121hdr.JPG",
+                "/images/DSC00139hdr.JPG",
               ].map((src, index) => (
                 <div 
                   key={index} 

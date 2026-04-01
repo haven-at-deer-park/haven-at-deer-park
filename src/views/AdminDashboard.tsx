@@ -1,5 +1,6 @@
+'use client';
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/navigation';
 import { useAdminAuth } from '@/hooks/useAdminAuth';
 import { supabase } from '@/integrations/supabase/client';
 import { Button } from '@/components/ui/button';
@@ -32,7 +33,7 @@ const COLORS = ['hsl(210, 100%, 50%)', 'hsl(210, 80%, 60%)', 'hsl(210, 60%, 70%)
 
 export default function AdminDashboard() {
   const { isAuthenticated, isLoading: authLoading, admin, logout, changePassword, getToken } = useAdminAuth();
-  const navigate = useNavigate();
+  const router = useRouter();
   const { toast } = useToast();
   
   const [activeTab, setActiveTab] = useState('overview');
@@ -60,9 +61,9 @@ export default function AdminDashboard() {
 
   useEffect(() => {
     if (!authLoading && !isAuthenticated) {
-      navigate('/admin/login');
+      router.push('/admin/login');
     }
-  }, [isAuthenticated, authLoading, navigate]);
+  }, [isAuthenticated, authLoading, router]);
 
   const fetchDashboardData = async () => {
     const token = getToken();
@@ -124,7 +125,7 @@ export default function AdminDashboard() {
 
   const handleLogout = () => {
     logout();
-    navigate('/admin/login');
+    router.push('/admin/login');
   };
 
   const handlePasswordChange = async (e: React.FormEvent) => {
