@@ -1,7 +1,7 @@
 'use client';
 
 import Link from "next/link";
-import { Facebook, Instagram, Mail, Phone, MapPin } from "lucide-react";
+import { Facebook, Instagram, Youtube, Mail, Phone, MapPin } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 export default function Footer() {
@@ -18,6 +18,18 @@ export default function Footer() {
               {t.footer.description}
             </p>
             <div className="flex space-x-4">
+              <a href="https://www.facebook.com/havenatdeerpark" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">
+                <Facebook className="w-5 h-5" />
+                <span className="sr-only">Facebook</span>
+              </a>
+              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">
+                <Instagram className="w-5 h-5" />
+                <span className="sr-only">Instagram</span>
+              </a>
+              <a href="https://www.youtube.com/@HavenatDeerPark" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">
+                <Youtube className="w-5 h-5" />
+                <span className="sr-only">YouTube</span>
+              </a>
               <a href="https://x.com/havenatdeerpark" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
                   <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
