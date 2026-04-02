@@ -128,7 +128,7 @@ export default function UgcGallery() {
 
         {/* Social Banners */}
         <div className="mt-16 sm:mt-24 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-6xl mx-auto animate-fade-in [animation-delay:600ms]">
-          <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" 
+          <a href="https://www.instagram.com/havenatdeerpark/" target="_blank" rel="noopener noreferrer" 
              className="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-purple-500 to-pink-500 p-[2px] transition-transform hover:scale-[1.05] shadow-lg">
             <div className="flex flex-col items-center text-center justify-center gap-3 rounded-2xl bg-white/95 px-4 py-8 dark:bg-zinc-900/95 backdrop-blur-xl h-full">
               <div className="rounded-full bg-pink-100 p-4 text-pink-600 dark:bg-pink-900/40 dark:text-pink-400 group-hover:scale-110 transition-transform mb-2">
@@ -138,7 +138,7 @@ export default function UgcGallery() {
             </div>
           </a>
           
-          <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer" 
+          <a href="https://www.tiktok.com/@HavenatDeerPark" target="_blank" rel="noopener noreferrer" 
              className="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-black to-zinc-600 dark:from-white dark:to-zinc-300 p-[2px] transition-transform hover:scale-[1.05] shadow-lg">
             <div className="flex flex-col items-center text-center justify-center gap-3 rounded-2xl bg-white/95 px-4 py-8 dark:bg-zinc-900/95 backdrop-blur-xl h-full">
               <div className="rounded-full bg-zinc-100 p-4 text-zinc-900 dark:bg-zinc-800 dark:text-white group-hover:scale-110 transition-transform mb-2">
