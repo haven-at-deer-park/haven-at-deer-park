@@ -5,6 +5,7 @@ import Footer from "@/components/Footer";
 import HeroSection from "@/components/HeroSection";
 import BookingForm from "@/components/BookingForm";
 import TestimonialsSection from "@/components/TestimonialsSection";
+import UgcGallery from "@/components/UgcGallery";
 import ApartmentCard, { ApartmentProps } from "@/components/ApartmentCard";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
@@ -242,6 +243,9 @@ export default function Index() {
         
         {/* Testimonials Section */}
         <TestimonialsSection />
+        
+        {/* UGC Video Gallery */}
+        <UgcGallery />
         
         {/* Features Section */}
         <section className="section bg-card">
