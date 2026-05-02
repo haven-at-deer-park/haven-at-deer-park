@@ -233,7 +233,7 @@ export function useAnalytics() {
     const isRepeat = localStorage.getItem(VISITOR_ID_KEY) === visitorId;
 
     try {
-      const { error } = await supabase.from('analytics_sessions').insert({
+      const { data, error } = await supabase.from('analytics_sessions').upsert({
         visitor_id: visitorId,
         session_id: sessionId,
         device_type: getDeviceType(),
@@ -250,35 +250,40 @@ export function useAnalytics() {
         utm_content: attribution.utm_content,
         is_bounce: true,
         is_repeat_visitor: isRepeat,
-      });
+      }, { onConflict: 'session_id', ignoreDuplicates: true }).select();
 
       if (error) {
-        console.error('[Analytics] Session insert error:', error);
+        console.error('[Analytics] Session upsert error:', error);
         return false;
+      }
+
+      // If data is returned, it means a NEW row was inserted
+      if (data && data.length > 0) {
+        // Track traffic source only for brand new sessions
+        const source = attribution.utm_source || 
+          (attribution.initial_referrer ? (() => { try { return new URL(attribution.initial_referrer).hostname; } catch { return 'direct'; } })() : 'direct');
+        
+        await supabase.from('analytics_traffic_sources').insert({
+          session_id: sessionId,
+          source,
+          medium: attribution.utm_medium,
+          campaign: attribution.utm_campaign,
+          referrer_url: attribution.initial_referrer,
+          referrer_domain: attribution.initial_referrer 
+            ? (() => { try { return new URL(attribution.initial_referrer).hostname; } catch { return null; } })() 
+            : null,
+        });
+      } else {
+        console.log('[Analytics] Session already exists in DB, resuming.');
       }
 
       sessionCreated[sessionId] = true;
       sessionReady.current = true;
 
-      // Track traffic source
-      const source = attribution.utm_source || 
-        (attribution.initial_referrer ? (() => { try { return new URL(attribution.initial_referrer).hostname; } catch { return 'direct'; } })() : 'direct');
-      
-      await supabase.from('analytics_traffic_sources').insert({
-        session_id: sessionId,
-        source,
-        medium: attribution.utm_medium,
-        campaign: attribution.utm_campaign,
-        referrer_url: attribution.initial_referrer,
-        referrer_domain: attribution.initial_referrer 
-          ? (() => { try { return new URL(attribution.initial_referrer).hostname; } catch { return null; } })() 
-          : null,
-      });
-
       console.log('[Analytics] Session initialized:', sessionId, { 
         isBot: isBotVisitor, 
         isInternal: isInternalVisitor,
-        source 
+        isResumed: !data || data.length === 0
       });
 
       // Process any pending pageviews
@@ -306,23 +311,25 @@ export function useAnalytics() {
 
       console.log('[Analytics] Inserting pageview:', { path, sessionId, visitorId });
 
-      const { data, error } = await supabase
+      // Generate UUID on client to avoid needing a SELECT policy for the returning payload
+      const newPageViewId = crypto.randomUUID();
+
+      const { error } = await supabase
         .from('analytics_pageviews')
         .insert({
+          id: newPageViewId,
           session_id: sessionId,
           visitor_id: visitorId,
           path,
           title: document.title,
           load_time_ms: loadTime > 0 ? loadTime : null,
-        })
-        .select('id')
-        .single();
+        });
 
       if (error) {
         console.error('[Analytics] Pageview insert error:', error);
-      } else if (data) {
-        pageViewId.current = data.id;
-        console.log('[Analytics] Pageview tracked:', path, data.id);
+      } else {
+        pageViewId.current = newPageViewId;
+        console.log('[Analytics] Pageview tracked:', path, newPageViewId);
       }
     } catch (error) {
       console.error('[Analytics] Failed to track pageview:', error);

@@ -1,5 +1,6 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.39.3";
+import { notifyLance } from "../_shared/twilio.ts";
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -115,40 +116,26 @@ serve(async (req) => {
     
     console.log("Contact form saved successfully:", data.id);
     
-    // --- TRIGGER WHATSAPP NOTIFICATION ---
+    // --- NOTIFY LANCE VIA TWILIO (WhatsApp → SMS fallback) ---
     try {
-      const callMeBotPhone = Deno.env.get('CALLMEBOT_PHONE');
-      const callMeBotApiKey = Deno.env.get('CALLMEBOT_API_KEY');
-      
-      if (callMeBotPhone && callMeBotApiKey) {
-        const messageText = `*New Inquiry via Website!*\n\n` +
-          `👤 *Name:* ${sanitizedData.name}\n` +
-          `📧 *Email:* ${sanitizedData.email}\n` +
-          `📞 *Phone:* ${sanitizedData.phone || 'N/A'}\n` +
-          `📝 *Subject:* ${sanitizedData.subject}\n\n` +
-          `💬 *Message:*\n${sanitizedData.message}`;
-          
-        const encodedMessage = encodeURIComponent(messageText);
-        const whatsappUrl = `https://api.callmebot.com/whatsapp.php?phone=${callMeBotPhone}&text=${encodedMessage}&apikey=${callMeBotApiKey}`;
-        
-        console.log(`Sending WhatsApp notification to ${callMeBotPhone}...`);
-        const wpResponse = await fetch(whatsappUrl);
-        
-        if (!wpResponse.ok) {
-          console.error(`WhatsApp notification failed: ${wpResponse.status} ${wpResponse.statusText}`);
-          const wpBody = await wpResponse.text();
-          console.error(`WhatsApp response body:`, wpBody);
-        } else {
-          console.log("WhatsApp notification queued successfully");
-        }
-      } else {
-        console.log("WhatsApp notification skipped: CALLMEBOT_PHONE or CALLMEBOT_API_KEY not set");
-      }
-    } catch (wpError) {
-      // Non-blocking error: we don't want to crash the form submission if WhatsApp fails
-      console.error("Error sending WhatsApp notification:", wpError);
+      const submittedAt = new Date().toISOString().replace('T', ' ').substring(0, 16) + ' UTC';
+      const messageText =
+        `New Haven Contact Form Inquiry\n\n` +
+        `Name: ${sanitizedData.name}\n` +
+        `Email: ${sanitizedData.email}\n` +
+        `Phone: ${sanitizedData.phone || 'N/A'}\n` +
+        `Subject: ${sanitizedData.subject}\n\n` +
+        `Message:\n${sanitizedData.message}\n\n` +
+        `Source: Contact Form\n` +
+        `Submitted At: ${submittedAt}`;
+
+      const result = await notifyLance(messageText);
+      console.log(`Notification result: ${result.channel}${result.error ? ` (${result.error})` : ''}`);
+    } catch (notifyError) {
+      // Non-blocking: notification failure should NOT fail the form submission
+      console.error("Error sending notification:", notifyError);
     }
-    // -------------------------------------
+    // ---------------------------------------------------------
     
     return new Response(
       JSON.stringify({ success: true, id: data.id }),

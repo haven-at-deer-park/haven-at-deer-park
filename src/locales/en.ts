@@ -271,7 +271,10 @@ export const en = {
         question: "What amenities are available at the property?",
         answer: "Our property features an outdoor hot tub, entertainment room with 3D LED walkway, karaoke and arcade games, full kitchens, BBQ facilities, high-speed Wi-Fi, climate control, laundry facilities, and private parking. Visit our Amenities page for complete details."
       }
-    }
+    },
+    orReachUs: "or reach us directly",
+    whatsappButton: "Chat on WhatsApp",
+    whatsappHint: "Get a faster response by messaging us directly on WhatsApp"
   },
   apartmentDescriptions: {
     "1": {

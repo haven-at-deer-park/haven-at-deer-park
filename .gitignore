@@ -27,3 +27,8 @@ dist-ssr
 .next
 out
 build-log.txt
+
+# Generated temp files
+functions_help.txt
+supabase/.temp/
+tsconfig.tsbuildinfo

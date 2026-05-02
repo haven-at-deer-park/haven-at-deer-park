@@ -2,6 +2,9 @@ import type { Metadata } from 'next';
 import Script from 'next/script';
 import '@/index.css';
 import { Providers } from './providers';
+import { GoogleAnalytics } from '@next/third-parties/google';
+import { GoogleAnalyticsRouteTracker } from '@/components/GoogleAnalyticsRouteTracker';
+
 
 export const metadata: Metadata = {
   title: 'Haven at Deer Park - Welcome to your next vacation',
@@ -34,6 +37,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Providers>
           {children}
         </Providers>
+
+        <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID!} />
+        <GoogleAnalyticsRouteTracker />
 
         {/* Outbound Click Analytics */}
         <Script id="outbound-analytics" strategy="afterInteractive">{`

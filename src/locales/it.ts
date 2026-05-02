@@ -214,7 +214,10 @@ export const it = {
         question: "Quali servizi sono disponibili nella struttura?",
         answer: "La nostra struttura dispone di piscine, una spa, ristoranti, un bar sulla spiaggia, un centro fitness e accesso diretto alla spiaggia. Tutti gli appartamenti includono Wi-Fi, aria condizionata e elettrodomestici moderni."
       }
-    }
+    },
+    orReachUs: "oppure contattaci direttamente",
+    whatsappButton: "Chatta su WhatsApp",
+    whatsappHint: "Ricevi una risposta più rapida scrivendoci direttamente su WhatsApp"
   },
   home: {
     welcome: {
