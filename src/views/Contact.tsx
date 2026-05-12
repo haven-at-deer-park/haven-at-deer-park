@@ -295,7 +295,7 @@ export default function Contact() {
                     <div className="border-t border-border flex-grow" />
                   </div>
                   <a
-                    href="https://wa.me/639816597336"
+                    href="https://wa.me/17787739915"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-2 px-6 py-3 rounded-lg text-white font-medium transition-all duration-200 hover:scale-105 hover:shadow-lg"

@@ -106,7 +106,6 @@ export async function notifyLance(
   const twilioPhone = Deno.env.get('TWILIO_PHONE_NUMBER');
   const twilioWhatsApp = Deno.env.get('TWILIO_WHATSAPP_NUMBER');
   const lancePhone = Deno.env.get('LANCE_PHONE_NUMBER');
-  const lanceWhatsApp = Deno.env.get('LANCE_WHATSAPP_NUMBER') || lancePhone;
 
   if (!twilioPhone || !lancePhone) {
     console.log('Phone numbers not configured -- skipping notification');
@@ -114,7 +113,6 @@ export async function notifyLance(
   }
 
   const maskedPhone = lancePhone.slice(-4).padStart(lancePhone.length, '*');
-  const maskedWhatsApp = lanceWhatsApp ? lanceWhatsApp.slice(-4).padStart(lanceWhatsApp.length, '*') : maskedPhone;
   const channel = preferredChannel || 'whatsapp';
 
   // Determine primary and fallback based on preferred channel
@@ -134,12 +132,12 @@ export async function notifyLance(
 
     console.error(`SMS failed: ${smsResult.error}. Falling back to WhatsApp...`);
 
-    // Fallback to WhatsApp
+    // Fallback to WhatsApp (same recipient, different address format)
     if (twilioWhatsApp) {
-      console.log(`Attempting WhatsApp fallback to ${maskedWhatsApp}...`);
+      console.log(`Attempting WhatsApp fallback to ${maskedPhone}...`);
       const wpResult = await sendTwilioMessage(config, {
         from: `whatsapp:${twilioWhatsApp}`,
-        to: `whatsapp:${lanceWhatsApp}`,
+        to: `whatsapp:${lancePhone}`,
         body: messageBody,
       });
 
@@ -157,10 +155,10 @@ export async function notifyLance(
 
   // --- WhatsApp first (default) ---
   if (twilioWhatsApp) {
-    console.log(`Attempting WhatsApp notification to ${maskedWhatsApp} (preferred: WhatsApp)...`);
+    console.log(`Attempting WhatsApp notification to ${maskedPhone} (preferred: WhatsApp)...`);
     const wpResult = await sendTwilioMessage(config, {
       from: `whatsapp:${twilioWhatsApp}`,
-      to: `whatsapp:${lanceWhatsApp}`,
+      to: `whatsapp:${lancePhone}`,
       body: messageBody,
     });
 

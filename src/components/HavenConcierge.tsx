@@ -156,7 +156,8 @@ function isUnsureAnswer(input: string): boolean {
 
 /**
  * Check if the input looks like a valid date answer.
- * Must contain date-like patterns: numbers, month names, day names,
+ * Bare numbers alone (e.g. "12") are NOT valid dates.
+ * Must contain recognizable date patterns, month/day names,
  * relative words (tomorrow, weekend, etc.), or explicit flexibility.
  */
 function isValidDateAnswer(input: string): boolean {
@@ -164,14 +165,12 @@ function isValidDateAnswer(input: string): boolean {
   if (!lower) return false;
   // Explicit unsure is valid
   if (isUnsureAnswer(lower)) return true;
-  // Contains a digit (date numbers like May 10, 6/12, etc.)
-  if (/\d/.test(lower)) return true;
-  // Month names
-  if (/\b(january|february|march|april|may|june|july|august|september|october|november|december|jan|feb|mar|apr|jun|jul|aug|sep|oct|nov|dec)\b/i.test(lower)) return true;
-  // Day names
-  if (/\b(monday|tuesday|wednesday|thursday|friday|saturday|sunday|mon|tue|wed|thu|fri|sat|sun)\b/i.test(lower)) return true;
-  // Relative time words
-  if (/\b(tomorrow|today|tonight|weekend|next week|this week|next month|this month|end of|beginning of|first week|last week|mid|early|late)\b/i.test(lower)) return true;
+  const hasMonth = /\b(january|february|march|april|may|june|july|august|september|october|november|december|jan|feb|mar|apr|jun|jul|aug|sep|oct|nov|dec)\b/i.test(lower);
+  const hasDigit = /\d/.test(lower);
+  // Must have a month name + a number: "May 10", "June 1-5", "Dec 20 2026"
+  if (hasMonth && hasDigit) return true;
+  // Relative time words (no month needed)
+  if (/\b(tomorrow|today|tonight|weekend|next week|this week|next month|this month|end of|beginning of|first week|last week)\b/i.test(lower)) return true;
   // Flexibility
   if (/\b(flexible|anytime|any time|whenever|open)\b/i.test(lower)) return true;
   return false;
