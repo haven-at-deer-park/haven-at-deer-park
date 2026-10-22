@@ -8,15 +8,15 @@ export const en = {
     bookNow: "Book Now"
   },
   hero: {
-    subtitle: "WELCOME TO YOUR NEXT VACATION",
+    subtitle: "OUR HAVEN NATURE SANCTUARY & DEERPARK LODGE",
     title: "The Haven at Deer Park",
-    description: "Experience tranquil escape amidst the serene natural beauty of Vernon's Okanagan Valley. A perfect blend of luxury amenities and pristine wilderness.",
+    description: "Experience a peaceful mountain lake escape at our haven nature sanctuary and premier Deerpark lodge. Surrounded by serene Okanagan haven parks, tranquil forest acreage, and pristine wilderness.",
     bookStay: "Book Your Stay",
     exploreApartments: "Explore Suites",
     scrollDown: "Scroll Down"
   },
   footer: {
-    description: "The Haven at Deer Park - a tranquil retreat nestled in Vernon's Okanagan Valley, offering luxury accommodations with lake and mountain views for unforgettable getaways.",
+    description: "The Haven at Deer Park - a peaceful nature sanctuary and luxury lodge retreat nestled near Vernon's Okanagan haven parks, offering premium accommodations with lake and mountain views for unforgettable getaways.",
     quickLinks: "Quick Links",
     contact: "Contact",
     newsletter: "Newsletter",
@@ -48,10 +48,10 @@ export const en = {
   },
   home: {
     welcome: {
-      subtitle: "Welcome to The Haven at Deer Park",
-      title: "Luxury Mountain Lake Retreat",
-      description1: "Located amidst the serene natural beauty of Vernon in British Columbia's Okanagan Valley, The Haven at Deer Park offers a tranquil escape from everyday life. Nestled near the western shores of Okanagan Lake, this retreat-style property provides a peaceful sanctuary surrounded by forests with picturesque lake and mountain views.",
-      description2: "Whether you're seeking wellness retreats, family reunions, outdoor adventures, or peaceful relaxation, our spacious accommodations and unique amenities cater to every need. Each suite is thoughtfully designed to provide modern comfort while immersed in nature's tranquility.",
+      subtitle: "Our Haven Nature Sanctuary",
+      title: "Luxury Mountain Lake Retreat & Deerpark Lodge",
+      description1: "Located amidst the serene natural beauty of Vernon in British Columbia's Okanagan Valley, The Haven at Deer Park offers a tranquil escape from everyday life. As our haven nature sanctuary and premier Deerpark lodge, this retreat property is nestled near the western shores of Okanagan Lake, surrounded by protected haven parks, pristine forests, and picturesque mountain vistas.",
+      description2: "Whether you're seeking wellness retreats, family reunions, outdoor mountain lodge getaways, or peaceful relaxation, our spacious accommodations and unique amenities cater to every need. Each suite in our Deerpark lodge is thoughtfully designed to provide modern comfort while immersed in nature's tranquility.",
       learnMore: "Learn More"
     },
     booking: {
@@ -61,9 +61,9 @@ export const en = {
       benefits: ["Instant confirmation", "Family-run hospitality", "Flexible group arrangements", "Modern amenities in nature", "Fully permitted and insured", "Superhost Status with a history in hospitality", "Transportation Services for up to 20 people available"]
     },
     featuredApartments: {
-      subtitle: "Our Suites",
+      subtitle: "Deerpark Lodge Suites",
       title: "Premium Accommodations",
-      description: "Discover our newly renovated suites, each offering modern comfort and luxury amenities with stunning mountain views in a peaceful forest setting.",
+      description: "Discover our newly renovated lodge suites, each offering modern comfort and luxury amenities with stunning mountain views in our peaceful nature sanctuary.",
       viewAll: "View All Suites"
     },
     amenities: {
@@ -92,8 +92,8 @@ export const en = {
           description: "3D LED infinity walkway, karaoke, and arcade games."
         },
         location: {
-          title: "Nature Location",
-          description: "Private forest setting with wildlife viewing opportunities."
+          title: "Haven Parks & Nature Setting",
+          description: "Private forest setting bordering Okanagan haven parks with scenic trails and wildlife viewing opportunities."
         }
       }
     },

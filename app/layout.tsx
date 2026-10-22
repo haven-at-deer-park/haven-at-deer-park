@@ -7,18 +7,31 @@ import { GoogleAnalyticsRouteTracker } from '@/components/GoogleAnalyticsRouteTr
 
 
 export const metadata: Metadata = {
-  title: 'Haven at Deer Park - Welcome to your next vacation',
-  description: 'Haven at Deer Park is a luxury countryside retreat offering peaceful accommodations surrounded by nature. Designed for rest, reflection, and rejuvenation, the property features serene landscapes, elegant suites, and easy access to local trails and activities. Your sanctuary away from the noise—where comfort meets calm.',
+  metadataBase: new URL('https://havenatdeerpark.com'),
+  title: {
+    default: 'Haven at Deer Park - Luxury Vacation Rental in Vernon, BC',
+    template: '%s | Haven at Deer Park',
+  },
+  description: 'Haven at Deer Park is a luxury countryside retreat offering peaceful accommodations surrounded by nature in Vernon, BC. Designed for rest, reflection, and rejuvenation, the property features serene landscapes, elegant suites, and easy access to local trails and activities.',
   openGraph: {
-    title: 'Haven at Deer Park - Welcome to your next vacation',
-    description: 'Haven at Deer Park is a luxury countryside retreat offering peaceful accommodations surrounded by nature. Designed for rest, reflection, and rejuvenation, the property features serene landscapes, elegant suites, and easy access to local trails and activities. Your sanctuary away from the noise—where comfort meets calm.',
-    images: ['/images/DJI_0206hdr.JPG'],
+    title: 'Haven at Deer Park - Luxury Vacation Rental in Vernon, BC',
+    description: 'Haven at Deer Park is a luxury countryside retreat offering peaceful accommodations surrounded by nature in Vernon, BC. Designed for rest, reflection, and rejuvenation, the property features serene landscapes, elegant suites, and easy access to local trails and activities.',
+    url: 'https://havenatdeerpark.com',
+    siteName: 'Haven at Deer Park',
+    images: [
+      {
+        url: '/images/DJI_0206hdr.JPG',
+        width: 1200,
+        height: 630,
+        alt: 'Haven at Deer Park aerial view',
+      },
+    ],
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Haven at Deer Park - Welcome to your next vacation',
-    description: 'Haven at Deer Park is a luxury countryside retreat offering peaceful accommodations surrounded by nature. Designed for rest, reflection, and rejuvenation, the property features serene landscapes, elegant suites, and easy access to local trails and activities. Your sanctuary away from the noise—where comfort meets calm.',
+    title: 'Haven at Deer Park - Luxury Vacation Rental in Vernon, BC',
+    description: 'Haven at Deer Park is a luxury countryside retreat offering peaceful accommodations surrounded by nature in Vernon, BC.',
     images: ['/images/DJI_0206hdr.JPG'],
   },
   icons: {

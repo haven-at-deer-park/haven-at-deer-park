@@ -1,9 +1,14 @@
-'use client';
+import type { Metadata } from 'next';
+import Gallery from '@/views/Gallery';
 
-import dynamic from 'next/dynamic';
+export const metadata: Metadata = {
+  title: 'Photo Gallery',
+  description: 'Browse photos of The Haven at Deer Park in Vernon, BC. View our luxury suites, modern kitchens, private hot tub, media room, and stunning Okanagan Valley scenery.',
+  alternates: {
+    canonical: 'https://havenatdeerpark.com/gallery',
+  },
+};
 
-const GalleryPage = dynamic(() => import('@/views/Gallery'), { ssr: false });
-
-export default function Gallery() {
-  return <GalleryPage />;
+export default function GalleryPage() {
+  return <Gallery />;
 }

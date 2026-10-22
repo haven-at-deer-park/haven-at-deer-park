@@ -156,21 +156,21 @@ export default function Index() {
                 <div className="aspect-[4/3] rounded-2xl overflow-hidden">
                   <img 
                     src="/images/DJI_0206hdr.JPG"
-                    alt="The Haven at Deer Park exterior view with covered patio" 
+                    alt="The Haven at Deer Park exterior view of our haven nature sanctuary and Deerpark lodge" 
                     className="w-full h-full object-cover"
                   />
                 </div>
                 <div className="absolute -bottom-6 -left-6 w-2/3 rounded-2xl overflow-hidden shadow-xl">
                   <img 
                     src="/images/DSC00046hdr.JPG"
-                    alt="Hot tub with covered pergola and mountain views" 
+                    alt="Deerpark lodge outdoor hot tub with covered pergola and mountain views" 
                     className="w-full h-full object-cover"
                   />
                 </div>
                 <div className="absolute -top-6 -right-6 w-1/2 rounded-2xl overflow-hidden shadow-xl">
                   <img 
                     src="/images/DSC00121hdr-2.JPG"
-                    alt="Entertainment room with vintage records and LED floor" 
+                    alt="Entertainment room with vintage records and LED floor at The Haven Deer Park lodge" 
                     className="w-full h-full object-cover"
                   />
                 </div>

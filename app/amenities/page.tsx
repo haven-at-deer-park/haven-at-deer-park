@@ -1,9 +1,14 @@
-'use client';
+import type { Metadata } from 'next';
+import Amenities from '@/views/Amenities';
 
-import dynamic from 'next/dynamic';
+export const metadata: Metadata = {
+  title: 'Amenities & Features',
+  description: 'Explore the luxury amenities at The Haven at Deer Park: private hot tub, mountain-view balconies, entertainment rooms, full kitchens, fast Wi-Fi, and outdoor BBQ areas.',
+  alternates: {
+    canonical: 'https://havenatdeerpark.com/amenities',
+  },
+};
 
-const AmenitiesPage = dynamic(() => import('@/views/Amenities'), { ssr: false });
-
-export default function Amenities() {
-  return <AmenitiesPage />;
+export default function AmenitiesPage() {
+  return <Amenities />;
 }
