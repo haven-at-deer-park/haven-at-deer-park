@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import Index from '@/views/Index';
 
 export const metadata: Metadata = {
-  title: 'The Haven at Deer Park | Nature Sanctuary & Deerpark Lodge in Vernon, BC',
+  title: 'The Haven at Deer Park | Deerpark Lodge, Vernon BC',
   description: 'Welcome to Our Haven Nature Sanctuary and Deerpark Lodge in Vernon, BC. A tranquil haven park retreat offering luxury accommodations, private hot tub, and scenic mountain lake views for up to 20 guests.',
   keywords: [
     'our haven nature sanctuary',
@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     canonical: 'https://havenatdeerpark.com',
   },
   openGraph: {
-    title: 'The Haven at Deer Park | Nature Sanctuary & Deerpark Lodge in Vernon, BC',
+    title: 'The Haven at Deer Park | Deerpark Lodge, Vernon BC',
     description: 'Welcome to Our Haven Nature Sanctuary and Deerpark Lodge in Vernon, BC. A tranquil haven park retreat offering luxury accommodations, private hot tub, and scenic mountain lake views for up to 20 guests.',
     url: 'https://havenatdeerpark.com',
   },
