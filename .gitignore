@@ -32,3 +32,8 @@ build-log.txt
 functions_help.txt
 supabase/.temp/
 tsconfig.tsbuildinfo
+
+# Environment files
+.env
+.env.*
+!.env.example

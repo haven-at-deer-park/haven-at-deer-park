@@ -73,7 +73,7 @@ serve(async (req) => {
         .maybeSingle();
 
       if (adminError || !admin) {
-        console.log('Admin not found:', email);
+        console.log('Admin auth: admin not found');
         return new Response(
           JSON.stringify({ error: 'Invalid credentials' }),
           { status: 401, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
@@ -83,7 +83,7 @@ serve(async (req) => {
       // Verify password
       const isValid = await verifyPassword(password, admin.password_hash);
       if (!isValid) {
-        console.log('Invalid password for:', email);
+        console.log('Admin auth: invalid password');
         return new Response(
           JSON.stringify({ error: 'Invalid credentials' }),
           { status: 401, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
@@ -99,7 +99,7 @@ serve(async (req) => {
         .maybeSingle();
 
       if (roleError || !role) {
-        console.log('User does not have admin role:', email);
+        console.log('Admin auth: user lacks admin role');
         return new Response(
           JSON.stringify({ error: 'Access denied' }),
           { status: 403, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
@@ -115,7 +115,7 @@ serve(async (req) => {
       // Generate token
       const authToken = generateToken(admin.id, admin.email);
 
-      console.log('Admin login successful:', email);
+      console.log('Admin login successful');
       return new Response(
         JSON.stringify({ 
           success: true, 
