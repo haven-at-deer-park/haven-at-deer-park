@@ -155,7 +155,9 @@ export default function Contact() {
                     </div>
                     <div>
                       <h3 className="font-semibold mb-1">{t.contact.phone}</h3>
-                      <p className="text-muted-foreground">+63 981 659 7336</p>
+                      <a href="tel:+639816597336" className="text-muted-foreground hover:text-primary transition-colors">
+                        +63 981 659 7336
+                      </a>
                     </div>
                   </div>
                   
@@ -163,9 +165,11 @@ export default function Contact() {
                     <div className="flex-shrink-0 h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center mr-4">
                       <Mail className="h-5 w-5 text-primary" />
                     </div>
-                    <div>
+                    <div className="min-w-0">
                       <h3 className="font-semibold mb-1">{t.contact.email}</h3>
-                      <p className="text-muted-foreground">info@havenatdeerpark.com</p>
+                      <a href="mailto:info@havenatdeerpark.com" className="text-muted-foreground hover:text-primary transition-colors break-all">
+                        info@havenatdeerpark.com
+                      </a>
                     </div>
                   </div>
                   
@@ -264,7 +268,7 @@ export default function Contact() {
                           value={formData.message}
                           onChange={handleInputChange}
                           placeholder={t.contact.howCanWeHelp} 
-                          className="w-full min-h-[150px] p-3 rounded-md border border-input bg-background"
+                          className="w-full min-h-[150px] p-3 text-base md:text-sm rounded-md border border-input bg-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
                           required 
                         />
                       </div>

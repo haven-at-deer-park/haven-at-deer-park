@@ -182,8 +182,8 @@ export default function AdminDashboard() {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Sidebar */}
-      <aside className="fixed left-0 top-0 z-40 h-screen w-64 border-r bg-card">
+      {/* Desktop Sidebar */}
+      <aside className="hidden md:block fixed left-0 top-0 z-40 h-screen w-64 border-r bg-card">
         <div className="flex h-full flex-col">
           <div className="flex h-16 items-center border-b px-6">
             <h1 className="text-lg font-bold">Haven Analytics</h1>
@@ -225,7 +225,7 @@ export default function AdminDashboard() {
           </nav>
 
           <div className="border-t p-4">
-            <div className="mb-2 text-sm text-muted-foreground">
+            <div className="mb-2 text-sm text-muted-foreground truncate">
               {admin?.email}
             </div>
             <Button variant="outline" className="w-full" onClick={handleLogout}>
@@ -236,34 +236,83 @@ export default function AdminDashboard() {
         </div>
       </aside>
 
+      {/* Mobile Top Nav */}
+      <header className="md:hidden sticky top-0 z-40 border-b bg-card px-4 py-3">
+        <div className="flex items-center justify-between mb-3">
+          <h1 className="text-lg font-bold">Haven Analytics</h1>
+          <Button variant="outline" size="sm" onClick={handleLogout}>
+            <LogOut className="mr-1.5 h-4 w-4" />
+            Logout
+          </Button>
+        </div>
+        <div className="flex gap-1.5 overflow-x-auto no-scrollbar pb-1">
+          <Button
+            size="sm"
+            variant={activeTab === 'overview' ? 'secondary' : 'ghost'}
+            className="shrink-0"
+            onClick={() => setActiveTab('overview')}
+          >
+            <LayoutDashboard className="mr-1.5 h-4 w-4" />
+            Overview
+          </Button>
+          <Button
+            size="sm"
+            variant={activeTab === 'traffic' ? 'secondary' : 'ghost'}
+            className="shrink-0"
+            onClick={() => setActiveTab('traffic')}
+          >
+            <BarChart3 className="mr-1.5 h-4 w-4" />
+            Traffic
+          </Button>
+          <Button
+            size="sm"
+            variant={activeTab === 'airbnb' ? 'secondary' : 'ghost'}
+            className="shrink-0"
+            onClick={() => setActiveTab('airbnb')}
+          >
+            <MousePointerClick className="mr-1.5 h-4 w-4" />
+            Airbnb Clicks
+          </Button>
+          <Button
+            size="sm"
+            variant={activeTab === 'settings' ? 'secondary' : 'ghost'}
+            className="shrink-0"
+            onClick={() => setActiveTab('settings')}
+          >
+            <Settings className="mr-1.5 h-4 w-4" />
+            Settings
+          </Button>
+        </div>
+      </header>
+
       {/* Main Content */}
-      <main className="ml-64 p-8">
+      <main className="md:ml-64 p-4 sm:p-6 md:p-8">
         {/* Header */}
-        <div className="mb-8 flex items-center justify-between">
+        <div className="mb-6 md:mb-8 flex flex-col lg:flex-row lg:items-center justify-between gap-4">
           <div>
-            <h2 className="text-3xl font-bold tracking-tight">Dashboard</h2>
-            <p className="text-muted-foreground">
+            <h2 className="text-2xl sm:text-3xl font-bold tracking-tight">Dashboard</h2>
+            <p className="text-sm sm:text-base text-muted-foreground">
               Analytics overview for Haven at Deer Park
             </p>
           </div>
-          <div className="flex items-center gap-4">
-            <div className="flex items-center gap-2">
-              <Calendar className="h-4 w-4 text-muted-foreground" />
+          <div className="flex flex-wrap items-center gap-3">
+            <div className="flex flex-wrap items-center gap-2">
+              <Calendar className="h-4 w-4 text-muted-foreground hidden sm:inline" />
               <Input
                 type="date"
                 value={startDate}
                 onChange={(e) => setStartDate(e.target.value)}
-                className="w-40"
+                className="w-36 sm:w-40"
               />
-              <span className="text-muted-foreground">to</span>
+              <span className="text-muted-foreground text-sm">to</span>
               <Input
                 type="date"
                 value={endDate}
                 onChange={(e) => setEndDate(e.target.value)}
-                className="w-40"
+                className="w-36 sm:w-40"
               />
             </div>
-            <Button onClick={fetchDashboardData} disabled={isRefreshing}>
+            <Button onClick={fetchDashboardData} disabled={isRefreshing} className="w-full sm:w-auto">
               <RefreshCw className={`mr-2 h-4 w-4 ${isRefreshing ? 'animate-spin' : ''}`} />
               Refresh
             </Button>
@@ -380,20 +429,20 @@ export default function AdminDashboard() {
                 <CardDescription>Visitors → Engaged → Airbnb Clicks</CardDescription>
               </CardHeader>
               <CardContent>
-                <div className="flex items-center justify-around">
+                <div className="flex items-center justify-around gap-2">
                   <div className="text-center">
-                    <div className="text-4xl font-bold text-primary">{funnel?.visitors || 0}</div>
-                    <div className="text-sm text-muted-foreground">Visitors</div>
+                    <div className="text-2xl sm:text-4xl font-bold text-primary">{funnel?.visitors || 0}</div>
+                    <div className="text-xs sm:text-sm text-muted-foreground">Visitors</div>
                   </div>
-                  <div className="text-2xl text-muted-foreground">→</div>
+                  <div className="text-lg sm:text-2xl text-muted-foreground">→</div>
                   <div className="text-center">
-                    <div className="text-4xl font-bold text-primary">{funnel?.engaged || 0}</div>
-                    <div className="text-sm text-muted-foreground">Engaged</div>
+                    <div className="text-2xl sm:text-4xl font-bold text-primary">{funnel?.engaged || 0}</div>
+                    <div className="text-xs sm:text-sm text-muted-foreground">Engaged</div>
                   </div>
-                  <div className="text-2xl text-muted-foreground">→</div>
+                  <div className="text-lg sm:text-2xl text-muted-foreground">→</div>
                   <div className="text-center">
-                    <div className="text-4xl font-bold text-primary">{funnel?.clicks || 0}</div>
-                    <div className="text-sm text-muted-foreground">Airbnb Clicks</div>
+                    <div className="text-2xl sm:text-4xl font-bold text-primary">{funnel?.clicks || 0}</div>
+                    <div className="text-xs sm:text-sm text-muted-foreground">Airbnb Clicks</div>
                   </div>
                 </div>
               </CardContent>

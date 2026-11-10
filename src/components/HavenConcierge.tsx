@@ -733,6 +733,7 @@ export const HavenConcierge = () => {
               onClick={() => setIsOpen(true)}
               className="h-12 w-12 sm:h-14 sm:w-14 rounded-full shadow-lg bg-primary hover:bg-primary/90 animate-bounce-gentle hover:animate-none"
               size="icon"
+              aria-label="Open Haven Concierge chat"
             >
               <MessageCircle className="h-5 w-5 sm:h-6 sm:w-6" />
             </Button>
@@ -762,9 +763,10 @@ export const HavenConcierge = () => {
               variant="ghost"
               size="icon"
               onClick={() => setIsOpen(false)}
-              className="h-8 w-8 hover:bg-primary-foreground/20"
+              className="h-9 w-9 sm:h-8 sm:w-8 hover:bg-primary-foreground/20"
+              aria-label="Close chat"
             >
-              <X className="h-4 w-4" />
+              <X className="h-5 w-5 sm:h-4 sm:w-4" />
             </Button>
           </div>
 

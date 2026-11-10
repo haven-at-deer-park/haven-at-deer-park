@@ -1,10 +1,15 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import Script from 'next/script';
 import '@/index.css';
 import { Providers } from './providers';
 import { GoogleAnalytics } from '@next/third-parties/google';
 import { GoogleAnalyticsRouteTracker } from '@/components/GoogleAnalyticsRouteTracker';
 
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  viewportFit: 'cover',
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://havenatdeerpark.com'),

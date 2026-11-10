@@ -83,7 +83,7 @@ export default function Index() {
         <HeroSection />
         
         {/* Welcome Section */}
-        <section id="welcome" className="section">
+        <section id="welcome" className="section overflow-hidden">
           <div className="container">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <div className="animate-fade-in [animation-delay:100ms]">
@@ -99,7 +99,7 @@ export default function Index() {
                 <p className="text-muted-foreground mb-8">
                   {t.home.welcome.description2}
                 </p>
-                <Button asChild className="btn-primary">
+                <Button asChild className="btn-primary w-full sm:w-auto">
                   <a 
                     href="https://www.airbnb.com/l/ZiLcS9MN" 
                     target="_blank" 
@@ -113,25 +113,31 @@ export default function Index() {
                 </Button>
               </div>
               
-              <div className="relative animate-fade-in [animation-delay:300ms]">
+              <div className="relative my-4 sm:my-6 px-2 sm:px-0 animate-fade-in [animation-delay:300ms]">
                 <div className="aspect-[4/3] rounded-2xl overflow-hidden">
                   <img 
                     src="/images/DJI_0206hdr.JPG"
                     alt="The Haven at Deer Park exterior view of our haven nature sanctuary and Deerpark lodge" 
+                    loading="lazy"
+                    decoding="async"
                     className="w-full h-full object-cover"
                   />
                 </div>
-                <div className="absolute -bottom-6 -left-6 w-2/3 rounded-2xl overflow-hidden shadow-xl">
+                <div className="absolute -bottom-4 -left-1 sm:-bottom-6 sm:-left-6 w-3/5 sm:w-2/3 rounded-2xl overflow-hidden shadow-xl">
                   <img 
                     src="/images/DSC00046hdr.JPG"
                     alt="Deerpark lodge outdoor hot tub with covered pergola and mountain views" 
+                    loading="lazy"
+                    decoding="async"
                     className="w-full h-full object-cover"
                   />
                 </div>
-                <div className="absolute -top-6 -right-6 w-1/2 rounded-2xl overflow-hidden shadow-xl">
+                <div className="absolute -top-4 -right-1 sm:-top-6 sm:-right-6 w-2/5 sm:w-1/2 rounded-2xl overflow-hidden shadow-xl">
                   <img 
                     src="/images/DSC00121hdr-2.JPG"
                     alt="Entertainment room with vintage records and LED floor at The Haven Deer Park lodge" 
+                    loading="lazy"
+                    decoding="async"
                     className="w-full h-full object-cover"
                   />
                 </div>

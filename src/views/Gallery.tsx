@@ -284,6 +284,7 @@ const galleryImages = [
 export default function Gallery() {
   const { t } = useLanguage();
   const [selectedImage, setSelectedImage] = useState<number | null>(null);
+  const [touchStartX, setTouchStartX] = useState<number | null>(null);
   
   useEffect(() => {
     // Scroll to top when component mounts
@@ -304,6 +305,23 @@ export default function Gallery() {
     }
     
     setSelectedImage(galleryImages[newIndex].id);
+  };
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    setTouchStartX(e.touches[0].clientX);
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartX === null) return;
+    const diff = touchStartX - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 40) {
+      if (diff > 0) {
+        navigateGallery("next");
+      } else {
+        navigateGallery("prev");
+      }
+    }
+    setTouchStartX(null);
   };
   
   // Handle keyboard navigation for lightbox
@@ -330,7 +348,7 @@ export default function Gallery() {
       
       <main className="flex-1 pt-20">
         {/* Header Section */}
-        <section className="relative py-20 bg-gradient-to-r from-sea-light to-white dark:from-sea-dark dark:to-background overflow-hidden">
+        <section className="relative py-16 md:py-20 bg-gradient-to-r from-sea-light to-white dark:from-sea-dark dark:to-background overflow-hidden">
           <div className="container relative z-10">
             <div className="max-w-3xl mx-auto text-center animate-fade-in">
               <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
@@ -352,21 +370,23 @@ export default function Gallery() {
         {/* Gallery Grid */}
         <section className="py-8">
           <div className="container">
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2.5 sm:gap-4">
               {galleryImages.map((image, index) => (
                 <div 
                   key={image.id} 
                   className="relative overflow-hidden rounded-xl aspect-[4/3] cursor-pointer group animate-fade-in"
-                  style={{ animationDelay: `${index * 50}ms` }}
+                  style={{ animationDelay: `${Math.min(index * 30, 300)}ms` }}
                   onClick={() => setSelectedImage(image.id)}
                 >
                   <img 
                     src={image.src} 
                     alt={image.alt}
+                    loading="lazy"
+                    decoding="async"
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
-                    <p className="text-white">{image.alt}</p>
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-3 sm:p-4">
+                    <p className="text-white text-xs sm:text-sm line-clamp-2">{image.alt}</p>
                   </div>
                 </div>
               ))}
@@ -376,9 +396,14 @@ export default function Gallery() {
         
         {/* Lightbox */}
         {selectedImage !== null && (
-          <div className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-4 animate-fade-in">
+          <div
+            className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-2 sm:p-4 animate-fade-in"
+            onClick={() => setSelectedImage(null)}
+            onTouchStart={handleTouchStart}
+            onTouchEnd={handleTouchEnd}
+          >
             <button 
-              className="absolute top-4 right-4 text-white p-2 rounded-full hover:bg-white/10 transition-colors"
+              className="absolute top-4 right-4 z-10 text-white bg-black/50 backdrop-blur-sm p-2.5 rounded-full hover:bg-white/20 transition-colors"
               onClick={() => setSelectedImage(null)}
             >
               <X className="h-6 w-6" />
@@ -386,31 +411,40 @@ export default function Gallery() {
             </button>
             
             <button 
-              className="absolute left-4 top-1/2 -translate-y-1/2 text-white p-4 rounded-full hover:bg-white/10 transition-colors"
-              onClick={() => navigateGallery("prev")}
+              className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-10 text-white bg-black/50 backdrop-blur-sm p-2.5 sm:p-4 rounded-full hover:bg-white/20 transition-colors"
+              onClick={(e) => {
+                e.stopPropagation();
+                navigateGallery("prev");
+              }}
             >
               <span className="sr-only">Previous</span>
-              <svg className="h-8 w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="h-6 w-6 sm:h-8 sm:w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
               </svg>
             </button>
             
-            <div className="max-w-5xl max-h-[80vh] overflow-hidden">
+            <div
+              className="max-w-5xl max-h-[82vh] overflow-hidden"
+              onClick={(e) => e.stopPropagation()}
+            >
               {galleryImages.find(img => img.id === selectedImage) && (
                 <img 
                   src={galleryImages.find(img => img.id === selectedImage)?.src} 
                   alt={galleryImages.find(img => img.id === selectedImage)?.alt}
-                  className="max-w-full max-h-[80vh] object-contain"
+                  className="max-w-full max-h-[82vh] object-contain"
                 />
               )}
             </div>
             
             <button 
-              className="absolute right-4 top-1/2 -translate-y-1/2 text-white p-4 rounded-full hover:bg-white/10 transition-colors"
-              onClick={() => navigateGallery("next")}
+              className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-10 text-white bg-black/50 backdrop-blur-sm p-2.5 sm:p-4 rounded-full hover:bg-white/20 transition-colors"
+              onClick={(e) => {
+                e.stopPropagation();
+                navigateGallery("next");
+              }}
             >
               <span className="sr-only">Next</span>
-              <svg className="h-8 w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="h-6 w-6 sm:h-8 sm:w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
               </svg>
             </button>

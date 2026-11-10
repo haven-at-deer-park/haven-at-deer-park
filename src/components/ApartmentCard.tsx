@@ -53,10 +53,12 @@ export default function ApartmentCard({ apartment }: { apartment: ApartmentProps
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <div className="relative overflow-hidden h-64">
+      <div className="relative overflow-hidden h-60 sm:h-64">
         <img 
           src={apartment.image} 
           alt={translatedName}
+          loading="lazy"
+          decoding="async"
           className={cn(
             "w-full h-full object-cover transition-transform duration-700",
             isHovered ? "scale-110" : "scale-100"
@@ -108,7 +110,7 @@ export default function ApartmentCard({ apartment }: { apartment: ApartmentProps
         
         <div className="flex items-end justify-end pt-2">
           {apartment.externalLink ? (
-            <Button asChild className="btn-primary">
+            <Button asChild className="btn-primary w-full sm:w-auto">
               <a 
                 href={apartment.externalLink} 
                 target="_blank" 
@@ -121,7 +123,7 @@ export default function ApartmentCard({ apartment }: { apartment: ApartmentProps
               </a>
             </Button>
           ) : (
-            <Button asChild className="btn-primary">
+            <Button asChild className="btn-primary w-full sm:w-auto">
               <Link href={`/apartments/${apartment.id}`}>{t.apartments.filters.viewDetails}</Link>
             </Button>
           )}

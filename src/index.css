@@ -72,15 +72,38 @@
 @layer base {
   * {
     @apply border-border;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    overflow-x: hidden;
   }
   
   body {
     @apply bg-background text-foreground antialiased;
     font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
   }
   
   h1, h2, h3, h4, h5, h6 {
     font-family: 'Playfair Display', serif;
+  }
+}
+
+@layer utilities {
+  .pb-safe {
+    padding-bottom: max(0.75rem, env(safe-area-inset-bottom));
+  }
+  .pt-safe {
+    padding-top: env(safe-area-inset-top);
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
   }
 }
 

@@ -52,6 +52,7 @@ export default function TestimonialsSection() {
   const { t } = useLanguage();
   const [activeIndex, setActiveIndex] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
+  const [touchStartX, setTouchStartX] = useState<number | null>(null);
   
   const nextTestimonial = () => {
     if (isAnimating) return;
@@ -74,6 +75,23 @@ export default function TestimonialsSection() {
       setIsAnimating(false);
     }, 500);
   };
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    setTouchStartX(e.touches[0].clientX);
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartX === null) return;
+    const diff = touchStartX - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 40) {
+      if (diff > 0) {
+        nextTestimonial();
+      } else {
+        prevTestimonial();
+      }
+    }
+    setTouchStartX(null);
+  };
   
   useEffect(() => {
     const interval = setInterval(nextTestimonial, 8000);
@@ -81,9 +99,9 @@ export default function TestimonialsSection() {
   }, []);
   
   return (
-    <section className="section bg-muted py-20">
+    <section className="section bg-muted py-16 md:py-20 overflow-hidden">
       <div className="container">
-        <div className="text-center max-w-3xl mx-auto mb-12 animate-fade-in">
+        <div className="text-center max-w-3xl mx-auto mb-10 md:mb-12 animate-fade-in">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
             {t.testimonials.title}
           </h2>
@@ -93,25 +111,31 @@ export default function TestimonialsSection() {
         </div>
         
         <div className="relative max-w-4xl mx-auto">
-          <div className="relative min-h-[450px] md:min-h-[350px]">
+          <div
+            className="grid grid-cols-1 overflow-hidden rounded-xl"
+            onTouchStart={handleTouchStart}
+            onTouchEnd={handleTouchEnd}
+          >
             {testimonials.map((testimonial, index) => (
               <div
                 key={testimonial.id}
                 className={cn(
-                  "absolute inset-0 glass-card p-8 md:p-10 transition-all duration-500",
+                  "col-start-1 row-start-1 glass-card p-6 sm:p-8 md:p-10 transition-all duration-500",
                   activeIndex === index 
                     ? "opacity-100 translate-x-0 z-10"
                     : index < activeIndex 
-                      ? "opacity-0 -translate-x-full z-0" 
-                      : "opacity-0 translate-x-full z-0"
+                      ? "opacity-0 -translate-x-full z-0 pointer-events-none" 
+                      : "opacity-0 translate-x-full z-0 pointer-events-none"
                 )}
               >
-                <div className="flex flex-col md:flex-row gap-6 h-full">
-                  <div className="flex flex-col items-center md:items-start">
-                    <div className="rounded-full overflow-hidden w-20 h-20 mb-4 border-2 border-primary">
+                <div className="flex flex-col md:flex-row gap-4 sm:gap-6 h-full">
+                  <div className="flex flex-col items-center md:items-start shrink-0">
+                    <div className="rounded-full overflow-hidden w-16 h-16 sm:w-20 sm:h-20 mb-3 sm:mb-4 border-2 border-primary">
                       <img 
                         src={testimonial.avatar} 
                         alt={testimonial.name} 
+                        loading="lazy"
+                        decoding="async"
                         className="w-full h-full object-cover"
                       />
                     </div>
@@ -128,8 +152,8 @@ export default function TestimonialsSection() {
                   </div>
                   
                   <div className="flex-1 flex items-center">
-                    <blockquote className="italic text-muted-foreground">
-                      "{testimonial.content}"
+                    <blockquote className="italic text-sm sm:text-base leading-relaxed text-muted-foreground text-center md:text-left">
+                      &ldquo;{testimonial.content}&rdquo;
                     </blockquote>
                   </div>
                 </div>
@@ -137,17 +161,17 @@ export default function TestimonialsSection() {
             ))}
           </div>
           
-          <div className="flex justify-between mt-8">
+          <div className="flex items-center justify-between mt-6 sm:mt-8">
             <button
               onClick={prevTestimonial}
-              className="p-2 rounded-full bg-card hover:bg-muted border border-border transition-colors"
+              className="p-2.5 sm:p-2 rounded-full bg-card hover:bg-muted border border-border transition-colors"
               disabled={isAnimating}
             >
               <ChevronLeft className="h-5 w-5" />
               <span className="sr-only">Previous testimonial</span>
             </button>
             
-            <div className="flex space-x-2">
+            <div className="flex items-center space-x-2">
               {testimonials.map((_, index) => (
                 <button
                   key={index}
@@ -157,10 +181,10 @@ export default function TestimonialsSection() {
                     setActiveIndex(index);
                     setTimeout(() => setIsAnimating(false), 500);
                   }}
-                  className={`w-3 h-3 rounded-full transition-all ${
+                  className={`h-3 rounded-full transition-all ${
                     activeIndex === index 
                       ? "bg-primary w-6" 
-                      : "bg-muted-foreground/30 hover:bg-muted-foreground/50"
+                      : "bg-muted-foreground/30 hover:bg-muted-foreground/50 w-3"
                   }`}
                   aria-label={`Go to testimonial ${index + 1}`}
                 />
@@ -169,7 +193,7 @@ export default function TestimonialsSection() {
             
             <button
               onClick={nextTestimonial}
-              className="p-2 rounded-full bg-card hover:bg-muted border border-border transition-colors"
+              className="p-2.5 sm:p-2 rounded-full bg-card hover:bg-muted border border-border transition-colors"
               disabled={isAnimating}
             >
               <ChevronRight className="h-5 w-5" />

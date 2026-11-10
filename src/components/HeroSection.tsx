@@ -14,14 +14,16 @@ export default function HeroSection() {
   
   useEffect(() => {
     const handleScroll = () => {
-      setScrollY(window.scrollY);
+      if (window.innerWidth >= 768) {
+        setScrollY(window.scrollY);
+      }
     };
     
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
   
-  // Calculate parallax effect
+  // Calculate parallax effect (desktop only for smooth mobile scrolling)
   const backgroundY = scrollY * 0.5;
   const contentY = scrollY * 0.2;
 
@@ -35,37 +37,43 @@ export default function HeroSection() {
   };
   
   return (
-    <section className="relative h-screen overflow-hidden">
+    <section className="relative h-[100svh] min-h-[560px] overflow-hidden">
       {/* Background image with parallax */}
       <div
-        className="absolute inset-0 bg-cover bg-center"
+        className="absolute inset-0 will-change-transform"
         style={{
-          backgroundImage: "url('/images/d498f649-6033-470a-a475-fa7f12fc5887.png')",
-          transform: `translateY(${backgroundY}px)`,
-          backgroundPosition: `center ${50 + scrollY * 0.05}%`
+          transform: backgroundY ? `translateY(${backgroundY}px)` : undefined,
         }}
-      />
+      >
+        <img
+          src="/images/d498f649-6033-470a-a475-fa7f12fc5887.png"
+          alt="The Haven at Deer Park luxury countryside retreat in Vernon, BC"
+          fetchPriority="high"
+          decoding="async"
+          className="w-full h-full object-cover object-center"
+        />
+      </div>
       
       {/* Gradient overlay */}
       <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black/60" />
       
       {/* Content */}
       <div
-        className="relative h-full flex flex-col justify-center items-center text-center px-4"
-        style={{ transform: `translateY(${contentY}px)` }}
+        className="relative h-full flex flex-col justify-center items-center text-center px-4 pt-16 pb-20"
+        style={{ transform: contentY ? `translateY(${contentY}px)` : undefined }}
       >
         <div className="max-w-3xl animate-fade-in">
-          <span className="inline-block text-white/90 text-lg mb-4 tracking-wide border-b border-white/30 pb-2">
+          <span className="inline-block text-white/90 text-sm sm:text-lg mb-3 sm:mb-4 tracking-wide border-b border-white/30 pb-2">
             {t.hero.subtitle}
           </span>
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 sm:mb-6 leading-tight">
             {t.hero.title}
           </h1>
-          <p className="text-lg text-white/90 mb-8 max-w-2xl mx-auto">
+          <p className="text-base sm:text-lg text-white/90 mb-6 sm:mb-8 max-w-2xl mx-auto">
             {t.hero.description}
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Button asChild size="lg" variant="heroSolid" className="min-w-[200px] rounded-full transform transition-all duration-300 hover:translate-y-[-2px]">
+            <Button asChild size="lg" variant="heroSolid" className="w-full sm:w-auto min-w-[200px] rounded-full transform transition-all duration-300 hover:translate-y-[-2px]">
               <a 
                 href="https://www.airbnb.com/l/ZiLcS9MN" 
                 target="_blank" 
@@ -82,13 +90,13 @@ export default function HeroSection() {
       </div>
       
       {/* Scroll down indicator */}
-      <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 text-white animate-bounce">
+      <div className="absolute bottom-8 sm:bottom-10 left-1/2 transform -translate-x-1/2 text-white animate-bounce z-10">
         <a 
           href="#welcome" 
           className="flex flex-col items-center opacity-70 hover:opacity-100 transition-opacity"
         >
-          <span className="text-sm mb-2">{t.hero.scrollDown}</span>
-          <ChevronDown className="h-6 w-6" />
+          <span className="text-xs sm:text-sm mb-1 sm:mb-2">{t.hero.scrollDown}</span>
+          <ChevronDown className="h-5 w-5 sm:h-6 sm:w-6" />
         </a>
       </div>
       

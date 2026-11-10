@@ -36,7 +36,17 @@ export default function LanguageSelector() {
   };
 
   if (!mounted) {
-    return null;
+    return (
+      <div className="flex items-center">
+        <div
+          className="w-[80px] h-10 flex items-center space-x-2 px-3 py-2 text-sm"
+          aria-hidden="true"
+        >
+          <Globe className="h-4 w-4 shrink-0" />
+          <span>🇬🇧</span>
+        </div>
+      </div>
+    );
   }
 
   return (

@@ -76,7 +76,7 @@ export default function BookingForm() {
                   {startDate ? format(startDate, "PPP") : <span>{t.bookingForm.selectDate}</span>}
                 </Button>
               </PopoverTrigger>
-              <PopoverContent className="w-auto p-0" align="start">
+              <PopoverContent className="w-auto max-w-[calc(100vw-2rem)] p-0" align="start">
                 <Calendar
                   mode="single"
                   selected={startDate}
@@ -108,7 +108,7 @@ export default function BookingForm() {
                   {endDate ? format(endDate, "PPP") : <span>{t.bookingForm.selectDate}</span>}
                 </Button>
               </PopoverTrigger>
-              <PopoverContent className="w-auto p-0" align="start">
+              <PopoverContent className="w-auto max-w-[calc(100vw-2rem)] p-0" align="start">
                 <Calendar
                   mode="single"
                   selected={endDate}
