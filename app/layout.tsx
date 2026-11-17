@@ -5,6 +5,12 @@ import { Providers } from './providers';
 import { GoogleAnalytics } from '@next/third-parties/google';
 import { GoogleAnalyticsRouteTracker } from '@/components/GoogleAnalyticsRouteTracker';
 
+const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || 'G-TNENVMES1N';
+const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://emvrkeolbpynxkcjpahk.supabase.co';
+const SUPABASE_ANON_KEY =
+  process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY ||
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVtdnJrZW9sYnB5bnhrY2pwYWhrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUwODE3OTQsImV4cCI6MjA5MDY1Nzc5NH0.CSGVadHLvn-d_CM8MsJFchscBWFFNdjRpg9F7-yy0wY';
+
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
@@ -56,14 +62,20 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           {children}
         </Providers>
 
-        <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID!} />
+        <GoogleAnalytics gaId={GA_MEASUREMENT_ID} />
         <GoogleAnalyticsRouteTracker />
+        <Script
+          id="sienvi-web-analytics"
+          src="https://mhuxrnxajtiwxauhlhlv.supabase.co/functions/v1/track-analytics"
+          data-client-id="b6c39651-9259-4930-af6e-b744a5a191ad"
+          strategy="afterInteractive"
+        />
 
         {/* Outbound Click Analytics */}
         <Script id="outbound-analytics" strategy="afterInteractive">{`
           (function() {
-            var SUPABASE_URL = '${process.env.NEXT_PUBLIC_SUPABASE_URL}';
-            var SUPABASE_ANON_KEY = '${process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY}';
+            var SUPABASE_URL = '${SUPABASE_URL}';
+            var SUPABASE_ANON_KEY = '${SUPABASE_ANON_KEY}';
             function getVisitorId() {
               var vid = localStorage.getItem('_vid');
               if (!vid) { vid = 'v_' + Math.random().toString(36).substr(2, 9) + Date.now().toString(36); localStorage.setItem('_vid', vid); }
